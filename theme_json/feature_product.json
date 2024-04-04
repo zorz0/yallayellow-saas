@@ -1,0 +1,24 @@
+{
+    "section_name": "Feature - Product",
+    "section_slug": "feature_product",
+    "unique_section_slug": "feature_product",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Feature - Product Title",
+            "slug" :  "feature_product_title",
+            "text" : "A beautiful scent",
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        },
+        "button":{
+            "lable" : "Feature - Product Button",
+            "slug" :  "feature_product_button",
+            "text" : "Go to products",
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        }
+    }
+}

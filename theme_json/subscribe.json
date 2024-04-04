@@ -1,0 +1,46 @@
+{
+    "section_name": "Subscribe - Section",
+    "section_slug": "subscribe",
+    "unique_section_slug": "subscribe",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Subscribe Title",
+            "slug" :  "subscribe_title",
+            "text" : "<b> Subscribe and get </b> -20% off",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Subscribe Description",
+            "slug" :  "subscribe_description",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Subscribe Button",
+            "slug" :  "subscribe_button",
+            "text" : "Subscribe",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "sub_title":{
+            "lable" : "Subscribe Sub Title",
+            "slug" :  "subscribe_sub_title",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "image":{
+            "lable" : "Subscribe Image",
+            "slug" :  "subscribe_image",
+            "text" : "themes/sensation/assets/images/sub-banner.jpg",
+            "image" : "themes/sensation/assets/images/sub-banner.jpg",
+            "type" : "file",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

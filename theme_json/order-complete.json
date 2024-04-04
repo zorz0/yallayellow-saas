@@ -1,0 +1,23 @@
+{
+    "section_name": "Order Complate",
+    "section_slug": "order_complate",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Order Complate Title",
+            "slug" :  "order_complate_title",
+            "text" : "Your order has been placed!",
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        },
+        "description":{
+            "lable" : "Order Complate Description",
+            "slug" :  "order_complate_description",
+            "text" : "Your order has been successfully processed! Please direct any questions you have to the store owner. Thanks for shopping with us online!",
+            "type" : "textarea",
+            "placeholder" : "Please enter here..."
+        }
+    }
+}

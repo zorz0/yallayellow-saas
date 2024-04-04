@@ -1,0 +1,39 @@
+{
+    "section_name": "VariantBackground - Section",
+    "section_slug": "variant_background",
+    "unique_section_slug": "variant_background",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Variant Background Title",
+            "slug" :  "variant_background_title",
+            "text" : "<b>Fall in love with </b> <br> amazing clothes",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Variant Background Description",
+            "slug" :  "variant_background_description",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Variant Background Button",
+            "slug" :  "variant_background_button",
+            "text" : "Show Products",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "image":{
+            "lable" : "Varinat Background Image",
+            "slug" :  "variant_background_image",
+            "text" : "themes/grocery/assets/images/green-mandarines.png",
+            "image" : "themes/grocery/assets/images/green-mandarines.png",
+            "type" : "photoupload",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

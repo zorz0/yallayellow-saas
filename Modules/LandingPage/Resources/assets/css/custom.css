@@ -1,0 +1,274 @@
+.header-left{
+    max-width: 140px !important;
+    width: 100%;
+}
+.navbar-brand {
+    display: block;
+}
+img{
+    width: 100%;
+}
+
+.features-section .features-preview img,
+.navbar-brand img{
+    width: 100%;
+}
+
+.features-section .features-preview{
+    max-width: 80%;
+    margin: 0 auto -390px;
+}
+.img-wrapper{
+    position: relative;
+    padding-top: 50%;
+    width: 100%;
+}
+.img-wrapper img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*object-fit: scale-down;*/
+    display: block;
+    margin: 0 !important;
+}
+.features-preview .img-fluid{
+    border-radius: 15px;
+}
+.screenshot-card  h5{
+    margin-top: 20px;
+}
+
+.screenshot-card  .img-wrapper{
+    margin-bottom: 20px;
+    padding-top: 60% ;
+}
+
+.footer-logo a{
+    display: block;
+    max-width: 180px;
+    width: 100%;
+}
+
+.announcement p {
+    margin-bottom: 0rem !important;
+}
+
+.img-wrapper{
+box-shadow: 0 0.125rem 1rem 1px rgb(0 0 0 / 11%) !important;
+    border-radius: 10px;
+}
+html[dir="rtl"] .container-offset{
+    margin-right: calc((100% - 1540px) / 2);
+    margin-left: 0;
+    padding-right: 15px;
+    padding-left: 0;
+}
+html[dir="rtl"]  .main-banner .dash-preview{
+right: 0;
+    left: -80px;
+}
+
+@media (max-width:1500px) {
+    .container {
+        max-width: 1320px;
+    }
+    .main-banner .container-offset{
+        margin-left: calc((100% - 1320px) / 2);
+    }
+    html[dir="rtl"] .container-offset{
+        margin-right: calc((100% - 1320px) / 2);
+    }
+}
+
+@media (max-width:1260px) {
+    .main-banner .container-offset{
+        margin-left: 0;
+    }
+    html[dir="rtl"] .container-offset{
+        margin-right:0;
+    }
+}
+@media (max-width:991px) {
+    html[dir="rtl"] .main-banner .dash-preview{
+        left:-15px;
+    }
+}
+@media (max-width:767px){
+    html[dir="rtl"] .main-banner .dash-preview{
+        left:0;
+    }
+    .container-offset{
+        padding: 0 15px !important;
+    }
+}
+body.landing-dark .bg-gray-100{
+    background: linear-gradient(141.55deg, #22242C 3.46%, #22242C 99.86%);
+    color: var(--bs-body-color);
+}
+body.landing-dark  .site-footer .footer-row .ftr-col .list-unstyled li a{
+    color: var(--bs-body-color);
+}
+body.landing-dark  .site-footer{
+    border-top: 1px solid #9d9d9d4a;
+}
+.custom-header-logo{
+    max-width: 200px !important;
+}
+
+/***** dashboard 18-09 ****/
+
+@media (max-width: 1600px){
+    .main-banner .container-offset {
+        margin-left: calc((100% - 1320px) / 2);
+    }
+
+}
+@media (max-width: 1400px){
+    .main-banner .container-offset {
+        margin-left: calc((100% - 1140px) / 2);
+    }
+
+}
+@media (max-width: 1200px){
+    .main-banner .container-offset {
+        margin-left: calc((100% - 960px) / 2);
+    }
+}
+
+@media (max-width:991px) {
+    .landing-page .container{
+        max-width: 1140px;
+    }
+    .landing-page .main-banner .container-offset {
+        padding-right:15px;
+        margin-left: 0;
+    }
+    .main-banner .dash-preview {
+        right: 0;
+    }
+    .features-section .features-preview {
+        max-width: 100%;
+    }
+    .landing-page  .custom-header-logo {
+        max-width: 170px !important;
+    }
+    .landing-page .price-card .p-price {
+        font-size: 55px;
+    }
+}
+@media (max-width:767px){
+    .landing-page .m-bottom-img{
+        margin-bottom: 15px;
+    }
+    .landing-page .navbar-toggler-icon {
+        width: 23px;
+    }
+}
+
+@media (max-width:575px) {
+    .landing-page .custom-header-logo {
+        max-width: 149px !important;
+    }
+    .landing-page .price-card .p-price {
+        font-size: 35px;
+    }
+    .landing-page .m-bottom-img{
+        margin-bottom: 15px;
+    }
+}
+body.landing-page.theme-3 .btn-primary {
+    color:#5eb839 !important;
+}
+body.landing-page.theme-3 .btn-primary:hover {
+    color:#fff !important;
+}
+body.landing-page.theme-3 .bg-primary p{
+    color:#000;
+}
+body.landing-page.theme-3 .form-check .form-check-input.input-primary:checked {
+    background-color: #5eb839;
+    border-color: #5eb839;
+}
+.features-section.bg-dark, .section-gap.bg-dark,.testimonial .card.bg-dark.shadow-none {
+    background-color:#002332 !important;
+}
+
+body.theme-3 .features-section.bg-dark svg path,body.theme-3 .section-gap.bg-dark svg path,body.theme-3 .price-card.bg-dark svg path{
+    fill:transparent !important;
+    stroke:#5eb839 !important;
+}
+body.theme-3 .features-section.bg-dark .btn:hover svg path,body.theme-3 .section-gap.bg-dark .btn:hover svg path,body.theme-3 .price-card.bg-dark .btn:hover svg path{
+    stroke:#fff !important;
+}
+body.theme-1 .btn svg path{
+    fill:transparent !important;
+    stroke:#0a9552 !important;
+}
+body.theme-1 .btn:hover svg path{
+    stroke:#fff !important;
+}
+body.theme-2 .btn svg path{
+    fill:transparent !important;
+    stroke:#584ED2 !important;
+}
+body.theme-2 .btn:hover svg path{
+    stroke:#fff !important;
+}
+body.theme-4 .btn svg path{
+    fill:transparent !important;
+    stroke:#145388 !important;
+}
+body.theme-4 .btn:hover svg path{
+    stroke:#fff !important;
+}
+body.theme-5 .btn svg path{
+    fill:transparent !important;
+    stroke:#B9406B !important;
+}
+body.theme-5 .btn:hover svg path{
+    stroke:#fff !important;
+}
+
+body.theme-6 .btn svg path{
+    fill:transparent !important;
+    stroke:#008ECC !important;
+}
+body.theme-6 .btn:hover svg path{
+    stroke:#fff !important;
+}
+body.theme-7 .btn svg path{
+    fill:transparent !important;
+    stroke:#922C88 !important;
+}
+body.theme-7 .btn:hover svg path{
+    stroke:#fff !important;
+}
+body.theme-8 .btn svg path{
+    fill:transparent !important;
+    stroke:#C0A145 !important;
+}
+body.theme-8 .btn:hover svg path{
+    stroke:#fff !important;
+}
+body.theme-9 .btn svg path{
+    fill:transparent !important;
+    stroke:#48494B !important;
+}
+body.theme-9 .btn:hover svg path{
+    stroke:#fff !important;
+}
+body.theme-10 .btn svg path{
+    fill:transparent !important;
+    stroke:#0C7785 !important;
+}
+body.theme-10 .btn:hover svg path{
+    stroke:#fff !important;
+}
+body .main-header .navbar .btn.btn-outline-dark svg path, body .main-banner .banner-btn .btn.btn-outline-dark svg path{
+    stroke:var(--bs-btn-color) !important;
+}
+body .main-header .navbar .btn.btn-outline-dark:hover svg path,  body .main-banner .banner-btn .btn.btn-outline-dark:hover svg path{
+    stroke:var(--bs-btn-hover-color) !important;
+}

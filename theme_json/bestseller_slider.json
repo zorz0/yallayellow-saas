@@ -1,0 +1,40 @@
+{
+    "section_name": "Bestseller - Slider",
+    "section_slug": "bestseller_slider",
+    "unique_section_slug": "bestseller_slider",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Bestseller Title",
+            "slug" :  "bestseller_text",
+            "text" : "<b> Top </b> products",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Bestseler Button",
+            "slug" :  "bestseller_button",
+            "text" : "Show more products",
+            "type" : "button",
+            "placeholder" : "Please enter here.."
+        },
+        "product_type": {
+            "lable" : "Product Type",
+            "slug" :  "product_type",
+            "text" : "latest_product",
+            "type" : "select",
+            "placeholder" : "Please select..",
+            "product_ids":[]
+        },
+        "category_list":{
+            "lable" : "Product Category Button",
+            "slug" :  "product_category_list",
+            "text" : "",
+            "type" : "select",
+            "placeholder" : "Please select..",
+            "category_ids":[]
+        }
+    }
+}

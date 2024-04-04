@@ -1,0 +1,24 @@
+{
+    "section_name": "Review",
+    "section_slug": "review",
+    "unique_section_slug": "review",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Review Title",
+            "slug" :  "review_title",
+            "text" : "<b> Fall in love with </b> <br> amazing aromas",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Review Description",
+            "slug" :  "review_description",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

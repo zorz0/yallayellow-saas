@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "dev:grocery": "vite --config themes/grocery/vite.config.js",
+        "build:grocery": "vite build --config themes/grocery/vite.config.js",
+        "dev:babycare": "vite --config themes/babycare/vite.config.js",
+        "build:babycare": "vite build --config themes/babycare/vite.config.js",
+        "dev:steps": "vite --config themes/steps/vite.config.js",
+        "build:steps": "vite build --config themes/steps/vite.config.js",
+        "dev:barbecue": "vite --config themes/barbecue/vite.config.js",
+        "build:barbecue": "vite build --config themes/barbecue/vite.config.js"
+    },
+    "devDependencies": {
+        "@tailwindcss/forms": "^0.5.2",
+        "alpinejs": "^3.4.2",
+        "autoprefixer": "^10.4.2",
+        "axios": "^1.6.1",
+        "bootstrap": "^4.6.0",
+        "jquery": "^3.5",
+        "laravel-vite-plugin": "^0.8.0",
+        "popper.js": "^1.16",
+        "postcss": "^8.4.6",
+        "sass": "^1.32.1",
+        "sass-loader": "^10.1.1",
+        "tailwindcss": "^3.1.0",
+        "vite": "^4.0.0"
+    }
+}

@@ -1,0 +1,53 @@
+{
+    "section_name": "Homepage Slider",
+    "section_slug": "slider",
+    "unique_section_slug": "slider",
+    "section_enable": "on",
+    "array_type": "multi-inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Slider Title",
+            "slug" :  "slider_title",
+            "text" : ["Welcome to our store"],
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        },
+        "sub_title":{
+            "lable" : "Slider Sub Title",
+            "slug" :  "slider_sub_title",
+            "text" : ["<b> Fall in love with  </b> amazing aromas"],
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        },
+        "description":{
+            "lable" : "Slider Description",
+            "slug" :  "slider_description",
+            "text" : ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy."],
+            "type" : "textarea",
+            "placeholder" : "Please enter here..."
+        },
+        "button_first":{
+            "lable" : "Slider First Button",
+            "slug" :  "slider_first_button",
+            "text" : ["Go to Shop"],
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        },
+        "button_second":{
+            "lable" : "Slider Second Button",
+            "slug" :  "slider_second_button",
+            "text" : ["Show more products"],
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        },
+        "background_image":{
+            "lable" : "Slider Background Image",
+            "slug" :  "slider_background_image",
+            "text" : "themes/grocery/assets/images/banner-image.png",
+            "image": "themes/grocery/assets/images/banner-image.png",
+            "type" : "file",
+            "placeholder" : "Please select file"
+        }   
+    }
+}

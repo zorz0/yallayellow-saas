@@ -1,0 +1,39 @@
+{
+    "section_name": "Footer - Section",
+    "section_slug": "footer",
+    "unique_section_slug": "footer",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "description":{
+            "lable" : "Footer Section Description",
+            "slug" :  "footer_description",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "footer_link":{
+            "lable" : "Footer Links",
+            "slug" :  "footer_links",
+            "text" : "Footer Links",
+            "type" : "array",
+            "loop_number" : 4,
+            "social_link":["https://www.youtube.com/"],
+            "social_icon":[
+                {
+                    "text":"themes/{$currentTheme ?? ''}/assets/images/youtube.svg",
+                    "image":"themes/{$currentTheme ?? ''}/assets/images/youtube.svg"
+                }
+            ]
+        },
+        "menu_type": {
+            "lable" : "Menu Type",
+            "slug" :  "menu_type",
+            "text" : "menu_bar",
+            "type" : "select",
+            "placeholder" : "Please select..",
+            "menu_ids":[]
+        }
+    }
+}

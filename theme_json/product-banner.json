@@ -1,0 +1,25 @@
+[
+    {
+        "section_name": "Products-header banner",
+        "section_slug": "products-header-banner",
+        "section_enable": "on",
+        "array_type": "inner-list",
+        "loop_number": "1",
+        "inner-list": [
+            {
+                "field_name": "Title text",
+                "field_slug": "products-header-banner-title-text",
+                "field_help_text": "Please add your text here",
+                "field_default_text": "Eiusmod ut iusto ani",
+                "field_type": "text"
+            },
+            {
+                "field_name": "Background Image",
+                "field_slug": "products-header-banner",
+                "field_help_text": "please upload image here",
+                "field_default_text": "themes/grocery/assets/img/product.png",
+                "field_type": "photo upload"
+            }
+        ]
+    }
+]

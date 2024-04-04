@@ -1,0 +1,40 @@
+[
+    {
+        "section_name": "Loyality program",
+        "section_slug": "loyality-program",
+        "unique_section_slug": "loyality-program",
+        "section_enable": "on",
+        "array_type": "inner-list",
+        "loop_number": "1",
+        "inner-list": [
+            {
+                "field_name": "Title",
+                "field_slug": "loyality-program-title",
+                "field_help_text": "Please add your title text here",
+                "field_default_text": "Loyality program",
+                "field_type": "text"
+            },
+            {
+                "field_name": "Description",
+                "field_slug": "loyality-program-description",
+                "field_help_text": "Please add your text here",
+                "field_default_text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                "field_type": "text area"
+            },
+            {
+                "field_name": "Your cash",
+                "field_slug": "loyality-program-your-cash",
+                "field_help_text": "Please add your text here",
+                "field_default_text": "Your cash",
+                "field_type": "text"
+            },
+            {
+                "field_name": "Copy this link and send to your friends",
+                "field_slug": "loyality-program-copy-this-link-and-send-to-your-friends",
+                "field_help_text": "Please add your text here",
+                "field_default_text": "Copy this link and send to your friends",
+                "field_type": "text"
+            }
+        ]
+    }
+]

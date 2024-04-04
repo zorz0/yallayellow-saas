@@ -1,0 +1,53 @@
+{
+    "section_name": "Best - Product",
+    "section_slug": "best_product",
+    "unique_section_slug": "best_product",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Best Product Title",
+            "slug" :  "best_product_titel",
+            "text" : "<b>Fall in love with </b> <br> amazing clothes",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Button",
+            "slug" :  "best_product_button",
+            "text" : "Go to product",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "button_first":{
+            "lable" : "Button",
+            "slug" :  "best_product_button_first",
+            "text" : "Go to catrgory",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "sub_title":{
+            "lable" : " Sub Title",
+            "slug" :  "best_product_subtitle",
+            "text" : "Select Scent:",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Description",
+            "slug" :  "best_product_description",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "image":{
+            "lable" : "Image",
+            "slug" :  "best_product_image",
+            "text" : "themes/sensation/assets/images/product-banner-right.png",
+            "image" : "themes/sensation/assets/images/product-banner-right.png",
+            "type" : "file",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

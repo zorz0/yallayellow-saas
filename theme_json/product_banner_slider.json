@@ -1,0 +1,38 @@
+{
+    "section_name": "Product - Banner",
+    "section_slug": "product_banner_slider",
+    "unique_section_slug": "product_banner_slider",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Title",
+            "slug" :  "product_banner_slider_title",
+            "text" : "<b>Fall in love with </b> <br> amazing clothes",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "sub_title":{
+            "lable" : "Sub Title",
+            "slug" :  "product_banner_slider_sub_title",
+            "text" : "<b>Fall in love with </b> <br> amazing clothes",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Deacription",
+            "slug" :  "product_banner_slider_description",
+            "text" : "<b>Fall in love with </b> <br> amazing clothes",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Button",
+            "slug" :  "product_banner_slider_button",
+            "text" : "Go to products",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

@@ -1,0 +1,19 @@
+[
+    {
+        "section_name": "Homepage Slider",
+        "section_slug": "slider_image",
+        "unique_section_slug": "slider_image",
+        "section_enable": "on",
+        "array_type": "inner-list",
+        "loop_number": "1",
+        "inner-list": [
+            {
+                "field_name": "Homepage Slider Background Image",
+                "field_slug": "homepage_slider_image",
+                "field_help_text": "Please add background image here",
+                "field_default_text": "themes/sensation/assets/images/banner.png",
+                "field_type": "photo upload"
+            }
+        ]
+    }
+]

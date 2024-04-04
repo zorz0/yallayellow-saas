@@ -1,0 +1,26 @@
+
+/.phpunit.cache
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+.env
+/themes/
+/resources/lang
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/vendor
+/.fleet
+/.idea
+/.vscode
+/public/Modules/*
+
+ main_file/vendor/srmklive/paypal/tests/Mocks/samples/sample2.pdf
+ main_file/vendor/srmklive/paypal/tests/Mocks/samples/sample.pdf

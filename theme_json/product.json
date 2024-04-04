@@ -1,0 +1,31 @@
+{
+    "section_name": "Product",
+    "section_slug": "product",
+    "unique_section_slug": "product",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Product Title",
+            "slug" :  "product_title",
+            "text" : "Our Products",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Product Button",
+            "slug" :  "product_button",
+            "text" : "Go to products",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Product Description",
+            "slug" :  "product_description",
+            "text" : "They're made from botanically pure ingredients, so you can feel good about eating them. Plus, they're really nutritious, so you can feel good too.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

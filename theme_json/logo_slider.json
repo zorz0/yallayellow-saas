@@ -1,0 +1,18 @@
+{
+    "section_name": "Homepage Logo Slider",
+    "section_slug": "logo_slider",
+    "unique_section_slug": "logo_slider",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "image":{
+            "lable" : "logo_slider Image",
+            "slug" :  "logo_slider_image",
+            "text" : ["themes/babycare/assets/images/banner-image.png"],
+            "image": ["themes/babycare/assets/images/banner-image.png"],
+            "type" : "file",
+            "placeholder" : "Please select file"
+        }   
+    }
+}
