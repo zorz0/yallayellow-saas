@@ -25,12 +25,12 @@ class HomeController extends Controller
 {
     public function __construct(Request $request)
     {
-
+/* 
         if(!file_exists(storage_path() . "/installed"))
         {
             header('location:install');
             die;
-        }
+        } */
     }
 
     /**
