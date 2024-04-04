@@ -1,0 +1,17 @@
+{
+    "section_name": "Category",
+    "section_slug": "category",
+    "unique_section_slug": "category",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Category Title",
+            "slug" :  "category_title",
+            "text" : "Best Categories",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

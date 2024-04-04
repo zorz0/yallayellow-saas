@@ -1,0 +1,39 @@
+{
+    "section_name": "Homepage - Header",
+    "section_slug": "header",
+    "unique_section_slug": "header",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Announcement Title",
+            "slug" :  "announcement_text",
+            "text" : "<b>Monday - Friday:</b>  8:00 AM - 9:00 PM",
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        },
+        "support_title":{
+            "lable" : "Support Title",
+            "slug" :  "support_title",
+            "text" : "Support 24/7:",
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        },
+        "support_value":{
+            "lable" : "Support Value",
+            "slug" :  "support_value",
+            "text" : "+12 002-224-111",
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        },
+        "menu_type": {
+            "lable" : "Menu Type",
+            "slug" :  "menu_type",
+            "text" : "menu_bar",
+            "type" : "select",
+            "placeholder" : "Please select..",
+            "menu_ids":[]
+        }
+    }
+}

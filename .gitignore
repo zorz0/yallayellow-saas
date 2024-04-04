@@ -6,7 +6,6 @@
 /public/storage
 /storage/*.key
 .env
-/themes/
 .env.backup
 .env.production
 .phpunit.result.cache

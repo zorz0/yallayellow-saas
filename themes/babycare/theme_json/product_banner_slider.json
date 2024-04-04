@@ -1,0 +1,38 @@
+{
+    "section_name": "Product - Banner",
+    "section_slug": "product_banner_slider",
+    "unique_section_slug": "product_banner_slider",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Title",
+            "slug" :  "product_banner_slider_title",
+            "text" : "<b>Best Baby Toys </b> <br> for All Kids",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "sub_title":{
+            "lable" : "Sub Title",
+            "slug" :  "product_banner_slider_sub_title",
+            "text" : "<b>CATEGORIES</b>",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Deacription",
+            "slug" :  "product_banner_slider_description",
+            "text" : "You can read to your baby, sing to your baby, and play with your baby. It is important to spend time with your baby and to bond with your baby.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Button",
+            "slug" :  "product_banner_slider_button",
+            "text" : "Go To Categories",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

@@ -1,0 +1,146 @@
+[
+  {
+    "section_name": "Home - Header",
+    "section_slug": "homepage-header",
+    "unique_section_slug": "homepage-header",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": "1",
+    "inner-list": [
+      {
+        "field_name": "Title",
+        "field_slug": "homepage-header-title",
+        "field_help_text": "Please add title text here",
+        "field_default_text": "Best baby Toys for all kids",
+        "field_type": "text"
+      },
+      {
+        "field_name": "Sub text",
+        "field_slug": "homepage-header-sub-text",
+        "field_help_text": "Please add sub text here",
+        "field_default_text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy.",
+        "field_type": "text"
+      },
+      {
+        "field_name": "Header Image",
+        "field_slug": "homepage-header-image",
+        "field_help_text": "Please upload image from here",
+        "field_default_text": "themes/babycare/assets/img/two-col-1.png",
+        "field_type": "photo upload"
+      },
+      {
+        "field_name": "Button",
+        "field_slug": "homepage-header-button",
+        "field_help_text": "Please add button text here",
+        "field_default_text": "Go to categories",
+        "field_type": "text"
+      }
+    ]
+  },
+  {
+    "section_name": "Homepage - Promotions",
+    "section_slug": "homepage-promotions",
+    "unique_section_slug": "homepage-promotions",
+    "section_enable": "on",
+    "array_type": "multi-inner-list",
+    "loop_number": "2",
+    "inner-list": [
+      {
+        "field_name": "Icon Image ",
+        "field_slug": "homepage-promotions-icon-image",
+        "field_help_text": "Please upload image from here",
+        "field_default_text": "themes/babycare/assets/img/promotion.png",
+        "field_type": "photo upload"
+      }
+    ]
+  },
+  {
+    "section_name": "Home - Products",
+    "section_slug": "homepage-products",
+    "unique_section_slug": "homepage-products",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": "1",
+    "inner-list": [
+      {
+        "field_name": "Heading",
+        "field_slug": "homepage-products-heading",
+        "field_help_text": "Please add heading here",
+        "field_default_text": "Best baby Toys for all kids",
+        "field_type": "text"
+      }
+    ]
+  },
+  {
+    "section_name": "Home - Categories",
+    "section_slug": "homepage-categories",
+    "unique_section_slug": "homepage-categories",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": "1",
+    "inner-list": [
+      {
+        "field_name": "Heading",
+        "field_slug": "homepage-categories-heading",
+        "field_help_text": "Please add heading here",
+        "field_default_text": "Best baby Toys categories",
+        "field_type": "text"
+      }
+    ]
+  },
+  {
+    "section_name": "Home - Bestsellers",
+    "section_slug": "homepage-bestsellers",
+    "unique_section_slug": "homepage-bestsellers",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": "1",
+    "inner-list": [
+      {
+        "field_name": "Heading",
+        "field_slug": "homepage-bestsellers-heading",
+        "field_help_text": "Please add heading text here",
+        "field_default_text": "Bestsellers",
+        "field_type": "text"
+      }
+    ]
+  },
+  {
+    "section_name": "Home - Loyalty - Program",
+    "section_slug": "homepage-loyalty-program",
+    "unique_section_slug": "homepage-loyalty-program",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": "1",
+    "inner-list": [
+      {
+        "field_name": "Title",
+        "field_slug": "homepage-loyalty-program-title",
+        "field_help_text": "Please add title here",
+        "field_default_text": "Take advantage of the loyalty program!",
+        "field_type": "text"
+      },
+      {
+        "field_name": "Sub Text",
+        "field_slug": "homepage-loyalty-program-sub-text",
+        "field_help_text": "Please add sub text here",
+        "field_default_text": "Receive an extra 10% on future purchases by sending your friend this link.",
+        "field_type": "text area"
+      },
+      {
+        "field_name": "Background Image",
+        "field_slug": "homepage-loyalty-program-bg-image",
+        "field_help_text": "Please upload image from here",
+        "field_default_text": "themes/babycare/assets/img/two-col-1.png",
+        "field_type": "photo upload"
+      },
+      {
+        "field_name": "Button",
+        "field_slug": "homepage-loyalty-program-button",
+        "field_help_text": "Please add button text here",
+        "field_default_text": "Show more about program",
+        "field_type": "text"
+      }
+    ]
+  }
+]

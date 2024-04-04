@@ -1,0 +1,31 @@
+{
+    "section_name": "Modern - Product",
+    "section_slug": "modern_product",
+    "unique_section_slug": "modern_product",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Modern Product Title",
+            "slug" :  "modern_product_titel",
+            "text" : "<b>Fall in love with </b> <br> amazing clothes",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "sub_title":{
+            "lable" : "Modern Product Sub Title",
+            "slug" :  "modern_product_sub_title",
+            "text" : "<b> Show </b> more product",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Modern Product Button",
+            "slug" :  "modern_product_button",
+            "text" : "Go to products",
+            "type" : "button",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

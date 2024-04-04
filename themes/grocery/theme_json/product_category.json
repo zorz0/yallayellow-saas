@@ -1,0 +1,32 @@
+{
+    "section_name": "Product - Category",
+    "section_slug": "product_category",
+    "unique_section_slug": "product_category",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Product Category Title",
+            "slug" :  "product_category_title",
+            "text" : "<b>Fall in love with </b> <br> amazing clothes",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Product Category Button",
+            "slug" :  "product_category_button",
+            "text" : "Go to products",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "category_list":{
+            "lable" : "Product Category Button",
+            "slug" :  "product_category_list",
+            "text" : "",
+            "type" : "select",
+            "placeholder" : "Please select..",
+            "category_ids":[]
+        }
+    }
+}

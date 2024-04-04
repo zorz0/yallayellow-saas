@@ -1,0 +1,48 @@
+{
+    "section_name": "Footer - Section",
+    "section_slug": "footer",
+    "unique_section_slug": "footer",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "description":{
+            "lable" : "Footer Section Description",
+            "slug" :  "footer_description",
+            "text" : "With a purposeful presence, the footer section offers convenient access to essential resources.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "footer_link":{
+            "lable" : "Footer Links",
+            "slug" :  "footer_links",
+            "text" : "Footer Links",
+            "type" : "array",
+            "loop_number" : 4,
+            "social_link":["https://www.youtube.com/","https://www.youtube.com/","https://www.youtube.com/","https://www.youtube.com/"],
+            "social_icon":[
+                {
+                    "text":"themes/babycare/assets/img/youtube.png",
+                    "image":"themes/babycare/assets/img/youtube.png"
+                },{
+                    "text":"themes/babycare/assets/img/youtube.png",
+                    "image":"themes/babycare/assets/img/youtube.png"
+                },{
+                    "text":"themes/babycare/assets/img/youtube.png",
+                    "image":"themes/babycare/assets/img/youtube.png"
+                },{
+                    "text":"themes/babycare/assets/img/youtube.png",
+                    "image":"themes/babycare/assets/img/youtube.png"
+                }
+            ]
+        },
+        "footer_menu_type": {
+            "lable" : "Footer Menu Type",
+            "slug" :  "footer_menu_type",
+            "text" : "footer_menu_bar",
+            "type" : "array",
+            "loop_number" : 3,
+            "footer_menu_ids":[]
+        }
+    }
+}

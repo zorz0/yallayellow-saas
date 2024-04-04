@@ -1,0 +1,31 @@
+{
+    "section_name": "Category",
+    "section_slug": "category",
+    "unique_section_slug": "category",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Category Title",
+            "slug" :  "category_title",
+            "text" : "Love our categories",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Category Button",
+            "slug" :  "category_button",
+            "text" : "Show More Products",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "button_second":{
+            "lable" : "Category Button",
+            "slug" :  "category_button_second",
+            "text" : "Go to Category",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        }      
+    }
+}

@@ -1,0 +1,46 @@
+{
+    "section_name": "Homepage Slider",
+    "section_slug": "slider",
+    "unique_section_slug": "slider",
+    "section_enable": "on",
+    "array_type": "multi-inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Slider Title",
+            "slug" :  "slider_title",
+            "text" : ["Best Baby Toys <br> <b> for All Kids</b>"],
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        },
+        "description":{
+            "lable" : "Slider Description",
+            "slug" :  "slider_description",
+            "text" : ["Babycare is the act of supervising and taking care of babies. It includes a wide range of tasks, such as feeding, changing diapers, bathing, dressing, and putting to sleep. Babycare can be a challenging but rewarding experience. It is important to be patient, loving, and attentive when caring for a baby."],
+            "type" : "textarea",
+            "placeholder" : "Please enter here..."
+        },
+        "button_first":{
+            "lable" : "Slider First Button",
+            "slug" :  "slider_first_button",
+            "text" : ["Go to Shop"],
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        },
+        "button_second":{
+            "lable" : "Slider Second Button",
+            "slug" :  "slider_second_button",
+            "text" : ["Show more products"],
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        },
+        "background_image":{
+            "lable" : "Slider Background Image",
+            "slug" :  "slider_background_image",
+            "text" : "themes/babycare/assets/img/banner.png",
+            "image": "themes/babycare/assets/img/banner.png",
+            "type" : "file",
+            "placeholder" : "Please select file"
+        }
+    }
+}

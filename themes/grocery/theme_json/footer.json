@@ -1,0 +1,48 @@
+{
+    "section_name": "Footer - Section",
+    "section_slug": "footer",
+    "unique_section_slug": "footer",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "description":{
+            "lable" : "Footer Section Description",
+            "slug" :  "footer_description",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "footer_link":{
+            "lable" : "Footer Links",
+            "slug" :  "footer_links",
+            "text" : "Footer Links",
+            "type" : "array",
+            "loop_number" : 4,
+			"social_link":["https://www.youtube.com/","https://www.youtube.com/","https://www.youtube.com/","https://www.youtube.com/"],
+            "social_icon":[
+                {
+                    "text":"themes/grocery/assets/img/youtube.svg",
+                    "image":"themes/grocery/assets/img/youtube.svg"
+                },{
+                    "text":"themes/grocery/assets/img/youtube.svg",
+                    "image":"themes/grocery/assets/img/youtube.svg"
+                },{
+                    "text":"themes/grocery/assets/img/youtube.svg",
+                    "image":"themes/grocery/assets/img/youtube.svg"
+                },{
+                    "text":"themes/grocery/assets/img/youtube.svg",
+                    "image":"themes/grocery/assets/img/youtube.svg"
+                }
+            ]
+        },
+        "footer_menu_type": {
+            "lable" : "Footer Menu Type",
+            "slug" :  "footer_menu_type",
+            "text" : "footer_menu_bar",
+            "type" : "array",
+            "loop_number" : 3,
+            "footer_menu_ids":[]
+        }
+    }
+}

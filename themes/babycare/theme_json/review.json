@@ -1,0 +1,17 @@
+{
+    "section_name": "Review",
+    "section_slug": "review",
+    "unique_section_slug": "review",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Review Title",
+            "slug" :  "review_title",
+            "text" : "Testimonial",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

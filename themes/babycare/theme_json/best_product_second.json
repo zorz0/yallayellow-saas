@@ -1,0 +1,46 @@
+{
+    "section_name": "Best - Product",
+    "section_slug": "best_product_second",
+    "unique_section_slug": "best_product_second",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Best Product Title",
+            "slug" :  "best_product_second_titel",
+            "text" : "<b>CATEGORIES</b>",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Button",
+            "slug" :  "best_product_second_button",
+            "text" : "Go To Categories",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "sub_title":{
+            "lable" : " Sub Title",
+            "slug" :  "best_product_second_subtitle",
+            "text" : "Best Baby Toys <br> <b> for All Kids </b>",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Description",
+            "slug" :  "best_product_second_description",
+            "text" : "Babies need to sleep for about 16 hours a day. Create a calm and relaxing environment for your baby before bedtime.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "image":{
+            "lable" : "Image",
+            "slug" :  "best_product_second_image",
+            "text" : "themes/babycare/assets/img/twocol-2.png",
+            "image" : "themes/babycare/assets/img/twocol-2.png",
+            "type" : "file",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "section_name": "Product - Category",
+    "section_slug": "product_category",
+    "unique_section_slug": "product_category",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Product Category Title",
+            "slug" :  "product_category_title",
+            "text" : "<b>Best Seller </b>",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "category_list":{
+            "lable" : "Product Category Button",
+            "slug" :  "product_category_list",
+            "text" : "",
+            "type" : "select",
+            "placeholder" : "Please select..",
+            "category_ids":[]
+        }
+    }
+}

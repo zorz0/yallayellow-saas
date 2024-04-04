@@ -1,0 +1,53 @@
+{
+    "section_name": "Best - Product",
+    "section_slug": "best_product",
+    "unique_section_slug": "best_product",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Best Product Title",
+            "slug" :  "best_product_titel",
+            "text" : "<b>Our Loved category </b>",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Button",
+            "slug" :  "best_product_button",
+            "text" : "Go to product",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "button_first":{
+            "lable" : "Button",
+            "slug" :  "best_product_button_first",
+            "text" : "Go to catrgory",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "sub_title":{
+            "lable" : " Sub Title",
+            "slug" :  "best_product_subtitle",
+            "text" : "Vegetables",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Description",
+            "slug" :  "best_product_description",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "image":{
+            "lable" : "Image",
+            "slug" :  "best_product_image",
+            "text" : "themes/grocery/assets/images/vegetables-2.jpg",
+            "image" : "themes/grocery/assets/images/vegetables-2.jpg",
+            "type" : "file",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

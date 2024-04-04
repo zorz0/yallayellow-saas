@@ -1,0 +1,39 @@
+{
+    "section_name": "Subscribe - Section",
+    "section_slug": "subscribe",
+    "unique_section_slug": "subscribe",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Subscribe Title",
+            "slug" :  "subscribe_title",
+            "text" : "<b> Best Baby Toys </b> <br> for All Kids",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Subscribe Description",
+            "slug" :  "subscribe_description",
+            "text" : "You can read to your baby, sing to your baby, and play with your baby. It is important to spend time with your baby.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "sub_title":{
+            "lable" : "Subscribe Sub Title",
+            "slug" :  "subscribe_sub_title",
+            "text" : "Subscribe to get the latest news, updates and offers. Don’t worry, we won’t send spam!",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "image":{
+            "lable" : "Subscribe Image",
+            "slug" :  "subscribe_image",
+            "text" : "themes/babycare/assets/img/custon-banner.png",
+            "image" : "themes/babycare/assets/img/custon-banner.png",
+            "type" : "file",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

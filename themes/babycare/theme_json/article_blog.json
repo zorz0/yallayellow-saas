@@ -1,0 +1,31 @@
+{
+    "section_name": "Homepage - Article - Blog",
+    "section_slug": "article_blog",
+    "unique_section_slug": "article_blog",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Article Title",
+            "slug" :  "article_blog_title",
+            "text" : "<b> Fall in love with </b> amazing clothes",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Article Description",
+            "slug" :  "article_blog_description",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Article Button",
+            "slug" :  "article_blog_button",
+            "text" : "Go to products",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        }        
+    }
+}

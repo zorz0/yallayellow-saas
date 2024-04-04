@@ -1,0 +1,46 @@
+{
+    "section_name": "Best - Product",
+    "section_slug": "best_product",
+    "unique_section_slug": "best_product",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Best Product Title",
+            "slug" :  "best_product_titel",
+            "text" : "<b>Best Baby Products </b>",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Button",
+            "slug" :  "best_product_button",
+            "text" : "Go to product",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "sub_title":{
+            "lable" : " Sub Title",
+            "slug" :  "best_product_subtitle",
+            "text" : "Best Baby Toys for All Kids",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Description",
+            "slug" :  "best_product_description",
+            "text" : "Caring for a baby can be a lot of work, but it is also a lot of fun. By following these basic tips, you can provide your baby with the care they need to grow and thrive.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "image":{
+            "lable" : "Image",
+            "slug" :  "best_product_image",
+            "text" : "themes/babycare/assets/img/two-col-1.png",
+            "image" : "themes/babycare/assets/img/two-col-1.png",
+            "type" : "file",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

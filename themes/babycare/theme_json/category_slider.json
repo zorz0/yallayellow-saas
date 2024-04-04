@@ -1,0 +1,32 @@
+{
+    "section_name": "Category - Slider",
+    "section_slug": "category_slider",
+    "unique_section_slug": "category_slider",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Category Slider Title",
+            "slug" :  "category_slider_title",
+            "text" : "<b>Fall in love with </b> <br> amazing clothes",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Category Slider Description",
+            "slug" :  "category_slider_description",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "category_list":{
+            "lable" : "Category Slider List",
+            "slug" :  "category_slider_list",
+            "text" : "",
+            "type" : "select",
+            "placeholder" : "Please select..",
+            "category_ids":[]
+        }
+    }
+}

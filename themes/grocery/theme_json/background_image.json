@@ -1,0 +1,39 @@
+{
+    "section_name": "BackgroundImage - Section",
+    "section_slug": "background_image",
+    "unique_section_slug": "background_image",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Background Image Title",
+            "slug" :  "background_image_title",
+            "text" : "<b>Fall in love with </b> <br> amazing clothes",
+            "type" : "text",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Background Image Description",
+            "slug" :  "background_image_description",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "button":{
+            "lable" : "Background Image Button",
+            "slug" :  "background_image_button",
+            "text" : "Go to Shop",
+            "type" : "button",
+            "placeholder" : "Please enter here.."
+        },
+        "image":{
+            "lable" : "Background Image",
+            "slug" :  "background_image",
+            "text" : "themes/sensation/assets/images/banner-2.png",
+            "image" : "themes/sensation/assets/images/banner-2.png",
+            "type" : "photoupload",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

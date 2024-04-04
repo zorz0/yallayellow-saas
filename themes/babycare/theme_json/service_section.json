@@ -1,0 +1,32 @@
+{
+    "section_name": "Service Section",
+    "section_slug": "service_section",
+    "unique_section_slug": "service_section",
+    "section_enable": "on",
+    "array_type": "multi-inner-list",
+    "loop_number": 1,
+    "section":{
+        "title":{
+            "lable" : "Service Section Title",
+            "slug" :  "service_section_title",
+            "text" : ["SHIPPING"],
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        },
+        "sub_title":{
+            "lable" : "Service Section Sub Title",
+            "slug" :  "service_section_sub_title",
+            "text" : ["Free worldwide <br>shopping"],
+            "type" : "text",
+            "placeholder" : "Please enter here..."
+        },
+        "background_image":{
+            "lable" : "Service Section Image",
+            "slug" :  "service_section_image",
+            "text" : "themes/sensation/assets/images/banner.png",
+            "image": "themes/sensation/assets/images/banner.png",
+            "type" : "file",
+            "placeholder" : "Please select file"
+        }
+    }
+}
