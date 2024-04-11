@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', __('Add-on Theme'))
+@section('page-title', __('إضافة سمة الإضافة'))
 
 @section('action-button')
 <div class="text-end d-flex all-button-box justify-content-md-end justify-content-center">
@@ -11,7 +11,7 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item">{{ __('Add-on Theme') }}</li>
+    <li class="breadcrumb-item">{{ __('سمة الإضافة') }}</li>
 @endsection
 
 @section('content')
@@ -25,12 +25,12 @@
                         </a>
                     </div>
                     <div class="package-content flex-grow-1  px-3">
-                        <h4>{{ __('Get More Themes Addon') }}</h4>
-                        <div class="text-muted">{{ __('+35 Premium Themes Addon') }}</div>
+                        <h4>{{ __('احصل على المزيد من سمات الإضافات') }}</h4>
+                        <div class="text-muted">{{ __('+35 سمة إضافية مميزة') }}</div>
                     </div>
                     <div class="price text-end">
                         <a class="btn btn-primary" href="https://workdo.io/product-category/theme-addon/?utm_source=ecom-main-file&utm_medium=superadmin&utm_campaign=superadmin-btn-theme-all" target="new">
-                            {{ __('Themes Addon') }}
+                            {{ __('سمات الإضافات') }}
                         </a>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="col-md-4">
-        <h4 class="mb-3"> {{ __('Installed Theme') }}</h4>
+        <h4 class="mb-3"> {{ __('السمات المثبتة') }}</h4>
     </div>
     <div class="event-cards row px-0">
             @php
@@ -66,11 +66,11 @@
                                     <div class="dropdown-menu dropdown-menu-end" style="">
                                         @if ($value->status == '1')
                                             <a href="#!" class="dropdown-item module_change" data-id="{{ $value->theme_id }}">
-                                                <span>Disable</span>
+                                                <span>{{ __('تعطيل') }}</span>
                                             </a>
                                         @else
                                             <a href="#!" class="dropdown-item module_change" data-id="{{ $value->theme_id }}">
-                                                <span>Enable</span>
+                                                <span>{{ __('تمكين') }}</span>
                                             </a>
                                         @endif
 
@@ -82,7 +82,7 @@
 
                                         {!! Form::open(['method' => 'DELETE', 'route' => ['addon.destroy', $value->theme_id], 'class' => 'd-inline']) !!}
                                             <button type="button" class="dropdown-item show_confirm">
-                                                <span class="text-danger">Remove</span>
+                                                <span class="text-danger">{{ __('إزالة') }}</span>
                                             </button>
                                         {!! Form::close() !!}
 
@@ -95,9 +95,9 @@
                             <div class="product-content-top">
                                 <small class="text-muted">
                                     @if($value->status == '1')
-                                        <span class="badges bg-success">Enable</span>
+                                        <span class="badges bg-success">{{ __('ممكن') }}</span>
                                     @else
-                                        <span class="badges bg-danger">Disable</span>
+                                        <span class="badges bg-danger">{{ __('غير ممكن') }}</span>
                                     @endif
                                 </small>
                                 <h4 class="text-capitalize">{{ $value->theme_id }}</h4>
@@ -110,7 +110,7 @@
     </div>
 
     <div class="col-md-4">
-        <h4 class="mb-3"> {{ __('Buy More Themes') }}</h4>
+        <h4 class="mb-3"> {{ __('شراء المزيد من السمات') }}</h4>
     </div>
     <div class="event-cards row px-0">
         @foreach ($theme['theme'] as $key => $value)
@@ -126,12 +126,12 @@
                             <div class="product-content">
                                 <div class="product-content-top">
                                     <small class="text-muted">
-                                        <span class="badges bg-success">{{ __('Free Add-On') }}</span>
+                                        <span class="badges bg-success">{{ __('الإضافة مجانية') }}</span>
                                     </small>
                                     <div class="d-flex align-items-center justify-content-between gap-2">
-                                        <h4 class="text-capitalize">{{ $value[0] }} ({{ __('Free Add-On') }}) </h4>
+                                        <h4 class="text-capitalize">{{ $value[0] }} ({{ __('الإضافة مجانية') }}) </h4>
                                         @if(!in_array($value[0],['babycare','grocery','scent']))
-                                               <a href="https://s3.ap-southeast-1.wasabisys.com/workdo-main-file.rajodiya/ecommercego/main_files/{{$value[0]}}/theme-addon/{{$value[0]}}.zip" target="_new" class="btn btn-outline-primary btn-sm" title="Free Download">{{ __('Free Download') }}
+                                               <a href="https://s3.ap-southeast-1.wasabisys.com/workdo-main-file.rajodiya/ecommercego/main_files/{{$value[0]}}/theme-addon/{{$value[0]}}.zip" target="_new" class="btn btn-outline-primary btn-sm" title="{{ __('تنزيل مجاني') }}">{{ __('تنزيل مجاني') }}
                                                 <!-- <i class="fa fa-download"
                                                         aria-hidden="true"></i> -->
                                                     </a>
@@ -140,9 +140,9 @@
                                 </div>
                                 <div class="product-content-bottom d-flex gap-2">
                                     <a href="{{ $value[1] }}" target="_new"
-                                        class="btn btn-outline-primary w-100 mt-2">{{ __('View Demo') }}</a>
+                                        class="btn btn-outline-primary w-100 mt-2">{{ __('عرض الديمو') }}</a>
                                         <a href="{{ $value[3] }}?utm_source=ecom-main-file&utm_medium=superadmin&utm_campaign=superadmin-btn-theme-{{ $value[0] }}" target="_new"
-                                        class="btn btn-outline-primary w-100 mt-2">{{ __('View Details') }}</a>
+                                        class="btn btn-outline-primary w-100 mt-2">{{ __('عرض التفاصيل') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -161,6 +161,3 @@
         });
     </script>
 @endpush
-
-
-

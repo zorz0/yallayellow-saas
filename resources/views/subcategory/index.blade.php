@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('page-title', __('Sub Category'))
+@section('page-title', __('فئة فرعية'))
 
 @section('action-button')
 {{-- @permission('Create Product Sub Category') --}}
 <div class=" text-end d-flex all-button-box justify-content-md-end justify-content-center">
     <a href="#" class="btn btn-sm btn-primary" data-ajax-popup="true" data-size="md"
-        data-title="Add Sub category"
+        data-title="إضافة فئة فرعية"
         data-url="{{ route('sub-category.create') }}"
         data-toggle="tooltip" title="{{ __('Create Sub Category') }}">
         <i class="ti ti-plus"></i>
@@ -16,7 +16,7 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item">{{ __('Sub Category') }}</li>
+    <li class="breadcrumb-item">{{ __('فئة فرعية') }}</li>
 @endsection
 
 @section('content')
@@ -29,13 +29,13 @@
                 <table class="table dataTable">
                     <thead>
                         <tr>
-                            <th>{{ __('Name') }}</th>
-                            <th>{{ __('Image') }}</th>
-                            <th>{{ __('Icon') }}</th>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Status') }}</th>
-                            <th>{{ __('Theme id') }}</th>
-                            <th class="text-end">{{ __('Action') }}</th>
+                            <th>{{ __('الاسم') }}</th>
+                            <th>{{ __('الصورة') }}</th>
+                            <th>{{ __('الرمز') }}</th>
+                            <th>{{ __('الفئة') }}</th>
+                            <th>{{ __('الحالة') }}</th>
+                            <th>{{ __('معرف السمة') }}</th>
+                            <th class="text-end">{{ __('العمليات') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,8 +57,8 @@
                                 <button class="btn btn-sm btn-primary me-2"
                                     data-url="{{ route('sub-category.edit', $Category->id) }}"
                                     data-size="md" data-ajax-popup="true"
-                                    data-title="{{ __('Edit Sub Category') }}" >
-                                    <i class="ti ti-pencil py-1" data-bs-toggle="tooltip" title="edit"></i>
+                                    data-title="{{ __('تعديل فئة فرعية') }}" >
+                                    <i class="ti ti-pencil py-1" data-bs-toggle="tooltip" title="تعديل"></i>
                                 </button>
                                 {{-- @endpermission --}}
                                 {{-- @permission('Delete Product Sub Category') --}}

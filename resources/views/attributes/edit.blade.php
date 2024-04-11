@@ -2,12 +2,12 @@
 
 <div class="row">
     <div class="form-group col-md-12">
-        {{ Form::label('name', __('Name'), ['class' => 'form-label']) }}
+        {{ Form::label('name', __('الاسم'), ['class' => 'form-label']) }}
         {{ Form::text('name', null, ['class' => 'form-control font-style', 'required' => 'required']) }}
     </div>
     <div class="modal-footer pb-0">
-        <input type="button" value="Cancel" class="btn btn-light" data-bs-dismiss="modal">
-        <input type="submit" value="Update" class="btn btn-primary">
+        <input type="button" value="إلغاء" class="btn btn-light" data-bs-dismiss="modal">
+        <input type="submit" value="تحديث" class="btn btn-primary">
     </div>
 </div>
 {!! Form::close() !!}

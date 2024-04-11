@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('page-title', __('Blogs'))
+@section('page-title', __('المدونات'))
 
 @section('action-button')
 {{-- @permission('Create Blog') --}}
     <div class="text-end d-flex all-button-box justify-content-md-end justify-content-center">
         <a href="#" class="btn btn-sm btn-primary" data-ajax-popup="true" data-size="lg" data-title="Add Blog"
-            data-url="{{ route('blog.create') }}" data-toggle="tooltip" title="{{ __('Create Blog') }}">
+            data-url="{{ route('blog.create') }}" data-toggle="tooltip" title="{{ __('إنشاء مدونة') }}">
             <i class="ti ti-plus"></i>
         </a>
     </div>
@@ -14,7 +14,7 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item">{{ __('Blogs') }}</li>
+    <li class="breadcrumb-item">{{ __('المدونات') }}</li>
 @endsection
 
 @section('content')
@@ -27,11 +27,11 @@
                         <table class="table dataTable">
                             <thead>
                                 <tr>
-                                    <th>{{ __('Cover Image') }}</th>
-                                    <th>{{ __('Category') }}</th>
-                                    <th>{{ __('Title') }}</th>
-                                    <th>{{ __('Short Description') }}</th>
-                                    <th class="text-end">{{ __('Action') }}</th>
+                                    <th>{{ __('صورة الغلاف') }}</th>
+                                    <th>{{ __('التصنيف') }}</th>
+                                    <th>{{ __('العنوان') }}</th>
+                                    <th>{{ __('الوصف المختصر') }}</th>
+                                    <th class="text-end">{{ __('العمليات') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,15 +47,15 @@
                                             {{-- @permission('Edit Blog') --}}
                                             <button class="btn btn-sm btn-primary me-2"
                                                 data-url="{{ route('blog.edit', $blog->id) }}" data-size="lg"
-                                                data-ajax-popup="true" data-title="{{ __('Edit Blog') }}">
-                                                <i class="ti ti-pencil py-1" data-bs-toggle="tooltip" title="edit"></i>
+                                                data-ajax-popup="true" data-title="{{ __('تحرير المدونة') }}">
+                                                <i class="ti ti-pencil py-1" data-bs-toggle="tooltip" title="تحرير"></i>
                                             </button>
                                             {{-- @endpermission --}}
                                             {{-- @permission('Delete Blog') --}}
                                             {!! Form::open(['method' => 'DELETE', 'route' => ['blog.destroy', $blog->id], 'class' => 'd-inline']) !!}
                                             <button type="button" class="btn btn-sm btn-danger show_confirm">
                                                 <i class="ti ti-trash text-white py-1" data-bs-toggle="tooltip"
-                                                    title="Delete"></i>
+                                                    title="حذف"></i>
                                             </button>
                                             {!! Form::close() !!}
                                             {{-- @endpermission --}}
@@ -69,5 +69,4 @@
             </div>
         </div>
     </div>
-    @endsection
-
+@endsection

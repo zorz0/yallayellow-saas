@@ -1,0 +1,26 @@
+{
+    "section_name": "Homepage Slider",
+    "section_slug": "slider",
+    "unique_section_slug": "slider",
+    "section_enable": "on",
+    "array_type": "multi-inner-list",
+    "loop_number": 1,
+    "section": {
+        "background_image": {
+            "lable": "Slider Background Image",
+            "slug": "slider_background_image",
+            "text": "themes/giftsforher/assets/images/banner.png",
+            "image": "themes/giftsforher/assets/images/banner.png",
+            "type": "file",
+            "placeholder": "Please select file"
+        },
+        "background_image_second": {
+            "lable": "Slider Background Image Second",
+            "slug": "slider_background_image_second",
+            "text": "themes/giftsforher/assets/images/banner-right.png",
+            "image": "themes/giftsforher/assets/images/banner-right.png",
+            "type": "file",
+            "placeholder": "Please select file"
+        }
+    }
+}

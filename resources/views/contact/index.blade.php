@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('page-title', __('Contact-us'))
+@section('page-title', __('اتصل بنا'))
 
 @section('breadcrumb')
-    <li class="breadcrumb-item">{{ __('Contact-us') }}</li>
+    <li class="breadcrumb-item">{{ __('اتصل بنا') }}</li>
 @endsection
 
 @section('content')
@@ -16,13 +16,13 @@
                         <table class="table dataTable">
                             <thead>
                                 <tr>
-                                    <th>{{ __('First Name') }}</th>
-                                    <th>{{ __('Last Name') }}</th>
-                                    <th>{{ __('Email') }}</th>
-                                    <th>{{ __('Contact') }}</th>
-                                    <th>{{ __('Subject') }}</th>
-                                    <th style="max-width: 50%">{{ __('Description') }}</th>
-                                    <th class="text-end">{{ __('Action') }}</th>
+                                    <th>{{ __('الاسم الأول') }}</th>
+                                    <th>{{ __('الاسم الأخير') }}</th>
+                                    <th>{{ __('البريد الإلكتروني') }}</th>
+                                    <th>{{ __('رقم الاتصال') }}</th>
+                                    <th>{{ __('الموضوع') }}</th>
+                                    <th style="max-width: 50%">{{ __('الوصف') }}</th>
+                                    <th class="text-end">{{ __('العمليات') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,8 +38,8 @@
                                             {{-- @permission('Edit Contact Us') --}}
                                             <button class="btn btn-sm btn-primary me-2"
                                                 data-url="{{ route('contacts.edit', $contact->id) }}" data-size="md"
-                                                data-ajax-popup="true" data-title="{{ __('Edit Contact') }}">
-                                                <i class="ti ti-pencil py-1" data-bs-toggle="tooltip" title="edit"></i>
+                                                data-ajax-popup="true" data-title="{{ __('تحرير بيانات الاتصال') }}">
+                                                <i class="ti ti-pencil py-1" data-bs-toggle="tooltip" title="تحرير"></i>
                                             </button>
                                             {{-- @endpermission --}}
 
@@ -47,7 +47,7 @@
                                             {!! Form::open(['method' => 'DELETE', 'route' => ['contacts.destroy', $contact->id], 'class' => 'd-inline']) !!}
                                             <button type="button" class="btn btn-sm btn-danger show_confirm">
                                                 <i class="ti ti-trash text-white py-1" data-bs-toggle="tooltip"
-                                                    title="Delete"></i>
+                                                    title="حذف"></i>
                                             </button>
                                             {!! Form::close() !!}
                                             {{-- @endpermission --}}
@@ -62,4 +62,3 @@
         </div>
     </div>
 @endsection
-

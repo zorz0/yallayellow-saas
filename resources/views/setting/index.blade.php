@@ -15,21 +15,22 @@
         $setting = getSuperAdminAllSetting();
     }
 
-    $SITE_RTL = \App\Models\Utility::GetValueByName('SITE_RTL', $theme_name);
+    $SITE_RTL = Cookie::get('SITE_RTL');
     if ($SITE_RTL == '') {
         $setting['SITE_RTL'] = $SITE_RTL;
     }
-    $theme_color = \App\Models\Utility::GetValueByName('color', $theme_name);
+    
+    $theme_color = Cookie::get('THEME_COLOR');
     if (!empty($theme_color)) {
         $setting['color'] = $theme_color;
     }
-
-    $cust_theme_bg = \App\Models\Utility::GetValueByName('cust_theme_bg', $theme_name);
+    
+    $cust_theme_bg = Cookie::get('cust_theme_bg');
     if ($cust_theme_bg == '') {
         $setting['cust_theme_bg'] = 'on';
     }
 
-    $cust_darklayout = \App\Models\Utility::GetValueByName('cust_darklayout', $theme_name);
+    $cust_darklayout = Cookie::get('cust_darklayout');
     if ($cust_darklayout == '') {
         $setting['cust_darklayout'] = 'off';
     }
@@ -47,11 +48,6 @@
     $favicon = \App\Models\Utility::GetValueByName('favicon', $theme_name);
     $favicon = get_file($favicon, APP_THEME());
 
-    $get_setting = 'smtp';
-    if(array_key_exists('email_setting', $setting))
-    {
-        $get_setting = $setting['email_setting'];
-    }
 @endphp
 
 @extends('layouts.app')
@@ -98,12 +94,12 @@
                         {{ __('Payment Settings') }}
                         <div class="float-end"><i class="ti ti-chevron-right"></i></div>
                     </a>
-                    @if (auth()->user()->type == 'admin')
+               {{--      @if (auth()->user()->type == 'admin')
                         <a href="#Webhook_Setting" class="list-group-item list-group-item-action border-0">
                             {{ __('Webhook Settings') }}
                             <div class="float-end"><i class="ti ti-chevron-right"></i></div>
                         </a>
-                    @endif
+                    @endif --}}
                     @if (Auth::user()->type == 'super admin')
                         <a href="#Cookie_Setting" class="list-group-item list-group-item-action border-0">
                             {{ __('Cookie Settings') }}
@@ -128,12 +124,12 @@
                             <div class="float-end"><i class="ti ti-chevron-right"></i></div>
                         </a>
                     @endif
-                    @if (Auth::user()->type == 'admin')
+                 {{--    @if (Auth::user()->type == 'admin')
                         <a href="#Loyality_program" class="list-group-item list-group-item-action border-0">
                             {{ __('Loyality program') }}
                             <div class="float-end"><i class="ti ti-chevron-right"></i></div>
                         </a>
-                    @endif
+                    @endif --}}
 
                     @if (auth()->user()->type == 'admin')
                         <a href="#whatsapp_Setting" class="list-group-item list-group-item-action border-0">
@@ -149,7 +145,7 @@
                             <div class="float-end"><i class="ti ti-chevron-right"></i></div>
                         </a>
                     @endif
-                    @if (auth()->user()->type == 'admin' && $plan && ($plan->enable_tax == 'on'))
+                    @if (auth()->user()->type == 'admin' && $plan->enable_tax == 'on')
                         <a href="#Tax_Option_Setting" class="list-group-item list-group-item-action border-0">
                             {{ __('Tax Option Settings') }}
                             <div class="float-end"><i class="ti ti-chevron-right"></i></div>
@@ -187,77 +183,119 @@
                         {{-- @endif --}}
                     @endif
 
-                    @if (auth()->user()->type == 'admin')
+                  {{--   @if (auth()->user()->type == 'admin')
                         <a href="#Woocommerce_Setting" class="list-group-item list-group-item-action border-0">
                             {{ __('Woocommerce Settings') }}
                             <div class="float-end"><i class="ti ti-chevron-right"></i></div>
                         </a>
-                    @endif
+                    @endif --}}
                     @if (auth()->user()->type == 'admin')
-                        <a href="#shopify_Setting" class="list-group-item list-group-item-action border-0">
+                      {{--   <a href="#shopify_Setting" class="list-group-item list-group-item-action border-0">
                             {{ __('Shopify Settings') }}
                             <div class="float-end"><i class="ti ti-chevron-right"></i></div>
                         </a>
-
                         <a href="#whatsapp-notification-settings"
                             class="list-group-item list-group-item-action border-0">{{ __('WhatsApp Business API') }}
                             <div class="float-end"><i class="ti ti-chevron-right"></i></div>
                         </a>
+                         --}}
+
 
                         <a href="#currency-setting-sidenav"
                             class="list-group-item list-group-item-action border-0">{{ __('Currency Manage') }}
                             <div class="float-end"><i class="ti ti-chevron-right"></i></div>
                         </a>
                     @endif
-                    @stack('recentViewTab')
                 </div>
             </div>
         </div>
         <div class="col-xl-9">
             <!--Start Email Setting-->
-            <div class="card" id="email-settings">
-                <div class="email-setting-wrap ">
-                    {{ Form::open(['route' => 'email.settings', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
-                    @csrf
-                    <input type="hidden" class="email">
+            <div id="email-settings">
+                <div class="card">
                     <div class="card-header">
-                        <h3 class="h5">{{ __('Email Settings') }}</h3>
+                        <h5 class=""> {{ __('Email settings') }} </h5>
                     </div>
-                    <div class="card-body pb-0">
-                        <div class="d-flex">
-                            <div class="col-sm-6 col-12">
-
-                                <div class="form-group col switch-width">
-                                    {{Form::label('email_setting',__('Email Setting'),array('class'=>' col-form-label')) }}
-
-                                    {{ Form::select('email_setting',$email_setting ?? [], isset($setting['email_setting']) ? $setting['email_setting'] : $get_setting, ['id' => 'email_setting','class'=>"form-control choices",'searchEnabled'=>'true']) }}
-                                </div>
-                            </div>
-                        </div>
+                    <div class="card-body p-4">
+                        {{ Form::open(['route' => 'email.settings', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
                         <div class="row">
-                            <div class="col-12" id="getfields">
+                            <div class="col-lg-3 col-md-6 col-sm-6 form-group">
+                                {!! Form::label('', __('Mail Driver'), ['class' => 'form-label']) !!}
+                                {!! Form::text('mail_driver', !empty($setting['MAIL_DRIVER']) ? $setting['MAIL_DRIVER'] : '', [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Enter Mail Driver',
+                                ]) !!}
                             </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 form-group">
+                                {!! Form::label('', __('Mail Host'), ['class' => 'form-label']) !!}
+                                {!! Form::text('mail_host', !empty($setting['MAIL_HOST']) ? $setting['MAIL_HOST'] : '', [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Enter Mail Driver',
+                                ]) !!}
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 form-group">
+                                {!! Form::label('', __('Mail Port'), ['class' => 'form-label']) !!}
+                                {!! Form::text('mail_port', !empty($setting['MAIL_PORT']) ? $setting['MAIL_PORT'] : '', [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Enter Mail Port',
+                                ]) !!}
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 form-group">
+                                {!! Form::label('', __('Mail Username'), ['class' => 'form-label']) !!}
+                                {!! Form::text('mail_username', !empty($setting['MAIL_USERNAME']) ? $setting['MAIL_USERNAME'] : '', [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Enter Mail Username',
+                                ]) !!}
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 form-group">
+                                {!! Form::label('', __('Mail Password'), ['class' => 'form-label']) !!}
+                                {!! Form::text('mail_password', !empty($setting['MAIL_PASSWORD']) ? $setting['MAIL_PASSWORD'] : '', [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Enter Mail Password',
+                                ]) !!}
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 form-group">
+                                {!! Form::label('', __('Mail Encryption'), ['class' => 'form-label']) !!}
+                                {!! Form::text('mail_encryption', !empty($setting['MAIL_ENCRYPTION']) ? $setting['MAIL_ENCRYPTION'] : '', [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Enter Mail Encryption',
+                                ]) !!}
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 form-group">
+                                {!! Form::label('', __('Mail From'), ['class' => 'form-label']) !!}
+                                {!! Form::text('mail_from_address', !empty($setting['MAIL_FROM_ADDRESS']) ? $setting['MAIL_FROM_ADDRESS'] : '', [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Enter Mail From Address',
+                                ]) !!}
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 form-group">
+                                {!! Form::label('', __('Mail From Name'), ['class' => 'form-label']) !!}
+                                {!! Form::text('mail_from_name', !empty($setting['MAIL_FROM_NAME']) ? $setting['MAIL_FROM_NAME'] : '', [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Enter Mail Encryption',
+                                ]) !!}
+                            </div>
+                            <input type="hidden" name="theme_id" value="{{ $theme_id }}">
                         </div>
-
-                    </div>
-
-                    <div class="card-footer d-flex justify-content-between flex-wrap " style="gap:10px">
-
-                        <input type="hidden" name="custom_email" id="custom_email"
-                            value="{{ isset($settings['email_setting']) ? $settings['email_setting'] : $get_setting}}">
-
-                            <div class="text-start ">
+                        <div class="col-lg-12">
+                            <div class="d-flex align-items-center gap-4 justify-content-between">
+                                <div class="text-start ">
                                     <a href="#" data-ajax-popup1="true" data-size="md"
                                         data-title="{{ __('Send Test Mail') }}" data-url="{{ route('email.test') }}"
                                         data-toggle="tooltip" title="{{ __('Send Test Mail') }}"
-                                        class="btn btn-print-invoice  btn-primary m-r-10 send_email" >
+                                        class="btn  btn-warning send_email">
                                         {{ __('Send Test Mail') }}
                                     </a>
                                 </div>
+                                <div class="text-end">
+                                    <input type="submit" value="{{ __('Save Changes') }}"
+                                        class="btn-submit btn btn-primary">
+                                </div>
 
-                        <input class="btn btn-print-invoice  btn-primary m-r-10" type="submit" value="{{ __('Save Changes') }}">
+                            </div>
+                        </div>
+                        {!! Form::close() !!}
                     </div>
-                    {{ Form::close() }}
                 </div>
             </div>
             <!--End Email Setting-->
@@ -489,73 +527,67 @@
                                                 {{ __('Primary Color Settings') }}
                                             </h6>
                                             <hr class="my-2" />
-                                            <div class="color-wrp">
-                                                <div class="theme-color themes-color">
-                                                    <a href="#!"
-                                                        class="themes-color-change {{ isset($setting['color']) && $setting['color'] == 'theme-1' ? 'active_color' : '' }}"
-                                                        data-value="theme-1" onclick="check_theme('theme-1')"></a>
-                                                    <input type="radio" class="theme_color" name="color" value="theme-1"
-                                                        style="display: none;">
+                                            <div class="theme-color themes-color">
+                                                <a href="#!"
+                                                    class="{{ isset($setting['color']) && $setting['color'] == 'theme-1' ? 'active_color' : '' }}"
+                                                    data-value="theme-1" onclick="check_theme('theme-1')"></a>
+                                                <input type="radio" class="theme_color" name="color" value="theme-1"
+                                                    style="display: none;">
 
-                                                    <a href="#!"
-                                                        class="themes-color-change {{ isset($setting['color']) && $setting['color'] == 'theme-2' ? 'active_color' : '' }}"
-                                                        data-value="theme-2" onclick="check_theme('theme-2')"></a>
-                                                    <input type="radio" class="theme_color" name="color" value="theme-2"
-                                                        style="display: none;">
+                                                <a href="#!"
+                                                    class="{{ isset($setting['color']) && $setting['color'] == 'theme-2' ? 'active_color' : '' }}"
+                                                    data-value="theme-2" onclick="check_theme('theme-2')"></a>
+                                                <input type="radio" class="theme_color" name="color" value="theme-2"
+                                                    style="display: none;">
 
-                                                    <a href="#!"
-                                                        class="themes-color-change {{ isset($setting['color']) && $setting['color'] == 'theme-3' ? 'active_color' : '' }}"
-                                                        data-value="theme-3" onclick="check_theme('theme-3')"></a>
-                                                    <input type="radio" class="theme_color" name="color" value="theme-3"
-                                                        style="display: none;">
+                                                <a href="#!"
+                                                    class="{{ isset($setting['color']) && $setting['color'] == 'theme-3' ? 'active_color' : '' }}"
+                                                    data-value="theme-3" onclick="check_theme('theme-3')"></a>
+                                                <input type="radio" class="theme_color" name="color" value="theme-3"
+                                                    style="display: none;">
 
-                                                    <a href="#!"
-                                                        class="themes-color-change {{ isset($setting['color']) && $setting['color'] == 'theme-4' ? 'active_color' : '' }}"
-                                                        data-value="theme-4" onclick="check_theme('theme-4')"></a>
-                                                    <input type="radio" class="theme_color" name="color" value="theme-4"
-                                                        style="display: none;">
+                                                <a href="#!"
+                                                    class="{{ isset($setting['color']) && $setting['color'] == 'theme-4' ? 'active_color' : '' }}"
+                                                    data-value="theme-4" onclick="check_theme('theme-4')"></a>
+                                                <input type="radio" class="theme_color" name="color" value="theme-4"
+                                                    style="display: none;">
 
-                                                    <a href="#!"
-                                                        class="themes-color-change {{ isset($setting['color']) && $setting['color'] == 'theme-5' ? 'active_color' : '' }}"
-                                                        data-value="theme-5" onclick="check_theme('theme-5')"></a>
-                                                    <input type="radio" class="theme_color" name="color" value="theme-5"
-                                                        style="display: none;">
+                                                <a href="#!"
+                                                    class="{{ isset($setting['color']) && $setting['color'] == 'theme-5' ? 'active_color' : '' }}"
+                                                    data-value="theme-5" onclick="check_theme('theme-5')"></a>
+                                                <input type="radio" class="theme_color" name="color" value="theme-5"
+                                                    style="display: none;">
 
-                                                    <a href="#!"
-                                                        class="themes-color-change {{ isset($setting['color']) && $setting['color'] == 'theme-6' ? 'active_color' : '' }}"
-                                                        data-value="theme-6" onclick="check_theme('theme-6')"></a>
-                                                    <input type="radio" class="theme_color" name="color" value="theme-6"
-                                                        style="display: none;">
+                                                <a href="#!"
+                                                    class="{{ isset($setting['color']) && $setting['color'] == 'theme-6' ? 'active_color' : '' }}"
+                                                    data-value="theme-6" onclick="check_theme('theme-6')"></a>
+                                                <input type="radio" class="theme_color" name="color" value="theme-6"
+                                                    style="display: none;">
 
-                                                    <a href="#!"
-                                                        class="themes-color-change {{ isset($setting['color']) && $setting['color'] == 'theme-7' ? 'active_color' : '' }}"
-                                                        data-value="theme-7" onclick="check_theme('theme-7')"></a>
-                                                    <input type="radio" class="theme_color" name="color" value="theme-7"
-                                                        style="display: none;">
+                                                <a href="#!"
+                                                    class="{{ isset($setting['color']) && $setting['color'] == 'theme-7' ? 'active_color' : '' }}"
+                                                    data-value="theme-7" onclick="check_theme('theme-7')"></a>
+                                                <input type="radio" class="theme_color" name="color" value="theme-7"
+                                                    style="display: none;">
 
-                                                    <a href="#!"
-                                                        class="themes-color-change {{ isset($setting['color']) && $setting['color'] == 'theme-8' ? 'active_color' : '' }}"
-                                                        data-value="theme-8" onclick="check_theme('theme-8')"></a>
-                                                    <input type="radio" class="theme_color" name="color" value="theme-8"
-                                                        style="display: none;">
+                                                <a href="#!"
+                                                    class="{{ isset($setting['color']) && $setting['color'] == 'theme-8' ? 'active_color' : '' }}"
+                                                    data-value="theme-8" onclick="check_theme('theme-8')"></a>
+                                                <input type="radio" class="theme_color" name="color" value="theme-8"
+                                                    style="display: none;">
 
-                                                    <a href="#!"
-                                                        class="themes-color-change {{ isset($setting['color']) && $setting['color'] == 'theme-9' ? 'active_color' : '' }}"
-                                                        data-value="theme-9" onclick="check_theme('theme-9')"></a>
-                                                    <input type="radio" class="theme_color" name="color" value="theme-9"
-                                                        style="display: none;">
+                                                <a href="#!"
+                                                    class="{{ isset($setting['color']) && $setting['color'] == 'theme-9' ? 'active_color' : '' }}"
+                                                    data-value="theme-9" onclick="check_theme('theme-9')"></a>
+                                                <input type="radio" class="theme_color" name="color" value="theme-9"
+                                                    style="display: none;">
 
-                                                    <a href="#!"
-                                                        class="themes-color-change {{ isset($setting['color']) && $setting['color'] == 'theme-10' ? 'active_color' : '' }}"
-                                                        data-value="theme-10" onclick="check_theme('theme-10')"></a>
-                                                    <input type="radio" class="theme_color" name="color"
-                                                        value="theme-10" style="display: none;">
+                                                <a href="#!"
+                                                    class="{{ isset($setting['color']) && $setting['color'] == 'theme-10' ? 'active_color' : '' }}"
+                                                    data-value="theme-10" onclick="check_theme('theme-10')"></a>
+                                                <input type="radio" class="theme_color" name="color"
+                                                    value="theme-10" style="display: none;">
 
-                                                </div>
-                                                <div class="color-picker-wrp ">
-                                                    <input type="color" value="{{ $setting['color'] ?? '' }}" class="colorPicker {{ isset($flag) && $flag == 'true' ? 'active_color' : '' }}" name="custom_color" id="color-picker">
-                                                    <input type='hidden' name="color_flag" value = {{  isset($flag) && $flag == 'true' ? 'true' : 'false' }}>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1058,7 +1090,6 @@
                     </div>
                     <div class="card-body">
                         {{ Form::open(['route' => 'payment.settings', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
-                        @if (auth()->user()->type == 'super admin')
                         <div class="row mt-3">
                             <div class="form-group col-md-6">
                                 <label for="currency" class="form-label">{{ __('Currency') }} *</label>
@@ -1085,7 +1116,7 @@
                                 ]) !!}
                             </div>
                         </div>
-                        @endif
+
                         <div class="faq" id="accordionExample">
                             <div class="row">
                                 <div class="col-12">
@@ -1112,9 +1143,8 @@
                                                                     {{ __('Note') }}:
                                                                     {{ __('This detail will use for make checkout of product') }}.
                                                                 </small>
-
                                                                 <div class="form-check form-switch d-inline-block">
-                                                                    {!! Form::checkbox('is_cod_enabled', 'on', isset($setting['is_cod_enabled']) && $setting['is_cod_enabled'] === 'on', [
+                                                                    {!! Form::checkbox('is_cod_enabled', 'on', isset($setting['is_cod_enabled']) ?? $setting['is_cod_enabled'], [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_cod_enabled',
                                                                     ]) !!}
@@ -1124,7 +1154,7 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <div class="form-group">
-                                                                    <label for="cod_info"
+                                                                    <label for="Bank_transfer_info"
                                                                         class="form-label">{{ __('Description') }}</label>
                                                                     {!! Form::textarea('cod_info', empty($setting['cod_info']) ? 'Cash on Delivery' : $setting['cod_info'], [
                                                                         'class' => 'autogrow form-control',
@@ -1153,7 +1183,133 @@
                                                 </div>
                                             </div>
                                         @endif
+  <!-- Paypal -->
+  <div class="accordion-item card">
+    <h2 class="accordion-header" id="Paypal">
+        <button class="accordion-button" type="button"
+            data-bs-toggle="collapse" data-bs-target="#collapseone_Paypal"
+            aria-expanded="false" aria-controls="collapseone_Paypal">
+            <span class="d-flex align-items-center">
+                <i class="ti ti-credit-card me-2"></i>
+                {{ __('Paypal') }}</span>
+        </button>
+    </h2>
+    <div id="collapseone_Paypal" class="accordion-collapse collapse"
+        aria-labelledby="Paypal" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <div class="row mt-2">
+                <small class="">
+                    {{ __('Note') }}:
+                    {{ __('This detail will use for make checkout of product') }}.
+                </small>
+                <div class="col-md-6">
+                    <div class="col-lg-12">
+                        <label class="paypal-label col-form-label"
+                            for="paypal_mode">{{ __('Paypal Mode') }}</label>
+                        <br>
+                        <div class="d-flex flex-wrap">
+                            <div class="mr-2" style="margin-right: 15px;">
+                                <div class="border card p-3">
+                                    <div class="form-check">
+                                        <label class="form-check-labe text-dark">
+                                            <input type="radio"
+                                                name="paypal_mode"
+                                                value="sandbox"
+                                                class="form-check-input"
+                                                {{ !isset($setting['paypal_mode']) || $setting['paypal_mode'] == '' || $setting['paypal_mode'] == 'sandbox' ? 'checked="checked"' : '' }}>
+                                            {{ __('Sandbox') }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mr-2">
+                                <div class="border card p-3">
+                                    <div class="form-check">
+                                        <label class="form-check-labe text-dark">
+                                            <input type="radio"
+                                                name="paypal_mode"
+                                                value="live"
+                                                class="form-check-input"
+                                                {{ isset($setting['paypal_mode']) && $setting['paypal_mode'] == 'live' ? 'checked="checked"' : '' }}>
+                                            {{ __('Live') }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-end">
+                    {!! Form::hidden('is_paypal_enabled', 'off') !!}
+                    <div class="form-check form-switch d-inline-block">
+                        {!! Form::checkbox('is_paypal_enabled', 'on', isset($setting['is_paypal_enabled']) ?? $setting['is_paypal_enabled'], [
+                                'class' => 'form-check-input',
+                                'id' => 'is_paypal_enabled',
+                            ]) !!}
+                        <label class="custom-control-label form-control-label"
+                            for="is_paypal_enabled"></label>
+                    </div>
+                </div>
 
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="paypal_client_id"
+                            class="form-label">{{ __('Paypal Client Key') }}</label>
+                        <input class="form-control"
+                            placeholder="Paypal Client Key"
+                            name="paypal_client_id" type="text"
+                            value="{{ $setting['paypal_client_id'] ?? '' }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paypal_secret"
+                            class="form-label">{{ __('Paypal Secret Key') }}</label>
+                        <input class="form-control"
+                            placeholder="Paypal Secret Key"
+                            name="paypal_secret_key" type="text"
+                            value="{{ $setting['paypal_secret_key'] ?? '' }}">
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {!! Form::label('', __('Image'), ['class' => 'form-label']) !!}
+                        <label for="paypal_image"
+                            class="image-upload bg-primary pointer">
+                            <i class="ti ti-upload px-1"></i>
+                            {{ __('Choose file here') }}
+                        </label>
+                        <input type="file" name="paypal_image"
+                            id="paypal_image" class="d-none">
+
+                        <img alt="Image placeholder"
+                            src="{{ asset($setting['paypal_image'] ?? '') }}"
+                            class="img-center img-fluid"
+                            style="max-height: 100px;">
+                    </div>
+                </div>
+
+                @if (\Auth::user()->type == 'admin')
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="paypal_unfo"
+                                class="form-label">{{ __('Description') }}</label>
+                            {!! Form::textarea('paypal_unfo', $setting['paypal_unfo'] ?? '', [
+                                'class' => 'autogrow form-control',
+                                'rows' => '5',
+                                'id' => 'paypal_unfo',
+                            ]) !!}
+                        </div>
+                    </div>
+                @endif
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- 
                                         <!-- Bank Transfer -->
                                         <div class="accordion-item card">
                                             <h2 class="accordion-header" id="Bank_transfer">
@@ -1176,17 +1332,18 @@
                                                             </small>
                                                         </div>
                                                         <div class="col-md-6 text-end">
-                                                        <div class="form-check form-switch d-inline-block">
+                                                            <div class="form-check form-switch d-inline-block">
                                                                 {!! Form::checkbox(
                                                                     'is_bank_transfer_enabled',
                                                                     'on',
-                                                                    isset($setting['is_bank_transfer_enabled']) && $setting['is_bank_transfer_enabled'] === 'on',
+                                                                    isset($setting['is_bank_transfer_enabled']) ?? $setting['is_bank_transfer_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_bank_transfer_enabled',
                                                                     ],
                                                                 ) !!}
-                                                                <label class="custom-control-label form-control-label" for="is_bank_transfer_enabled">Bank Transfer Enabled</label>
+                                                                <label class="custom-control-label form-control-label"
+                                                                    for="is_bank_transfer_enabled"></label>
                                                             </div>
                                                         </div>
 
@@ -1254,7 +1411,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_stripe_enabled',
                                                                     'on',
-                                                                    isset($setting['is_stripe_enabled']) && $setting['is_stripe_enabled'] === 'on',
+                                                                    isset($setting['is_stripe_enabled']) ?? $setting['is_stripe_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_stripe_enabled',
@@ -1343,7 +1500,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_paystack_enabled',
                                                                     'on',
-                                                                    isset($setting['is_paystack_enabled']) && $setting['is_paystack_enabled'] === 'on',
+                                                                    isset($setting['is_paystack_enabled']) ?? $setting['is_paystack_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_paystack_enabled',
@@ -1433,7 +1590,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_razorpay_enabled',
                                                                     'on',
-                                                                    isset($setting['is_razorpay_enabled']) && $setting['is_razorpay_enabled'] === 'on',
+                                                                    isset($setting['is_razorpay_enabled']) ?? $setting['is_razorpay_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_razorpay_enabled',
@@ -1524,7 +1681,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_mercado_enabled',
                                                                     'on',
-                                                                    isset($setting['is_mercado_enabled']) && $setting['is_mercado_enabled'] === 'on',
+                                                                    isset($setting['is_mercado_enabled']) ?? $setting['is_mercado_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_mercado_enabled',
@@ -1643,7 +1800,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_skrill_enabled',
                                                                     'on',
-                                                                    isset($setting['is_skrill_enabled']) && $setting['is_skrill_enabled'] === 'on',
+                                                                    isset($setting['is_skrill_enabled']) ?? $setting['is_skrill_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_skrill_enabled',
@@ -1728,7 +1885,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_paymentwall_enabled',
                                                                     'on',
-                                                                    isset($setting['is_paymentwall_enabled']) && $setting['is_paymentwall_enabled'] === 'on',
+                                                                    isset($setting['is_paymentwall_enabled']) ?? $setting['is_paymentwall_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_paymentwall_enabled',
@@ -1793,131 +1950,7 @@
                                             </div>
                                         </div>
 
-                                        <!-- Paypal -->
-                                        <div class="accordion-item card">
-                                            <h2 class="accordion-header" id="Paypal">
-                                                <button class="accordion-button" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseone_Paypal"
-                                                    aria-expanded="false" aria-controls="collapseone_Paypal">
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="ti ti-credit-card me-2"></i>
-                                                        {{ __('Paypal') }}</span>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseone_Paypal" class="accordion-collapse collapse"
-                                                aria-labelledby="Paypal" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <div class="row mt-2">
-                                                        <small class="">
-                                                            {{ __('Note') }}:
-                                                            {{ __('This detail will use for make checkout of product') }}.
-                                                        </small>
-                                                        <div class="col-md-6">
-                                                            <div class="col-lg-12">
-                                                                <label class="paypal-label col-form-label"
-                                                                    for="paypal_mode">{{ __('Paypal Mode') }}</label>
-                                                                <br>
-                                                                <div class="d-flex flex-wrap">
-                                                                    <div class="mr-2" style="margin-right: 15px;">
-                                                                        <div class="border card p-3">
-                                                                            <div class="form-check">
-                                                                                <label class="form-check-labe text-dark">
-                                                                                    <input type="radio"
-                                                                                        name="paypal_mode"
-                                                                                        value="sandbox"
-                                                                                        class="form-check-input"
-                                                                                        {{ !isset($setting['paypal_mode']) || $setting['paypal_mode'] == '' || $setting['paypal_mode'] == 'sandbox' ? 'checked="checked"' : '' }}>
-                                                                                    {{ __('Sandbox') }}
-                                                                                </label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="mr-2">
-                                                                        <div class="border card p-3">
-                                                                            <div class="form-check">
-                                                                                <label class="form-check-labe text-dark">
-                                                                                    <input type="radio"
-                                                                                        name="paypal_mode"
-                                                                                        value="live"
-                                                                                        class="form-check-input"
-                                                                                        {{ isset($setting['paypal_mode']) && $setting['paypal_mode'] == 'live' ? 'checked="checked"' : '' }}>
-                                                                                    {{ __('Live') }}
-                                                                                </label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 text-end">
-                                                            {!! Form::hidden('is_paypal_enabled', 'off') !!}
-                                                            <div class="form-check form-switch d-inline-block">
-                                                                {!! Form::checkbox('is_paypal_enabled', 'on', isset($setting['is_paypal_enabled']) && $setting['is_paypal_enabled'] === 'on', [
-                                                                        'class' => 'form-check-input',
-                                                                        'id' => 'is_paypal_enabled',
-                                                                    ]) !!}
-                                                                <label class="custom-control-label form-control-label"
-                                                                    for="is_paypal_enabled"></label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label for="paypal_client_id"
-                                                                    class="form-label">{{ __('Paypal Client Key') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Paypal Client Key"
-                                                                    name="paypal_client_id" type="text"
-                                                                    value="{{ $setting['paypal_client_id'] ?? '' }}">
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label for="paypal_secret"
-                                                                    class="form-label">{{ __('Paypal Secret Key') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Paypal Secret Key"
-                                                                    name="paypal_secret_key" type="text"
-                                                                    value="{{ $setting['paypal_secret_key'] ?? '' }}">
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                {!! Form::label('', __('Image'), ['class' => 'form-label']) !!}
-                                                                <label for="paypal_image"
-                                                                    class="image-upload bg-primary pointer">
-                                                                    <i class="ti ti-upload px-1"></i>
-                                                                    {{ __('Choose file here') }}
-                                                                </label>
-                                                                <input type="file" name="paypal_image"
-                                                                    id="paypal_image" class="d-none">
-
-                                                                <img alt="Image placeholder"
-                                                                    src="{{ asset($setting['paypal_image'] ?? '') }}"
-                                                                    class="img-center img-fluid"
-                                                                    style="max-height: 100px;">
-                                                            </div>
-                                                        </div>
-
-                                                        @if (\Auth::user()->type == 'admin')
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="paypal_unfo"
-                                                                        class="form-label">{{ __('Description') }}</label>
-                                                                    {!! Form::textarea('paypal_unfo', $setting['paypal_unfo'] ?? '', [
-                                                                        'class' => 'autogrow form-control',
-                                                                        'rows' => '5',
-                                                                        'id' => 'paypal_unfo',
-                                                                    ]) !!}
-                                                                </div>
-                                                            </div>
-                                                        @endif
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                      
 
                                         <!-- flutterwave -->
                                         <div class="accordion-item card">
@@ -1946,7 +1979,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_flutterwave_enabled',
                                                                     'on',
-                                                                    isset($setting['is_flutterwave_enabled']) && $setting['is_flutterwave_enabled'] === 'on',
+                                                                    isset($setting['is_flutterwave_enabled']) ?? $setting['is_flutterwave_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_flutterwave_enabled',
@@ -2075,7 +2108,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_paytm_enabled',
                                                                     'on',
-                                                                    isset($setting['is_paytm_enabled']) && $setting['is_paytm_enabled'] === 'on',
+                                                                    isset($setting['is_paytm_enabled']) ?? $setting['is_paytm_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_paytm_enabled',
@@ -2177,7 +2210,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_mollie_enabled',
                                                                     'on',
-                                                                    isset($setting['is_mollie_enabled']) && $setting['is_mollie_enabled'] === 'on',
+                                                                    isset($setting['is_mollie_enabled']) ?? $setting['is_mollie_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_mollie_enabled',
@@ -2315,7 +2348,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_coingate_enabled',
                                                                     'on',
-                                                                    isset($setting['is_coingate_enabled']) && $setting['is_coingate_enabled'] === 'on',
+                                                                    isset($setting['is_coingate_enabled']) ?? $setting['is_coingate_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_coingate_enabled',
@@ -2401,7 +2434,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_sspay_enabled',
                                                                     'on',
-                                                                    isset($setting['is_sspay_enabled']) && $setting['is_sspay_enabled'] === 'on',
+                                                                    isset($setting['is_sspay_enabled']) ?? $setting['is_sspay_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_sspay_enabled',
@@ -2498,7 +2531,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_toyyibpay_enabled',
                                                                     'on',
-                                                                    isset($setting['is_toyyibpay_enabled']) && $setting['is_toyyibpay_enabled'] === 'on',
+                                                                    isset($setting['is_toyyibpay_enabled']) ?? $setting['is_toyyibpay_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_toyyibpay_enabled',
@@ -2595,7 +2628,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_paytabs_enabled',
                                                                     'on',
-                                                                    isset($setting['is_paytabs_enabled']) && $setting['is_paytabs_enabled'] === 'on',
+                                                                    isset($setting['is_paytabs_enabled']) ?? $setting['is_paytabs_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_paytabs_enabled',
@@ -2703,7 +2736,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_iyzipay_enabled',
                                                                     'on',
-                                                                    isset($setting['is_iyzipay_enabled']) && $setting['is_iyzipay_enabled'] === 'on',
+                                                                    isset($setting['is_iyzipay_enabled']) ?? $setting['is_iyzipay_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_iyzipay_enabled',
@@ -2861,7 +2894,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_payfast_enabled',
                                                                     'on',
-                                                                    isset($setting['is_payfast_enabled']) && $setting['is_payfast_enabled'] === 'on',
+                                                                    isset($setting['is_payfast_enabled']) ?? $setting['is_payfast_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_payfast_enabled',
@@ -2965,7 +2998,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_benefit_enabled',
                                                                     'on',
-                                                                    isset($setting['is_benefit_enabled']) && $setting['is_benefit_enabled'] === 'on',
+                                                                    isset($setting['is_benefit_enabled']) ?? $setting['is_benefit_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_benefit_enabled',
@@ -3055,7 +3088,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_cashfree_enabled',
                                                                     'on',
-                                                                    isset($setting['is_cashfree_enabled']) && $setting['is_cashfree_enabled'] === 'on',
+                                                                    isset($setting['is_cashfree_enabled']) ?? $setting['is_cashfree_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_cashfree_enabled',
@@ -3145,7 +3178,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_aamarpay_enabled',
                                                                     'on',
-                                                                    isset($setting['is_aamarpay_enabled']) && $setting['is_aamarpay_enabled'] === 'on',
+                                                                    isset($setting['is_aamarpay_enabled']) ?? $setting['is_aamarpay_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_aamarpay_enabled',
@@ -3243,7 +3276,7 @@
                                                                     {!! Form::checkbox(
                                                                         'is_telegram_enabled',
                                                                         'on',
-                                                                        isset($setting['is_telegram_enabled']) && $setting['is_telegram_enabled'] === 'on',
+                                                                        isset($setting['is_telegram_enabled']) ?? $setting['is_telegram_enabled'],
                                                                         [
                                                                             'class' => 'form-check-input',
                                                                             'id' => 'is_telegram_enabled',
@@ -3339,7 +3372,7 @@
                                                                     {!! Form::checkbox(
                                                                         'is_whatsapp_enabled',
                                                                         'on',
-                                                                        isset($setting['is_whatsapp_enabled']) && $setting['is_whatsapp_enabled'] === 'on',
+                                                                        isset($setting['is_whatsapp_enabled']) ?? $setting['is_whatsapp_enabled'],
                                                                         [
                                                                             'class' => 'form-check-input',
                                                                             'id' => 'is_whatsapp_enabled',
@@ -3422,7 +3455,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_paytr_enabled',
                                                                     'on',
-                                                                    isset($setting['is_paytr_enabled']) && $setting['is_paytr_enabled'] === 'on',
+                                                                    isset($setting['is_paytr_enabled']) ?? $setting['is_paytr_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_paytr_enabled',
@@ -3520,7 +3553,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_yookassa_enabled',
                                                                     'on',
-                                                                    isset($setting['is_yookassa_enabled']) && $setting['is_yookassa_enabled'] === 'on',
+                                                                    isset($setting['is_yookassa_enabled']) ?? $setting['is_yookassa_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_yookassa_enabled',
@@ -3610,7 +3643,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_Xendit_enabled',
                                                                     'on',
-                                                                    isset($setting['is_Xendit_enabled']) && $setting['is_Xendit_enabled'] === 'on',
+                                                                    isset($setting['is_Xendit_enabled']) ?? $setting['is_Xendit_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_Xendit_enabled',
@@ -3671,8 +3704,8 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         {{-- Midtrans --}}
+                                     {{--  
                                         <div class="accordion-item card">
                                             <h2 class="accordion-header" id="midtrans">
                                                 <button class="accordion-button" type="button"
@@ -3699,7 +3732,7 @@
                                                                 {!! Form::checkbox(
                                                                     'is_midtrans_enabled',
                                                                     'on',
-                                                                    isset($setting['is_midtrans_enabled']) && $setting['is_midtrans_enabled'] === 'on',
+                                                                    isset($setting['is_midtrans_enabled']) ?? $setting['is_midtrans_enabled'],
                                                                     [
                                                                         'class' => 'form-check-input',
                                                                         'id' => 'is_midtrans_enabled',
@@ -3752,1016 +3785,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        {{-- Nepalste --}}
-                                        <div class="accordion-item card">
-                                            <h2 class="accordion-header" id="nepalste">
-                                                <button class="accordion-button" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseone_nepalste"
-                                                    aria-expanded="false" aria-controls="collapseone_nepalste">
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="ti ti-credit-card me-2"></i>
-                                                        {{ __('Nepalste') }}</span>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseone_nepalste" class="accordion-collapse collapse"
-                                                aria-labelledby="nepalste" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <div class="row mt-2">
-                                                        <div class="col-md-6">
-                                                            <small class="">
-                                                                {{ __('Note') }}:
-                                                                {{ __('This detail will use for make checkout of product') }}.
-                                                            </small>
-                                                        </div>
-                                                        <div class="col-md-6 text-end">
-                                                            {!! Form::hidden('is_nepalste_enabled', 'off') !!}
-                                                            <div class="form-check form-switch d-inline-block">
-                                                                {!! Form::checkbox(
-                                                                    'is_nepalste_enabled',
-                                                                    'on',
-                                                                    isset($setting['is_nepalste_enabled']) && $setting['is_nepalste_enabled'] === 'on',
-                                                                    [
-                                                                        'class' => 'form-check-input',
-                                                                        'id' => 'is_nepalste_enabled',
-                                                                    ],
-                                                                ) !!}
-                                                                <label class="custom-control-label form-control-label"
-                                                                    for="is_nepalste_enabled"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label for="nepalste_public_key"
-                                                                    class="col-form-label">{{ __('Public Key') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Public Key"
-                                                                    name="nepalste_public_key" type="text"
-                                                                    value="{{ $setting['nepalste_public_key'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label for="nepalste_secret_key"
-                                                                    class="col-form-label">{{ __('Secret Key') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter secret Key"
-                                                                    name="nepalste_secret_key" type="text"
-                                                                    value="{{ $setting['nepalste_secret_key'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                {!! Form::label('', __('Image'), ['class' => 'form-label']) !!}
-                                                                <label for="nepalste_image"
-                                                                    class="image-upload bg-primary pointer">
-                                                                    <i class="ti ti-upload px-1"></i>
-                                                                    {{ __('Choose file here') }}
-                                                                </label>
-                                                                <input type="file" name="nepalste_image"
-                                                                    id="nepalste_image" class="d-none">
-
-                                                                <img src="{{ asset($setting['nepalste_image'] ?? '') }}"
-                                                                    class="img-center img-fluid"
-                                                                    style="max-height: 100px;">
-                                                            </div>
-                                                        </div>
-                                                        @if (\Auth::user()->type == 'admin')
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="nepalste_unfo"
-                                                                        class="form-label">{{ __('Description') }}</label>
-                                                                    {!! Form::textarea('nepalste_unfo', $setting['nepalste_unfo'] ?? '', [
-                                                                        'class' => 'autogrow form-control',
-                                                                        'rows' => '5',
-                                                                        'id' => 'nepalste_unfo',
-                                                                    ]) !!}
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {{-- PayHere --}}
-                                        <div class="accordion-item card">
-                                            <h2 class="accordion-header" id="payhere">
-                                                <button class="accordion-button" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseone_payhere"
-                                                    aria-expanded="false" aria-controls="collapseone_payhere">
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="ti ti-credit-card me-2"></i>
-                                                        {{ __('PayHere') }}</span>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseone_payhere" class="accordion-collapse collapse"
-                                                aria-labelledby="payhere" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <div class="row mt-2">
-                                                        <div class="col-md-6">
-                                                            <small class="">
-                                                                {{ __('Note') }}:
-                                                                {{ __('This detail will use for make checkout of product') }}.
-                                                            </small>
-                                                        </div>
-                                                        <div class="col-md-6 text-end">
-                                                            {!! Form::hidden('is_payhere_enabled', 'off') !!}
-                                                            <div class="form-check form-switch d-inline-block">
-                                                                {!! Form::checkbox(
-                                                                    'is_payhere_enabled',
-                                                                    'on',
-                                                                    isset($setting['is_payhere_enabled']) ?? $setting['is_payhere_enabled'],
-                                                                    [
-                                                                        'class' => 'form-check-input',
-                                                                        'id' => 'is_payhere_enabled',
-                                                                    ],
-                                                                ) !!}
-                                                                <label class="custom-control-label form-control-label"
-                                                                    for="is_payhere_enabled"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 pb-4">
-                                                            <label class="col-form-label"
-                                                                for="payhere_mode">{{ __('PayHere Mode') }}</label>
-                                                            <br>
-                                                            <div class="d-flex flex-wrap">
-                                                                <div class="mr-2" style="margin-right: 15px;">
-                                                                    <div class="border card p-3">
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-labe text-dark">
-                                                                                <input type="radio" name="payhere_mode"
-                                                                                    value="sandbox"
-                                                                                    class="form-check-input"
-                                                                                    checked="checked"
-                                                                                    {{ (isset($setting['payhere_mode']) && $setting['payhere_mode'] == '') || (isset($setting['payhere_mode']) && $setting['payhere_mode'] == 'sandbox') ? 'checked="checked"' : '' }}>
-                                                                                {{ __('Sandbox') }}
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="mr-2">
-                                                                    <div class="border card p-3">
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-labe text-dark">
-                                                                                <input type="radio" name="payhere_mode"
-                                                                                    value="live"
-                                                                                    class="form-check-input"
-                                                                                    {{ isset($setting['payhere_mode']) && $setting['payhere_mode'] == 'live' ? 'checked="checked"' : '' }}>
-                                                                                {{ __('Live') }}
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label for="payhere_merchant_id"
-                                                                    class="col-form-label">{{ __('Merchant ID') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Merchant ID"
-                                                                    name="payhere_merchant_id" type="text"
-                                                                    value="{{ $setting['payhere_merchant_id'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label for="payhere_merchant_secret"
-                                                                    class="col-form-label">{{ __('Merchant Secret') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Merchant Secret"
-                                                                    name="payhere_merchant_secret" type="text"
-                                                                    value="{{ $setting['payhere_merchant_secret'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label for="payhere_app_id"
-                                                                    class="col-form-label">{{ __('App ID') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter App ID"
-                                                                    name="payhere_app_id" type="text"
-                                                                    value="{{ $setting['payhere_app_id'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label for="payhere_app_secret"
-                                                                    class="col-form-label">{{ __('App Secret') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter App Secret"
-                                                                    name="payhere_app_secret" type="text"
-                                                                    value="{{ $setting['payhere_app_secret'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                {!! Form::label('', __('Image'), ['class' => 'form-label']) !!}
-                                                                <label for="payhere_image"
-                                                                    class="image-upload bg-primary pointer">
-                                                                    <i class="ti ti-upload px-1"></i>
-                                                                    {{ __('Choose file here') }}
-                                                                </label>
-                                                                <input type="file" name="payhere_image"
-                                                                    id="payhere_image" class="d-none">
-
-                                                                <img src="{{ asset($setting['payhere_image'] ?? '') }}"
-                                                                    class="img-center img-fluid"
-                                                                    style="max-height: 100px;">
-                                                            </div>
-                                                        </div>
-                                                        @if (\Auth::user()->type == 'admin')
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="payhere_unfo"
-                                                                        class="form-label">{{ __('Description') }}</label>
-                                                                    {!! Form::textarea('payhere_unfo', $setting['payhere_unfo'] ?? '', [
-                                                                        'class' => 'autogrow form-control',
-                                                                        'rows' => '5',
-                                                                        'id' => 'payhere_unfo',
-                                                                    ]) !!}
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {{-- Khalti --}}
-                                        <div class="accordion-item card">
-                                            <h2 class="accordion-header" id="khalti">
-                                                <button class="accordion-button" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseone_khalti"
-                                                    aria-expanded="false" aria-controls="collapseone_khalti">
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="ti ti-credit-card me-2"></i>
-                                                        {{ __('Khalti') }}</span>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseone_khalti" class="accordion-collapse collapse"
-                                                aria-labelledby="khalti" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <div class="row mt-2">
-                                                        <div class="col-md-6">
-                                                            <small class="">
-                                                                {{ __('Note') }}:
-                                                                {{ __('This detail will use for make checkout of product') }}.
-                                                            </small>
-                                                        </div>
-                                                        <div class="col-md-6 text-end">
-                                                            {!! Form::hidden('is_khalti_enabled', 'off') !!}
-                                                            <div class="form-check form-switch d-inline-block">
-                                                                {!! Form::checkbox(
-                                                                    'is_khalti_enabled',
-                                                                    'on',
-                                                                    isset($setting['is_khalti_enabled']) ?? $setting['is_khalti_enabled'],
-                                                                    [
-                                                                        'class' => 'form-check-input',
-                                                                        'id' => 'is_khalti_enabled',
-                                                                    ],
-                                                                ) !!}
-                                                                <label class="custom-control-label form-control-label"
-                                                                    for="is_khalti_enabled"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label for="khalti_public_key"
-                                                                    class="col-form-label">{{ __('Public Key') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Public Key"
-                                                                    name="khalti_public_key" type="text"
-                                                                    value="{{ $setting['khalti_public_key'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label for="khalti_secret_key"
-                                                                    class="col-form-label">{{ __('Secret Key') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter secret Key"
-                                                                    name="khalti_secret_key" type="text"
-                                                                    value="{{ $setting['khalti_secret_key'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                {!! Form::label('', __('Image'), ['class' => 'form-label']) !!}
-                                                                <label for="khalti_image"
-                                                                    class="image-upload bg-primary pointer">
-                                                                    <i class="ti ti-upload px-1"></i>
-                                                                    {{ __('Choose file here') }}
-                                                                </label>
-                                                                <input type="file" name="khalti_image"
-                                                                    id="khalti_image" class="d-none">
-
-                                                                <img src="{{ asset($setting['khalti_image'] ?? '') }}"
-                                                                    class="img-center img-fluid"
-                                                                    style="max-height: 100px;">
-                                                            </div>
-                                                        </div>
-                                                        @if (\Auth::user()->type == 'admin')
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="khalti_unfo"
-                                                                        class="form-label">{{ __('Description') }}</label>
-                                                                    {!! Form::textarea('khalti_unfo', $setting['khalti_unfo'] ?? '', [
-                                                                        'class' => 'autogrow form-control',
-                                                                        'rows' => '5',
-                                                                        'id' => 'khalti_unfo',
-                                                                    ]) !!}
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {{-- AuthorizeNet --}}
-                                        <div class="accordion-item card">
-                                            <h2 class="accordion-header" id="authorizenet">
-                                                <button class="accordion-button" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseone_authorizenet"
-                                                    aria-expanded="false" aria-controls="collapseone_authorizenet">
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="ti ti-credit-card me-2"></i>
-                                                        {{ __('AuthorizeNet') }}</span>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseone_authorizenet" class="accordion-collapse collapse"
-                                                aria-labelledby="authorizenet" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <div class="row mt-2">
-                                                        <div class="col-md-6">
-                                                            <small class="">
-                                                                {{ __('Note') }}:
-                                                                {{ __('This detail will use for make checkout of product') }}.
-                                                            </small>
-                                                        </div>
-                                                        <div class="col-md-6 text-end">
-                                                            {!! Form::hidden('is_authorizenet_enabled', 'off') !!}
-                                                            <div class="form-check form-switch d-inline-block">
-                                                                {!! Form::checkbox(
-                                                                    'is_authorizenet_enabled',
-                                                                    'on',
-                                                                    isset($setting['is_authorizenet_enabled']) ?? $setting['is_authorizenet_enabled'],
-                                                                    [
-                                                                        'class' => 'form-check-input',
-                                                                        'id' => 'is_authorizenet_enabled',
-                                                                    ],
-                                                                ) !!}
-                                                                <label class="custom-control-label form-control-label"
-                                                                    for="is_authorizenet_enabled"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 pb-4">
-                                                            <label class="col-form-label"
-                                                                for="authorizenet_mode">{{ __('AuthorizeNet Mode') }}</label>
-                                                            <br>
-                                                            <div class="d-flex flex-wrap">
-                                                                <div class="mr-2" style="margin-right: 15px;">
-                                                                    <div class="border card p-3">
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-labe text-dark">
-                                                                                <input type="radio" name="authorizenet_mode"
-                                                                                    value="sandbox"
-                                                                                    class="form-check-input"
-                                                                                    checked="checked"
-                                                                                    {{ (isset($setting['authorizenet_mode']) && $setting['authorizenet_mode'] == '') || (isset($setting['authorizenet_mode']) && $setting['authorizenet_mode'] == 'sandbox') ? 'checked="checked"' : '' }}>
-                                                                                {{ __('Sandbox') }}
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="mr-2">
-                                                                    <div class="border card p-3">
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-labe text-dark">
-                                                                                <input type="radio" name="authorizenet_mode"
-                                                                                    value="production"
-                                                                                    class="form-check-input"
-                                                                                    {{ isset($setting['authorizenet_mode']) && $setting['authorizenet_mode'] == 'production' ? 'checked="checked"' : '' }}>
-                                                                                {{ __('Production') }}
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label for="authorizenet_login_id"
-                                                                    class="col-form-label">{{ __('Merchant Login Id') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Merchant Login Id"
-                                                                    name="authorizenet_login_id" type="text"
-                                                                    value="{{ $setting['authorizenet_login_id'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label for="authorizenet_transaction_key"
-                                                                    class="col-form-label">{{ __('Merchant Transaction Key') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Merchant Transaction Key"
-                                                                    name="authorizenet_transaction_key" type="text"
-                                                                    value="{{ $setting['authorizenet_transaction_key'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                {!! Form::label('', __('Image'), ['class' => 'form-label']) !!}
-                                                                <label for="authorizenet_image"
-                                                                    class="image-upload bg-primary pointer">
-                                                                    <i class="ti ti-upload px-1"></i>
-                                                                    {{ __('Choose file here') }}
-                                                                </label>
-                                                                <input type="file" name="authorizenet_image"
-                                                                    id="authorizenet_image" class="d-none">
-
-                                                                <img src="{{ asset($setting['authorizenet_image'] ?? '') }}"
-                                                                    class="img-center img-fluid"
-                                                                    style="max-height: 100px;">
-                                                            </div>
-                                                        </div>
-                                                        @if (\Auth::user()->type == 'admin')
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="authorizenet_unfo"
-                                                                        class="form-label">{{ __('Description') }}</label>
-                                                                    {!! Form::textarea('authorizenet_unfo', $setting['authorizenet_unfo'] ?? '', [
-                                                                        'class' => 'autogrow form-control',
-                                                                        'rows' => '5',
-                                                                        'id' => 'authorizenet_unfo',
-                                                                    ]) !!}
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {{-- Tap --}}
-                                        <div class="accordion-item card">
-                                            <h2 class="accordion-header" id="tap">
-                                                <button class="accordion-button" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseone_tap"
-                                                    aria-expanded="false" aria-controls="collapseone_tap">
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="ti ti-credit-card me-2"></i>
-                                                        {{ __('Tap') }}</span>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseone_tap" class="accordion-collapse collapse"
-                                                aria-labelledby="tap" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <div class="row mt-2">
-                                                        <div class="col-md-6">
-                                                            <small class="">
-                                                                {{ __('Note') }}:
-                                                                {{ __('This detail will use for make checkout of product') }}.
-                                                            </small>
-                                                        </div>
-                                                        <div class="col-md-6 text-end">
-                                                            {!! Form::hidden('is_tap_enabled', 'off') !!}
-                                                            <div class="form-check form-switch d-inline-block">
-                                                                {!! Form::checkbox(
-                                                                    'is_tap_enabled',
-                                                                    'on',
-                                                                    isset($setting['is_tap_enabled']) ?? $setting['is_tap_enabled'],
-                                                                    [
-                                                                        'class' => 'form-check-input',
-                                                                        'id' => 'is_tap_enabled',
-                                                                    ],
-                                                                ) !!}
-                                                                <label class="custom-control-label form-control-label"
-                                                                    for="is_tap_enabled"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label for="tap_secret_key"
-                                                                    class="col-form-label">{{ __('Secret Key') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Secret Key"
-                                                                    name="tap_secret_key" type="text"
-                                                                    value="{{ $setting['tap_secret_key'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                {!! Form::label('', __('Image'), ['class' => 'form-label']) !!}
-                                                                <label for="tap_image"
-                                                                    class="image-upload bg-primary pointer">
-                                                                    <i class="ti ti-upload px-1"></i>
-                                                                    {{ __('Choose file here') }}
-                                                                </label>
-                                                                <input type="file" name="tap_image"
-                                                                    id="tap_image" class="d-none">
-
-                                                                <img src="{{ asset($setting['tap_image'] ?? '') }}"
-                                                                    class="img-center img-fluid"
-                                                                    style="max-height: 100px;">
-                                                            </div>
-                                                        </div>
-                                                        @if (\Auth::user()->type == 'admin')
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="tap_unfo"
-                                                                        class="form-label">{{ __('Description') }}</label>
-                                                                    {!! Form::textarea('tap_unfo', $setting['tap_unfo'] ?? '', [
-                                                                        'class' => 'autogrow form-control',
-                                                                        'rows' => '5',
-                                                                        'id' => 'tap_unfo',
-                                                                    ]) !!}
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {{-- PhonePe --}}
-                                        <div class="accordion-item card">
-                                            <h2 class="accordion-header" id="phonepe">
-                                                <button class="accordion-button" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseone_phonepe"
-                                                    aria-expanded="false" aria-controls="collapseone_phonepe">
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="ti ti-credit-card me-2"></i>
-                                                        {{ __('PhonePe') }}</span>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseone_phonepe" class="accordion-collapse collapse"
-                                                aria-labelledby="phonepe" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <div class="row mt-2">
-                                                        <div class="col-md-6">
-                                                            <small class="">
-                                                                {{ __('Note') }}:
-                                                                {{ __('This detail will use for make checkout of product') }}.
-                                                            </small>
-                                                        </div>
-                                                        <div class="col-md-6 text-end">
-                                                            {!! Form::hidden('is_phonepe_enabled', 'off') !!}
-                                                            <div class="form-check form-switch d-inline-block">
-                                                                {!! Form::checkbox(
-                                                                    'is_phonepe_enabled',
-                                                                    'on',
-                                                                    isset($setting['is_phonepe_enabled']) ?? $setting['is_phonepe_enabled'],
-                                                                    [
-                                                                        'class' => 'form-check-input',
-                                                                        'id' => 'is_phonepe_enabled',
-                                                                    ],
-                                                                ) !!}
-                                                                <label class="custom-control-label form-control-label"
-                                                                    for="is_phonepe_enabled"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 pb-4">
-                                                            <label class="col-form-label"
-                                                                for="phonepe_mode">{{ __('PhonePe Mode') }}</label>
-                                                            <br>
-                                                            <div class="d-flex flex-wrap">
-                                                                <div class="mr-2" style="margin-right: 15px;">
-                                                                    <div class="border card p-3">
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-labe text-dark">
-                                                                                <input type="radio" name="phonepe_mode"
-                                                                                    value="sandbox"
-                                                                                    class="form-check-input"
-                                                                                    checked="checked"
-                                                                                    {{ (isset($setting['phonepe_mode']) && $setting['phonepe_mode'] == '') || (isset($setting['phonepe_mode']) && $setting['phonepe_mode'] == 'sandbox') ? 'checked="checked"' : '' }}>
-                                                                                {{ __('Sandbox') }}
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="mr-2">
-                                                                    <div class="border card p-3">
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-labe text-dark">
-                                                                                <input type="radio" name="phonepe_mode"
-                                                                                    value="production"
-                                                                                    class="form-check-input"
-                                                                                    {{ isset($setting['phonepe_mode']) && $setting['phonepe_mode'] == 'production' ? 'checked="checked"' : '' }}>
-                                                                                {{ __('Production') }}
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="phonepe_merchant_key"
-                                                                    class="col-form-label">{{ __('Merchant ID') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Merchant ID"
-                                                                    name="phonepe_merchant_key" type="text"
-                                                                    value="{{ $setting['phonepe_merchant_key'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="phonepe_merchant_user_id"
-                                                                    class="col-form-label">{{ __('Merchant User ID') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Merchant User ID"
-                                                                    name="phonepe_merchant_user_id" type="text"
-                                                                    value="{{ $setting['phonepe_merchant_user_id'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label for="ayment"
-                                                                    class="col-form-label">{{ __('Salt Key') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Salt Key"
-                                                                    name="phonepe_salt_key" type="text"
-                                                                    value="{{ $setting['phonepe_salt_key'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                {!! Form::label('', __('Image'), ['class' => 'form-label']) !!}
-                                                                <label for="phonepe_image"
-                                                                    class="image-upload bg-primary pointer">
-                                                                    <i class="ti ti-upload px-1"></i>
-                                                                    {{ __('Choose file here') }}
-                                                                </label>
-                                                                <input type="file" name="phonepe_image"
-                                                                    id="phonepe_image" class="d-none">
-
-                                                                <img src="{{ asset($setting['phonepe_image'] ?? '') }}"
-                                                                    class="img-center img-fluid"
-                                                                    style="max-height: 100px;">
-                                                            </div>
-                                                        </div>
-                                                        @if (\Auth::user()->type == 'admin')
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="phonepe_unfo"
-                                                                        class="form-label">{{ __('Description') }}</label>
-                                                                    {!! Form::textarea('phonepe_unfo', $setting['phonepe_unfo'] ?? '', [
-                                                                        'class' => 'autogrow form-control',
-                                                                        'rows' => '5',
-                                                                        'id' => 'phonepe_unfo',
-                                                                    ]) !!}
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {{-- Paddle --}}
-                                        <div class="accordion-item card">
-                                            <h2 class="accordion-header" id="paddle">
-                                                <button class="accordion-button" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseone_paddle"
-                                                    aria-expanded="false" aria-controls="collapseone_paddle">
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="ti ti-credit-card me-2"></i>
-                                                        {{ __('Paddle') }}</span>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseone_paddle" class="accordion-collapse collapse"
-                                                aria-labelledby="paddle" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <div class="row mt-2">
-                                                        <div class="col-md-6">
-                                                            <small class="">
-                                                                {{ __('Note') }}:
-                                                                {{ __('This detail will use for make checkout of product') }}.
-                                                            </small>
-                                                        </div>
-                                                        <div class="col-md-6 text-end">
-                                                            {!! Form::hidden('is_paddle_enabled', 'off') !!}
-                                                            <div class="form-check form-switch d-inline-block">
-                                                                {!! Form::checkbox(
-                                                                    'is_paddle_enabled',
-                                                                    'on',
-                                                                    isset($setting['is_paddle_enabled']) ?? $setting['is_paddle_enabled'],
-                                                                    [
-                                                                        'class' => 'form-check-input',
-                                                                        'id' => 'is_paddle_enabled',
-                                                                    ],
-                                                                ) !!}
-                                                                <label class="custom-control-label form-control-label"
-                                                                    for="is_paddle_enabled"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 pb-4">
-                                                            <label class="col-form-label"
-                                                                for="paddle_mode">{{ __('Paddle Mode') }}</label>
-                                                            <br>
-                                                            <div class="d-flex flex-wrap">
-                                                                <div class="mr-2" style="margin-right: 15px;">
-                                                                    <div class="border card p-3">
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-labe text-dark">
-                                                                                <input type="radio" name="paddle_mode"
-                                                                                    value="sandbox"
-                                                                                    class="form-check-input"
-                                                                                    checked="checked"
-                                                                                    {{ (isset($setting['paddle_mode']) && $setting['paddle_mode'] == '') || (isset($setting['paddle_mode']) && $setting['paddle_mode'] == 'sandbox') ? 'checked="checked"' : '' }}>
-                                                                                {{ __('Sandbox') }}
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="mr-2">
-                                                                    <div class="border card p-3">
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-labe text-dark">
-                                                                                <input type="radio" name="paddle_mode"
-                                                                                    value="live"
-                                                                                    class="form-check-input"
-                                                                                    {{ isset($setting['paddle_mode']) && $setting['paddle_mode'] == 'live' ? 'checked="checked"' : '' }}>
-                                                                                {{ __('Live') }}
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="paddle_vendor_id"
-                                                                    class="col-form-label">{{ __('Vendor ID') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Vendor ID"
-                                                                    name="paddle_vendor_id" type="text"
-                                                                    value="{{ $setting['paddle_vendor_id'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="paddle_vendor_auth_code"
-                                                                    class="col-form-label">{{ __('Vendor Auth Code') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Vendor Auth Code"
-                                                                    name="paddle_vendor_auth_code" type="text"
-                                                                    value="{{ $setting['paddle_vendor_auth_code'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label for="ayment"
-                                                                    class="col-form-label">{{ __('Public Key') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Public Key"
-                                                                    name="paddle_public_key" type="text"
-                                                                    value="{{ $setting['paddle_public_key'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                {!! Form::label('', __('Image'), ['class' => 'form-label']) !!}
-                                                                <label for="paddle_image"
-                                                                    class="image-upload bg-primary pointer">
-                                                                    <i class="ti ti-upload px-1"></i>
-                                                                    {{ __('Choose file here') }}
-                                                                </label>
-                                                                <input type="file" name="paddle_image"
-                                                                    id="paddle_image" class="d-none">
-
-                                                                <img src="{{ asset($setting['paddle_image'] ?? '') }}"
-                                                                    class="img-center img-fluid"
-                                                                    style="max-height: 100px;">
-                                                            </div>
-                                                        </div>
-                                                        @if (\Auth::user()->type == 'admin')
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="paddle_unfo"
-                                                                        class="form-label">{{ __('Description') }}</label>
-                                                                    {!! Form::textarea('paddle_unfo', $setting['paddle_unfo'] ?? '', [
-                                                                        'class' => 'autogrow form-control',
-                                                                        'rows' => '5',
-                                                                        'id' => 'paddle_unfo',
-                                                                    ]) !!}
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {{-- Paiement Pro --}}
-                                        <div class="accordion-item card">
-                                            <h2 class="accordion-header" id="paiementpro">
-                                                <button class="accordion-button" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseone_paiementpro"
-                                                    aria-expanded="false" aria-controls="collapseone_paiementpro">
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="ti ti-credit-card me-2"></i>
-                                                        {{ __('Paiement Pro') }}</span>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseone_paiementpro" class="accordion-collapse collapse"
-                                                aria-labelledby="paiementpro" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <div class="row mt-2">
-                                                        <div class="col-md-6">
-                                                            <small class="">
-                                                                {{ __('Note') }}:
-                                                                {{ __('This detail will use for make checkout of product') }}.
-                                                            </small>
-                                                        </div>
-                                                        <div class="col-md-6 text-end">
-                                                            {!! Form::hidden('is_paiementpro_enabled', 'off') !!}
-                                                            <div class="form-check form-switch d-inline-block">
-                                                                {!! Form::checkbox(
-                                                                    'is_paiementpro_enabled',
-                                                                    'on',
-                                                                    isset($setting['is_paiementpro_enabled']) ?? $setting['is_paiementpro_enabled'],
-                                                                    [
-                                                                        'class' => 'form-check-input',
-                                                                        'id' => 'is_paiementpro_enabled',
-                                                                    ],
-                                                                ) !!}
-                                                                <label class="custom-control-label form-control-label"
-                                                                    for="is_paiementpro_enabled"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label for="ayment"
-                                                                    class="col-form-label">{{ __('Merchant Id') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Merchant Id"
-                                                                    name="paiementpro_merchant_id" type="text"
-                                                                    value="{{ $setting['paiementpro_merchant_id'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                {!! Form::label('', __('Image'), ['class' => 'form-label']) !!}
-                                                                <label for="paiementpro_image"
-                                                                    class="image-upload bg-primary pointer">
-                                                                    <i class="ti ti-upload px-1"></i>
-                                                                    {{ __('Choose file here') }}
-                                                                </label>
-                                                                <input type="file" name="paiementpro_image"
-                                                                    id="paiementpro_image" class="d-none">
-
-                                                                <img src="{{ asset($setting['paiementpro_image'] ?? '') }}"
-                                                                    class="img-center img-fluid"
-                                                                    style="max-height: 100px;">
-                                                            </div>
-                                                        </div>
-                                                        @if (\Auth::user()->type == 'admin')
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="paiementpro_unfo"
-                                                                        class="form-label">{{ __('Description') }}</label>
-                                                                    {!! Form::textarea('paiementpro_unfo', $setting['paiementpro_unfo'] ?? '', [
-                                                                        'class' => 'autogrow form-control',
-                                                                        'rows' => '5',
-                                                                        'id' => 'paiementpro_unfo',
-                                                                    ]) !!}
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {{-- FedPay --}}
-                                        <div class="accordion-item card">
-                                            <h2 class="accordion-header" id="fedpay">
-                                                <button class="accordion-button" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseone_fedpay"
-                                                    aria-expanded="false" aria-controls="collapseone_fedpay">
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="ti ti-credit-card me-2"></i>
-                                                        {{ __('FedPay') }}</span>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseone_fedpay" class="accordion-collapse collapse"
-                                                aria-labelledby="fedpay" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <div class="row mt-2">
-                                                        <div class="col-md-6">
-                                                            <small class="">
-                                                                {{ __('Note') }}:
-                                                                {{ __('This detail will use for make checkout of product') }}.
-                                                            </small>
-                                                        </div>
-                                                        <div class="col-md-6 text-end">
-                                                            {!! Form::hidden('is_fedpay_enabled', 'off') !!}
-                                                            <div class="form-check form-switch d-inline-block">
-                                                                {!! Form::checkbox(
-                                                                    'is_fedpay_enabled',
-                                                                    'on',
-                                                                    isset($setting['is_fedpay_enabled']) ?? $setting['is_fedpay_enabled'],
-                                                                    [
-                                                                        'class' => 'form-check-input',
-                                                                        'id' => 'is_fedpay_enabled',
-                                                                    ],
-                                                                ) !!}
-                                                                <label class="custom-control-label form-control-label"
-                                                                    for="is_fedpay_enabled"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 pb-4">
-                                                            <label class="col-form-label"
-                                                                for="fedpay_mode">{{ __('FedPay Mode') }}</label>
-                                                            <br>
-                                                            <div class="d-flex flex-wrap">
-                                                                <div class="mr-2" style="margin-right: 15px;">
-                                                                    <div class="border card p-3">
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-labe text-dark">
-                                                                                <input type="radio" name="fedpay_mode"
-                                                                                    value="sandbox"
-                                                                                    class="form-check-input"
-                                                                                    checked="checked"
-                                                                                    {{ (isset($setting['fedpay_mode']) && $setting['fedpay_mode'] == '') || (isset($setting['fedpay_mode']) && $setting['fedpay_mode'] == 'sandbox') ? 'checked="checked"' : '' }}>
-                                                                                {{ __('Sandbox') }}
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="mr-2">
-                                                                    <div class="border card p-3">
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-labe text-dark">
-                                                                                <input type="radio" name="fedpay_mode"
-                                                                                    value="live"
-                                                                                    class="form-check-input"
-                                                                                    {{ isset($setting['fedpay_mode']) && $setting['fedpay_mode'] == 'live' ? 'checked="checked"' : '' }}>
-                                                                                {{ __('Live') }}
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label for="ayment"
-                                                                    class="col-form-label">{{ __('Public Key') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Public Key"
-                                                                    name="fedpay_public_key" type="text"
-                                                                    value="{{ $setting['fedpay_public_key'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label for="ayment"
-                                                                    class="col-form-label">{{ __('Secret Key') }}</label>
-                                                                <input class="form-control"
-                                                                    placeholder="Enter Secret Key"
-                                                                    name="fedpay_secret_key" type="text"
-                                                                    value="{{ $setting['fedpay_secret_key'] ?? '' }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                {!! Form::label('', __('Image'), ['class' => 'form-label']) !!}
-                                                                <label for="fedpay_image"
-                                                                    class="image-upload bg-primary pointer">
-                                                                    <i class="ti ti-upload px-1"></i>
-                                                                    {{ __('Choose file here') }}
-                                                                </label>
-                                                                <input type="file" name="fedpay_image"
-                                                                    id="fedpay_image" class="d-none">
-
-                                                                <img src="{{ asset($setting['fedpay_image'] ?? '') }}"
-                                                                    class="img-center img-fluid"
-                                                                    style="max-height: 100px;">
-                                                            </div>
-                                                        </div>
-                                                        @if (\Auth::user()->type == 'admin')
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="fedpay_unfo"
-                                                                        class="form-label">{{ __('Description') }}</label>
-                                                                    {!! Form::textarea('fedpay_unfo', $setting['fedpay_unfo'] ?? '', [
-                                                                        'class' => 'autogrow form-control',
-                                                                        'rows' => '5',
-                                                                        'id' => 'fedpay_unfo',
-                                                                    ]) !!}
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </div>  --}}
                                     </div>
                                 </div>
                             </div>
@@ -4990,7 +4014,7 @@
             {{-- end cache setting --}}
 
             {{-- Webhook Setting --}}
-            @if (auth()->user()->type == 'admin')
+          {{--   @if (auth()->user()->type == 'admin')
                 <div id="Webhook_Setting">
                     <div class="card">
                         <div class="card-header">
@@ -5063,7 +4087,7 @@
                         </div>
                     </div>
                 </div>
-            @endif
+            @endif --}}
             {{-- End Webhook Setting --}}
 
             {{-- style customization --}}
@@ -5102,7 +4126,7 @@
             {{-- end style customization --}}
 
             {{-- Loyality setting --}}
-            @if (Auth::user()->type == 'admin')
+         {{--    @if (Auth::user()->type == 'admin')
                 <div id="Loyality_program">
                     <div class="card">
                         {{ Form::open(['route' => 'loyality.program.settings', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
@@ -5138,7 +4162,7 @@
                     </div>
                     {!! Form::close() !!}
                 </div>
-            @endif
+            @endif --}}
             {{-- end Loyality setting --}}
 
             {{-- whatsapp_Setting setting --}}
@@ -5153,7 +4177,7 @@
                             </div>
                             {!! Form::hidden('whatsapp_setting_enabled', 'off') !!}
                             <div class="form-check form-switch d-inline-block">
-                                {!! Form::checkbox('whatsapp_setting_enabled', 'on', isset($setting['whatsapp_setting_enabled']) && $setting['whatsapp_setting_enabled'] === 'on', [
+                                {!! Form::checkbox('whatsapp_setting_enabled', 'on', ($setting['whatsapp_setting_enabled'] ?? ''), [
                                     'class' => 'form-check-input',
                                     'id' => 'whatsapp_setting_enabled',
                                 ]) !!}
@@ -5280,7 +4304,7 @@
                             <h5> {{ __('Twilio Settings') }} </h5>
                             {!! Form::hidden('twilio_setting_enabled', 'off') !!}
                             <div class="form-check form-switch d-inline-block">
-                                {!! Form::checkbox('twilio_setting_enabled', 'on', isset($setting['twilio_setting_enabled']) && $setting['twilio_setting_enabled'] === 'on', [
+                                {!! Form::checkbox('twilio_setting_enabled', 'on', $setting['twilio_setting_enabled'] ?? '', [
                                     'class' => 'form-check-input',
                                     'id' => 'twilio_setting_enabled',
                                 ]) !!}
@@ -5334,7 +4358,7 @@
             @endif
 
             {{-- Tax Option Setting --}}
-            @if (auth()->user()->type == 'admin' && $plan && ($plan->enable_tax == 'on'))
+            @if (auth()->user()->type == 'admin' && $plan->enable_tax == 'on')
                 <div id="Tax_Option_Setting">
                     <div class="card">
                         {{ Form::open(['route' => 'tax-option.settings', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
@@ -5519,50 +4543,47 @@
                 <div id="Chatgpt_Setting">
                     <div class="card">
                         {{ Form::model($setting, ['route' => 'chatgpt.setting', 'method' => 'post']) }}
-                        @csrf
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-lg-10 col-md-10 col-sm-10">
-                                    <h5>{{ __('Chat GPT Key Settings') }}</h5>
-                                    <small class="text-muted">{{ __('Edit your key details') }}</small>
+                        {{-- <div class="card-header">
+                            <div class="row g-0">
+                                <div class="col-6">
+                                    <h5> {{ __('Chat GPT Key Settings') }} </h5>
+                                    <small>{{ __('Edit your key details') }}</small>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mt-2">
-                                <div class="form-group">
-                                    <div class="field_wrapper">
-                                        @if(isset($ai_key_settings) && count($ai_key_settings)>0)
-                                        <?php $i=1; ?>
-                                        @foreach($ai_key_settings as $key_data)
-                                        <div class="d-flex gap-1 mb-4">
-                                            <input type="text" class="form-control" name="api_key[]" value="{{$key_data->key}}"/>
-                                            @if($i==1)
-                                                <a href="javascript:void(0);" class="add_button btn btn-primary" title="Add field"><i class="ti ti-plus"></i></a>
-                                            @else
-                                            <a href="javascript:void(0);" class="remove_button btn btn-danger"><i class="ti ti-trash"></i></a>
-                                            @endif
+                        </div> --}}
+                        <div class="card-header">
+                            <div class="row gy-2">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <div class="row g-0">
+                                        <div class="col-6">
+                                            <h5> {{ __('Chat GPT Key Settings') }} </h5>
+                                            <small>{{ __('Edit your key details') }}</small>
                                         </div>
-                                        <?php $i++; ?>
-                                        @endforeach
-                                        @else
-                                        <div class="d-flex gap-1 mb-4">
-                                            <input type="text" class="form-control " name="api_key[]" value=""/>
-
-                                            <a href="javascript:void(0);" class="add_button btn btn-primary" title="Add field"><i class="ti ti-plus"></i></a>
-
-                                        </div>
-                                        @endif
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    {{ Form::text('chatgpt_key', null, ['class' => 'form-control', 'placeholder' => __('Enter Chatgpt Key Here')]) }}
+                                <div class="col-lg-4 col-md-4 col-sm-4 text-sm-end">
+                                    <div class="col switch-width">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" data-toggle="switchbutton" data-onstyle="primary"
+                                                value="on"name="is_chatgpt_enabled" id="is_chatgpt_enabled"
+                                                {{ !empty($setting['is_chatgpt_enabled']) && $setting['is_chatgpt_enabled'] == 'on' ? 'checked="checked"' : '' }}>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer text-end">
-                            <input class="btn btn-print-invoice  btn-primary m-r-10" type="submit" value="{{ __('Save Changes') }}">
+                        <div class="">
+                            <div class="row g-0">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        {{ Form::text('chatgpt_key', null, ['class' => 'form-control', 'placeholder' => __('Enter Chatgpt Key Here')]) }}
+                                    </div>
+                                    <div class="col-lg-12 text-end">
+                                        <input type="submit" value="{{ __('Save Changes') }}"
+                                            class="btn-submit btn btn-primary">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         {{ Form::close() }}
                     </div>
@@ -5770,7 +4791,7 @@
                     </div>
                 </div>
             @endif
-            @if (auth()->user()->type == 'admin')
+         {{--    @if (auth()->user()->type == 'admin')
                 <div id="Woocommerce_Setting">
                     <div class="card">
                         {{ Form::open(['route' => 'woocommerce.settings', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
@@ -5818,8 +4839,8 @@
                         {!! Form::close() !!}
                     </div>
                 </div>
-            @endif
-            @if (auth()->user()->type == 'admin')
+            @endif --}}
+         {{--    @if (auth()->user()->type == 'admin')
                 <div id="shopify_Setting">
                     <div class="card">
                         {{ Form::open(['route' => 'shopify.settings', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
@@ -5932,7 +4953,7 @@
                     </div>
                     {{ Form::close() }}
                 </div>
-            @endif
+            @endif --}}
 
             @if (auth()->user()->type == 'admin')
             <!--currency settings-->
@@ -6091,9 +5112,6 @@
                         {{ Form::close() }}
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-12">
-                    @stack('recentViewTabForm')
-                </div>
             </div>
             @endif
 
@@ -6109,7 +5127,7 @@
 
                 $.ajax({
                     url: "{{ route('get.country') }}",
-                    type: "POST",
+                    type: "GET",
                     success: function(result) {
                         $.each(result.data, function(key, value) {
 
@@ -6159,7 +5177,7 @@
 
                     $.ajax({
                         url: "{{ route('get.country') }}",
-                        type: "POST",
+                        type: "GET",
                         success: function(result) {
 
                             $.each(result.data, function(key, value) {
@@ -6339,31 +5357,7 @@
             }
         });
 
-        var emailSetting = $('#email_setting').val();
-        getEmailSettingFields(emailSetting);
         sendData();
-
-        var maxField = 100; //Input fields increment limitation
-        var addButton = $('.add_button'); //Add button selector
-        var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div class="d-flex gap-1 mb-4"><input type="text" class="form-control " name="api_key[]" value=""/><a href="javascript:void(0);" class="remove_button btn btn-danger"><i class="ti ti-trash"></i></a></div>'; //New input field html
-        var x = 1; //Initial field counter is 1
-
-        //Once add button is clicked
-        $(addButton).click(function(){
-            //Check maximum number of input fields
-            if(x < maxField){
-                x++; //Increment field counter
-                $(wrapper).append(fieldHTML); //Add field html
-            }
-        });
-
-        //Once remove button is clicked
-        $(wrapper).on('click', '.remove_button', function(e){
-            e.preventDefault();
-            $(this).parent('div').remove(); //Remove field html
-            x--; //Decrement field counter
-        });
     });
 
     $(document).on('submit', '#test_email', function(e) {
@@ -6441,86 +5435,7 @@
             }
         });
     }
-
-
-    $(document).on('change', '#email_setting', function() {
-        var emailSetting = $(this).val();
-        getEmailSettingFields(emailSetting);
-    });
-
-
-    $.fn.removeClassRegex = function(regex) {
-        return $(this).removeClass(function(index, classes) {
-            return classes.split(/\s+/).filter(function(c) {
-                return regex.test(c);
-            }).join(' ');
-        });
-    };
-
-    function getEmailSettingFields(emailSetting) {
-        $.ajax({
-                url: '{{ route('get.email.fields') }}',
-                type: 'POST',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "emailsetting": emailSetting,
-                },
-                success: function(data) {
-                    $('#getfields').empty();
-                    $('#getfields').append(data.html)
-                    $('.email').append(data.html)
-                },
-            });
-    }
-
-</script>
-
-<script>       
-
- $('.colorPicker').on('click', function(e) {
-            $('body').removeClass('custom-color');
-            if (/^theme-\d+$/) {
-                $('body').removeClassRegex(/^theme-\d+$/);
-            }
-            $('body').addClass('custom-color');
-            $('.themes-color-change').removeClass('active_color');
-            $(this).addClass('active_color');
-            const input = document.getElementById("color-picker");
-            setColor();
-            input.addEventListener("input", setColor);
-
-            function setColor() {
-                $(':root').css('--color-customColor', input.value);
-            }
-
-            $(`input[name='color_flag`).val('true');
-        });
-
-        $('.themes-color-change').on('click', function() {
-
-        $(`input[name='color_flag`).val('false');
-
-            var color_val = $(this).data('value');
-            $('body').removeClass('custom-color');
-            if(/^theme-\d+$/)
-            {
-                $('body').removeClassRegex(/^theme-\d+$/);                
-            }
-            $('body').addClass(color_val);
-            $('.theme-color').prop('checked', false);
-            $('.themes-color-change').removeClass('active_color');
-            $('.colorPicker').removeClass('active_color');
-            $(this).addClass('active_color');
-            $(`input[value=${color_val}]`).prop('checked', true);
-        });
-        
-        $.fn.removeClassRegex = function(regex) {
-    return $(this).removeClass(function(index, classes) {
-        return classes.split(/\s+/).filter(function(c) {
-            return regex.test(c);
-        }).join(' ');
-    });
-};
+    
 </script>
 @endpush
 

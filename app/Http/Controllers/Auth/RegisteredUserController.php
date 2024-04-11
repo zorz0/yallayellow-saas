@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Store;
 use App\Models\Plan;
+use App\Models\Setting;
+
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -245,6 +247,18 @@ class RegisteredUserController extends Controller
             $user->addRole($role_r);
 
             Auth::login($user);
+              $setting = new Setting();
+
+     
+        $setting->name = 'is_cod_enabled';
+        $setting->value = 'on';
+        $setting->created_by =  auth()->user()->id;
+        $setting->theme_id = APP_THEME();
+        $setting->store_id = $store->id;
+       
+        
+        // Save the record to the database
+        $setting->save();
             return redirect(RouteServiceProvider::HOME);
         }
     }

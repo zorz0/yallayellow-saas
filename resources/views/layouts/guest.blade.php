@@ -27,7 +27,7 @@
     if(($cust_theme_bg == '') || empty($cust_theme_bg)){
         $cust_theme_bg = 'on';
     }
-    // $SITE_RTL = \App\Models\Utility::GetValueByName('SITE_RTL',APP_THEME());
+    // $SITE_RTL = "on";
     $SITE_RTL = $setting['SITE_RTL'] ?? null;
     if(($SITE_RTL == '') || empty($SITE_RTL)){
         $SITE_RTL = 'off';
@@ -45,7 +45,7 @@
         }
     }
 
-    $lang = $setting['defult_language'] ?? null;
+    $lang = 'ar';
     if (empty($lang)) {
         $lang = app()->getLocale() ?? 'en';
     }
@@ -56,6 +56,7 @@
     if ($lang == 'ar' || $lang == 'he') {
         $SITE_RTL = 'on';
     }
+        $SITE_RTL = 'on';
 
     $displaylang = App\Models\Utility::languages();
 
@@ -78,12 +79,12 @@
 
     }
 
-    $footer_text = $setting['footer_text'] ??  (env('APP_NAME') ?? 'Ecommercego saas');
-
+    $footer_text = $setting['footer_text'] ??  (env('APP_NAME') ?? 'Yallah Yellow');
+app()->setLocale('ar');
 @endphp
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{isset($SITE_RTL) && $SITE_RTL == 'on'? 'rtl' : '' }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl">
 
 <head>
     <meta charset="utf-8">

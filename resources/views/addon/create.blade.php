@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('page-title', __('Add New Theme'))
+@section('page-title', __('إضافة سمة جديدة'))
 
 @section('action-button')
 
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('module.index') }}">{{ __('Add-on Manager') }}</a></li>    
-    <li class="breadcrumb-item">{{ __('Add New Theme') }}</li>
+    <li class="breadcrumb-item"><a href="{{ route('module.index') }}">{{ __('مدير الإضافات') }}</a></li>    
+    <li class="breadcrumb-item">{{ __('إضافة سمة جديدة') }}</li>
 @endsection
 
 <link rel="stylesheet" href="{{ asset('public/assets/css/plugins/dropzone.css') }}" type="text/css" />
@@ -22,7 +22,7 @@
                         <DIV id="dropzone">
                             <FORM class="dropzone needsclick" id="demo-upload">
                                 <DIV class="dz-message needsclick">
-                                    {{ __('Drop files here or click to upload and install.')}}<BR>
+                                    {{ __('قم بإفلات الملفات هنا أو انقر للتحميل والتثبيت.') }}<BR>
                                 </DIV>
                             </FORM>
                         </DIV>
@@ -38,7 +38,7 @@
     <script src="{{ asset('public/assets/js/plugins/dropzone.js') }}"></script>
 
     <script>
-        // Dropzone has been added as a global variable.
+        // تمت إضافة Dropzone كمتغير عالمي.
         Dropzone.autoDiscover = false;
         var dropzone = new Dropzone('#demo-upload', {
             thumbnailHeight: 120,

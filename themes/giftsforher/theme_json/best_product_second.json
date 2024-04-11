@@ -1,0 +1,17 @@
+{
+    "section_name": "Best - Product Second",
+    "section_slug": "best_product_second",
+    "unique_section_slug": "best_product_second",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section": {
+        "button": {
+            "lable": "Modern Product Button",
+            "slug": "best_product_second_button",
+            "text": "Show More Product",
+            "type": "button",
+            "placeholder": "Please enter here.."
+        }
+    }
+}

@@ -1,18 +1,29 @@
 @php
+    // الحصول على إعدادات المدير
     $adminSetting = getSuperAdminAllSetting();
+
+    // تكوين إعدادات كابتشا
     config([
         'captcha.secret' => $adminSetting['NOCAPTCHA_SECRET'] ?? '',
         'captcha.sitekey' => $adminSetting['NOCAPTCHA_SITEKEY'] ?? '',
         'options' => [
-            'timeout' => 30,
+            'timeout' => 30, // وقت المهلة
         ],
     ]);
+
+    // تعيين اللغة الافتراضية للتطبيق إلى العربية
+    app()->setLocale('ar');
 @endphp
 
+{{-- استدعاء تخطيط الضيف من Blade --}}
 @extends('layouts.guest')
+
+{{-- تعيين عنوان الصفحة --}}
 @section('page-title')
-    {{ __('Login') }}
+    {{ __('Login') }} {{-- تسجيل الدخول --}}
 @endsection
+
+{{-- تطبيق الوضع الداكن إذا تم تفعيله في الإعدادات --}}
 @if ($adminSetting['cust_darklayout'] == 'on')
     <style>
         .g-recaptcha {
@@ -20,108 +31,71 @@
         }
     </style>
 @endif
-<!-- Session Status -->
-{{-- <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form> --}}
+{{-- بداية قسم المحتوى --}}
 @section('content')
     <div class="">
-        <h2 class="mb-3 f-w-600">{{ __('Login') }}</h2>
+        <h2 class="mb-3 f-w-600 text-right">{{ __('Login') }}</h2> {{-- تسجيل الدخول --}}
     </div>
     <div class="">
-        <!-- Session Status -->
+        {{-- عرض حالة الجلسة --}}
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
-        <!-- Validation Errors -->
+        {{-- عرض أخطاء التحقق --}}
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <div style="text-align: right;">
+            {{-- استمارة تسجيل الدخول --}}
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <div class="form-group mb-3">
-                <label class="form-label">{{ __('Email') }}</label>
-                <input id="email" class="form-control" type="email" name="email" :value="old('email')" required
-                    autofocus />
-            </div>
-            <div class="form-group mb-3">
-                <label class="form-label">{{ __('Password') }}</label>
-                <input id="password" class="form-control" type="password" name="password" required
-                    autocomplete="current-password" />
-            </div>
-
-            <div class="my-1">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-            </div>
-
-            @if (isset($adminSetting['RECAPTCHA_MODULE']) && $adminSetting['RECAPTCHA_MODULE'] == 'yes')
-                <div class="form-group col-lg-12 col-md-12 mt-3">
-                    {!! NoCaptcha::display() !!}
-                    @error('g-recaptcha-response')
-                        <span class="error small text-danger" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                {{-- حقل البريد الإلكتروني --}}
+                <div class="form-group mb-3">
+                    <label class="form-label">{{ __('Email') }}</label>
+                    <input id="email" class="form-control" type="email" name="email" :value="old('email')" required autofocus />
                 </div>
-            @endif
 
-            <div class="d-grid">
-                {{-- {!! Form::hidden('type', 'admin') !!} --}}
-                <button class="btn btn-primary btn-block mt-2"> {{ __('Login') }} </button>
-            </div>
+                {{-- حقل كلمة المرور --}}
+                <div class="form-group mb-3">
+                    <label class="form-label">{{ __('Password') }}</label>
+                    <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" />
+                </div>
 
-            <p class="my-4 text-center">{{ __("Don't have an account?") }}
-                {{-- @if ($adminSettings['SIGNUP'] == 'on') --}}
-                <a href="{{ route('register') }}" class="my-4 text-primary">{{ __('Register') }}</a>
-                {{-- @endif --}}
-            </p>
-        </form>
+                {{-- رابط نسيان كلمة المرور --}}
+                <div class="my-1">
+                    @if (Route::has('password.request'))
+                        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                            {{ __('Forgot your password?') }}
+                        </a>
+                    @endif
+                </div>
+
+                {{-- إدراج كابتشا إذا تم تفعيل الوحدة --}}
+                @if (isset($adminSetting['RECAPTCHA_MODULE']) && $adminSetting['RECAPTCHA_MODULE'] == 'yes')
+                    <div class="form-group col-lg-12 col-md-12 mt-3">
+                        {!! NoCaptcha::display() !!}
+                        @error('g-recaptcha-response')
+                            <span class="error small text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                @endif
+
+                {{-- زر تسجيل الدخول --}}
+                <div class="d-grid">
+                    <button class="btn btn-primary btn-block mt-2"> {{ __('Login') }} </button>
+                </div>
+
+                {{-- رابط التسجيل --}}
+                <p class="my-4 text-center">{{ __("Don't have an account?") }}
+                    <a href="{{ route('register') }}" class="my-4 text-primary">{{ __('Register') }}</a>
+                </p>
+            </form>
+        </div>
     </div>
 @endsection
 
+{{-- تحميل جافاسكريبت كابتشا إذا تم تفعيل الوحدة --}}
 @if (isset($adminSetting['RECAPTCHA_MODULE']) && $adminSetting['RECAPTCHA_MODULE'] == 'yes')
     {!! NoCaptcha::renderJs() !!}
 @endif

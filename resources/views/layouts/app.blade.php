@@ -16,7 +16,7 @@
         $setting['cust_theme_bg'] = 'on';
     }
 
-    $SITE_RTL = \App\Models\Utility::GetValueByName('SITE_RTL', $theme_name);
+    $SITE_RTL = 'on';
     if($SITE_RTL == ''){
         $setting['SITE_RTL'] = 'off';
     }
@@ -46,6 +46,8 @@
     if (isset($setting['currantLang']) && ($setting['currantLang'] == 'ar' || $setting['currantLang'] == 'he')) {
         $setting['SITE_RTL'] = 'on';
     }
+    $setting['SITE_RTL'] = 'on';
+    app()->setLocale('ar');
 
 @endphp
 

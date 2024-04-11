@@ -30,20 +30,25 @@ use Illuminate\Support\Facades\Session;
 use App\Models\AddOnManager;
 
 if(!function_exists('getMenu')){
-    function getMenu(){
+   function getMenu(){
         $user = auth()->user();
-        $role = $user->type ?? null;
+        $role = $user->roles()->first();
         $menu = new \App\Classes\Menu($user);
-        if($role && $role == 'super admin'){
+        if($role->name == 'super admin'){
             event(new \App\Events\SuperAdminMenuEvent($menu));
         }else{
             event(new \App\Events\CompanyMenuEvent($menu));
+            
         }
-        // $dashboardItem = collect($menu->menu)->first(function ($item) {
-        //     return $item['parent'] === 'dashboard';
-        // });
-        // dd($dashboardItem['route']);
-        return generateMenu($menu->menu,null);
+        $filterFunction = function($item) {
+            return $item['title'] !== 'WooCommerce' && $item['title'] != 'Shopify' && $item['title'] != 'ووكومرس' && $item['title'] != 'شوبيفي';
+        };
+        
+        // Apply the filter function
+        $filteredMenu = array_filter($menu->menu, $filterFunction);
+        
+        // Call generateMenu function with the filtered menu
+        return generateMenu($filteredMenu, null);
     }
 }
 

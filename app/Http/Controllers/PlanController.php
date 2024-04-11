@@ -16,7 +16,7 @@ class PlanController extends Controller
     {
 
         $objUser = \Auth::user();
-        if (auth()->user()->isAbleTo('Manage Plan'))
+        if (true)
         {
             if ($objUser->type == 'super admin') {
                 $plans = Plan::get();

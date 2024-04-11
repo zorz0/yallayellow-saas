@@ -3,49 +3,49 @@
 @if (isset(auth()->user()->currentPlan) && auth()->user()->currentPlan->enable_chatgpt == 'on')
 <div class="d-flex justify-content-end mb-1">
     <a href="#" class="btn btn-primary me-2 ai-btn" data-size="lg" data-ajax-popup-over="true" data-url="{{ route('generate',['blog']) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Generate') }}" data-title="{{ __('Generate Content With AI') }}">
-        <i class="fas fa-robot"></i> {{ __('Generate with AI') }}
+        <i class="fas fa-robot"></i> {{ __('توليد بواسطة الذكاء الاصطناعي') }}
     </a>
 </div>
 @endif
 
 <div class="row">
     <div class="form-group col-md-12">
-        {!! Form::label('', __('Title'), ['class' => 'form-label']) !!}
+        {!! Form::label('', __('العنوان'), ['class' => 'form-label']) !!}
         {!! Form::text('title', null, ['class' => 'form-control']) !!}
     </div>
     <div class="form-group col-md-12">
-        {!! Form::label('', __('Short Description'), ['class' => 'form-label']) !!}
+        {!! Form::label('', __('الوصف المختصر'), ['class' => 'form-label']) !!}
         {!! Form::text('short_description', null, ['class' => 'form-control']) !!}
     </div>
     <div class="form-group col-md-12">
-        {!! Form::label('', __('Content'), ['class' => 'form-label']) !!}
+        {!! Form::label('', __('المحتوى'), ['class' => 'form-label']) !!}
         <div class="form-group mt-3">
             <textarea class="pc-tinymce-2" name="content" id="content" rows="8"></textarea>
         </div>
     </div>
     <div class="form-group  col-md-6">
-        {!! Form::label('', __('Category'), ['class' => 'form-label']) !!}
+        {!! Form::label('', __('التصنيف'), ['class' => 'form-label']) !!}
         {!! Form::select('category_id', $blogCategoryList, null, [
             'class' => 'form-control select category',
             'data-role' => 'tagsinput',
             'id' => 'category_id',
             'name' => 'category_id',
-            'placeholder' => 'Select Option',
+            'placeholder' => 'اختر الخيار',
         ]) !!}
     </div>
 
     <div class="form-group col-md-5">
-        {!! Form::label('', __('Cover Image'), ['class' => 'form-label']) !!}
+        {!! Form::label('', __('صورة الغلاف'), ['class' => 'form-label']) !!}
         <label for="upload_cover_image" class="image-upload bg-primary pointer w-100">
-            <i class="ti ti-upload px-1"></i> {{ __('Choose file here') }}
+            <i class="ti ti-upload px-1"></i> {{ __('اختر الملف هنا') }}
         </label>
         <input type="file" name="cover_image" id="upload_cover_image" class="d-none">
     </div>
 </div>
 
 <div class="modal-footer pb-0">
-    <input type="button" value="Cancel" class="btn btn-light" data-bs-dismiss="modal">
-    <input type="submit" value="Create" class="btn btn-primary">
+    <input type="button" value="إلغاء" class="btn btn-light" data-bs-dismiss="modal">
+    <input type="submit" value="إنشاء" class="btn btn-primary">
 </div>
 </div>
 {!! Form::close() !!}
@@ -124,5 +124,3 @@
         }
     </style>
 @endpush
-
-

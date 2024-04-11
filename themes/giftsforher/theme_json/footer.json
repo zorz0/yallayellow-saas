@@ -1,0 +1,76 @@
+{
+    "section_name": "Footer - Section",
+    "section_slug": "footer",
+    "unique_section_slug": "footer",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "sub_title":{
+            "lable" : "Copy Right Title",
+            "slug" :  "footer_sub_title",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "description":{
+            "lable" : "Footer Section Description",
+            "slug" :  "footer_description",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "footer_link":{
+            "lable" : "Footer Links",
+            "slug" :  "footer_links",
+            "text" : "Footer Links",
+            "type" : "array",
+            "loop_number" : 4,
+            "social_link":["https://www.youtube.com/","https://www.youtube.com/","https://www.youtube.com/","https://www.youtube.com/"],
+            "social_icon":[
+                {
+                    "text":"themes/giftsforher/assets/img/youtube.svg",
+                    "image":"themes/giftsforher/assets/img/youtube.svg"
+                },{
+                    "text":"themes/giftsforher/assets/img/youtube.svg",
+                    "image":"themes/giftsforher/assets/img/youtube.svg"
+                },{
+                    "text":"themes/giftsforher/assets/img/youtube.svg",
+                    "image":"themes/giftsforher/assets/img/youtube.svg"
+                },{
+                    "text":"themes/giftsforher/assets/img/youtube.svg",
+                    "image":"themes/giftsforher/assets/img/youtube.svg"
+                }
+            ]
+        },
+        "newsletter_title":{
+            "lable" : "Footer Newsletter Title",
+            "slug" :  "footer_newsletter_title",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "newsletter_description":{
+            "lable" : "Footer Newsletter Description",
+            "slug" :  "footer_newsletter_description",
+            "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        },
+        "footer_menu_type": {
+            "lable" : "Footer Menu Type",
+            "slug" :  "footer_menu_type",
+            "text" : "footer_menu_bar",
+            "type" : "array",
+            "loop_number" : 2,
+            "footer_menu_ids":[]
+        },
+        "copy_right":{
+            "lable" : "Footer Section Copyright",
+            "slug" :  "footer_copyright",
+            "text" : "© 2023, Giftsforher. All rights reserved",
+            "type" : "textarea",
+            "placeholder" : "Please enter here.."
+        }
+    }
+}

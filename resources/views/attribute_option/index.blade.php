@@ -1,23 +1,25 @@
 @extends('layouts.app')
 
-@section('page-title', __('Attribute-Option'))
+@section('page-title', __('خيارات السمات'))
 
 @section('action-button')
 {{-- @permission('Create Attributes Option') --}}
 <div class=" text-end d-flex all-button-box justify-content-md-end justify-content-center">
     <a href="#" class="btn btn-sm btn-primary add_attribute" data-ajax-popup="true" data-size="md"
-        data-title="{{ __("Add Attribute Option") }}"
+        data-title="{{ __("إضافة خيار السمة") }}"
         data-url="{{ route('product-attribute-option.create',$attribute->id) }}"
-        data-toggle="tooltip" title="{{ __('Create Attribute') }}">
+        data-toggle="tooltip" title="{{ __('إنشاء سمة') }}">
         <i class="ti ti-plus"></i>
     </a>
 </div>
 {{-- @endpermission --}}
 @endsection
+
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('product-attributes.index') }}">{{ __('Attribute') }}</a></li>
-    <li class="breadcrumb-item">{{ __('Attribute-options') }}</li>
+    <li class="breadcrumb-item"><a href="{{ route('product-attributes.index') }}">{{ __('السمات') }}</a></li>
+    <li class="breadcrumb-item">{{ __('خيارات السمات') }}</li>
 @endsection
+
 @section('content')
 <div class="row justify-content-center">
     <div class="col-sm-12 col-md-10 col-xxl-8">
@@ -39,14 +41,14 @@
                                             <button class="btn btn-sm btn-primary me-2"
                                                 data-url="{{ route('product-attribute-option.edit', $option->id) }}"
                                                 data-size="md" data-ajax-popup="true"
-                                                data-title="{{ __('Edit Attribute') }}" >
-                                                <i class="ti ti-pencil py-1" data-bs-toggle="tooltip" title="edit"></i>
+                                                data-title="{{ __('تحرير السمة') }}" >
+                                                <i class="ti ti-pencil py-1" data-bs-toggle="tooltip" title="تحرير"></i>
                                             </button>
                                             {{-- @endpermission --}}
                                             {{-- @permission('Delete Attributes Option') --}}
                                             {!! Form::open(['method' => 'DELETE', 'route' => ['product-attribute-option.destroy', $option->id], 'class' => 'd-inline']) !!}
                                                 <button type="button" class="btn btn-sm btn-danger show_confirm">
-                                                    <i class="ti ti-trash text-white py-1" data-bs-toggle="tooltip" title="Delete"></i>
+                                                    <i class="ti ti-trash text-white py-1" data-bs-toggle="tooltip" title="حذف"></i>
                                                 </button>
                                             {!! Form::close() !!}
                                             {{-- @endpermission --}}
@@ -58,13 +60,11 @@
                         @php($i++)
                     @endforeach
                 </div>
-                <p class=" mt-4"><strong>{{__('Note')}} : </strong><b>{{__('You can easily change attribute option of attribute using drag & drop.')}}</b></p>
+                <p class=" mt-4"><strong>{{__('ملاحظة')}} : </strong><b>{{__('يمكنك تغيير خيار السمة بسهولة باستخدام السحب والإفلات.')}}</b></p>
             </div>
         </div>
     </div>
 </div>
-
-
 @endsection
 
 @push('custom-script')
@@ -88,7 +88,7 @@
                         },
                         error: function (data) {
                             data = data.responseJSON;
-                            show_toastr('Error', data.error, 'error')
+                            show_toastr('خطأ', data.error, 'error')
                         }
 
                     })

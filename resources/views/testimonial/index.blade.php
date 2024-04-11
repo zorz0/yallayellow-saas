@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('page-title', __('Testimonial'))
+@section('page-title', __('شهادة'))
 
 @section('action-button')
 {{-- @permission('Create Testimonial') --}}
-    <div class=" text-end d-flex all-button-box justify-content-md-end justify-content-center">
-        <a href="#" class="btn btn-sm btn-primary" data-ajax-popup="true" data-size="md" data-title="Add Testimonial"
-            data-url="{{ route('testimonial.create') }}" data-toggle="tooltip" title="{{ __('Create Testimonial') }}">
+    <div class="text-end d-flex all-button-box justify-content-md-end justify-content-center">
+        <a href="#" class="btn btn-sm btn-primary" data-ajax-popup="true" data-size="md" data-title="إضافة شهادة"
+            data-url="{{ route('testimonial.create') }}" data-toggle="tooltip" title="{{ __('إنشاء شهادة') }}">
             <i class="ti ti-plus"></i>
         </a>
     </div>
@@ -14,13 +14,13 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item">{{ __('Testimonial') }}</li>
+    <li class="breadcrumb-item">{{ __('شهادة') }}</li>
 @endsection
 
 @section('content')
-    <!-- [ Main Content ] start -->
+    <!-- [ المحتوى الرئيسي ] يبدأ -->
     <div class="row">
-        <!-- [ basic-table ] start -->
+        <!-- [ جدول بسيط ] يبدأ -->
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header card-body table-border-style">
@@ -29,18 +29,17 @@
                         <table class="table dataTable">
                             <thead>
                                 <tr>
-                                    <th>{{ __('MainCategory') }}</th>
-                                    <th>{{ __('SubCategory') }}</th>
-                                    <th>{{ __('Product') }}</th>
-                                    <th>{{ __('Rating') }}</th>
-                                    <th>{{ __('Testimonial') }}</th>
-                                    <th class="text-end">{{ __('Action') }}</th>
+                                    <th>{{ __('الفئة الرئيسية') }}</th>
+                                    <th>{{ __('الفئة الفرعية') }}</th>
+                                    <th>{{ __('المنتج') }}</th>
+                                    <th>{{ __('التقييم') }}</th>
+                                    <th>{{ __('شهادة') }}</th>
+                                    <th class="text-end">{{ __('الإجراء') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($testimonials as $testimonial)
                                     <tr>
-
                                         <td>{{ !empty($testimonial->MainCategoryData) ? $testimonial->MainCategoryData->name : '' }}</td>
                                         <td>{{ !empty($testimonial->SubCategoryData) ? $testimonial->SubCategoryData->name : '' }}</td>
                                         <td>{{ !empty($testimonial->ProductData) ? $testimonial->ProductData->name : '' }}</td>
@@ -54,15 +53,15 @@
                                             {{-- @permission('Edit Testimonial') --}}
                                             <button class="btn btn-sm btn-primary me-2"
                                                 data-url="{{ route('testimonial.edit', $testimonial->id) }}" data-size="md"
-                                                data-ajax-popup="true" data-title="{{ __('Edit Testimonial') }}">
-                                                <i class="ti ti-pencil py-1" data-bs-toggle="tooltip" title="edit"></i>
+                                                data-ajax-popup="true" data-title="{{ __('تعديل شهادة') }}">
+                                                <i class="ti ti-pencil py-1" data-bs-toggle="tooltip" title="تعديل"></i>
                                             </button>
                                             {{-- @endpermission --}}
                                             {{-- @permission('Delete Testimonial') --}}
                                             {!! Form::open(['method' => 'DELETE', 'route' => ['testimonial.destroy', $testimonial->id], 'class' => 'd-inline']) !!}
                                             <button type="button" class="btn btn-sm btn-danger show_confirm">
                                                 <i class="ti ti-trash text-white py-1" data-bs-toggle="tooltip"
-                                                    title="delete"></i>
+                                                    title="حذف"></i>
                                             </button>
                                             {!! Form::close() !!}
                                             {{-- @endpermission --}}
@@ -74,64 +73,57 @@
                     </div>
                 </div>
             </div>
-            <!-- [ basic-table ] end -->
+            <!-- [ جدول بسيط ] ينتهي -->
         </div>
     </div>
-        <!-- [ Main Content ] end -->
-    @endsection
+    <!-- [ المحتوى الرئيسي ] ينتهي -->
+@endsection
 
-    @push('custom-script')
-        <script>
-            $(document).on('change', '#maincategory_id', function(e) {
-                var id = $(this).val();
-                var val = $('.subcategory_id_div').attr('data_val');
-                var data = {
-                    id: id,
-                    val: val
-
+@push('custom-script')
+    <script>
+        $(document).on('change', '#maincategory_id', function(e) {
+            var id = $(this).val();
+            var val = $('.subcategory_id_div').attr('data_val');
+            var data = {
+                id: id,
+                val: val
+            }
+            $.ajax({
+                url: '{{ route('get.subcategory') }}',
+                method: 'POST',
+                data: data,
+                context: this,
+                success: function(response) {
+                    $.each(response, function (key, value) {
+                        $("#subcategory-dropdown").append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                    var val = $('.subcategory_id_div').attr('data_val', 0);
+                    $('.subcategory_id_div span').html(response.html);
+                    comman_function();
                 }
-                $.ajax({
-                    url: '{{ route('get.subcategory') }}',
-                    method: 'POST',
-                    data: data,
-                    context: this,
-                    success: function(response) {
-                        $.each(response, function (key, value) {
-                            $("#subcategory-dropdown").append('<option value="' + value
-                                .id + '">' + value.name + '</option>');
-                        });
-                        var val = $('.subcategory_id_div').attr('data_val', 0);
-                        $('.subcategory_id_div span').html(response.html);
-                        comman_function();
-                    }
-                });
-
             });
-            $(document).on('change', '#subcategory-dropdown', function(e) {
-                var id = $(this).val();
-                var val = $('.product_id_div').attr('data_val');
-
-                var data = {
-                    id: id,
-                    val: val
-
+        });
+        $(document).on('change', '#subcategory-dropdown', function(e) {
+            var id = $(this).val();
+            var val = $('.product_id_div').attr('data_val');
+            var data = {
+                id: id,
+                val: val
+            }
+            $.ajax({
+                url: '{{ route('get.product') }}',
+                method: 'POST',
+                data: data,
+                context: this,
+                success: function(response) {
+                    $.each(response, function (key, value) {
+                        $("#product-dropdown").append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                    var val = $('.product_id_div').attr('data_val', 0);
+                    $('.product_id_div span').html(response.html);
+                    comman_function();
                 }
-                $.ajax({
-                    url: '{{ route('get.product') }}',
-                    method: 'POST',
-                    data: data,
-                    context: this,
-                    success: function(response) {
-                        $.each(response, function (key, value) {
-                            $("#product-dropdown").append('<option value="' + value
-                                .id + '">' + value.name + '</option>');
-                        });
-                        var val = $('.product_id_div').attr('data_val', 0);
-                        $('.product_id_div span').html(response.html);
-                        comman_function();
-                    }
-                });
-
             });
-        </script>
-    @endpush
+        });
+    </script>
+@endpush

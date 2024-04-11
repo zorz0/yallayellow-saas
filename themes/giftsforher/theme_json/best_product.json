@@ -1,0 +1,9 @@
+{
+    "section_name": "Best - Product",
+    "section_slug": "best_product",
+    "unique_section_slug": "best_product",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section": {}
+}

@@ -1,0 +1,18 @@
+{
+    "section_name": "Homepage - Header",
+    "section_slug": "header",
+    "unique_section_slug": "header",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section":{
+        "menu_type": {
+            "lable" : "Menu Type",
+            "slug" :  "menu_type",
+            "text" : "menu_bar",
+            "type" : "select",
+            "placeholder" : "Please select..",
+            "menu_ids":[]
+        }
+    }
+}

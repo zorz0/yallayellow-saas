@@ -1,0 +1,24 @@
+{
+    "section_name": "Blog",
+    "section_slug": "blog",
+    "unique_section_slug": "blog",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 1,
+    "section": {
+        "title": {
+            "lable": "Blog Title",
+            "slug": "blog_title",
+            "text": " <b>Blog & Articles</b>",
+            "type": "text",
+            "placeholder": "Please enter here.."
+        },
+        "button": {
+            "lable": "Modern Product Button",
+            "slug": "review_button",
+            "text": "show more products",
+            "type": "button",
+            "placeholder": "Please enter here.."
+        }
+    }
+}

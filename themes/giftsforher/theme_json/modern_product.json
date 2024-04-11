@@ -1,0 +1,39 @@
+{
+    "section_name": "Modern - Product",
+    "section_slug": "modern_product",
+    "unique_section_slug": "modern_product",
+    "section_enable": "on",
+    "array_type": "inner-list",
+    "loop_number": 2,
+    "section": {
+        "title": {
+            "lable": "Modern Product Title",
+            "slug": "modern_product_titel",
+            "text": ["Black<br> Rose flowers","Rose Loveship<br> flowers"],
+            "type": "text",
+            "placeholder": "Please enter here.."
+        },
+        "sub_title": {
+            "lable": "Modern Product Sub Title",
+            "slug": "modern_product_sub_title",
+            "text": ["<b> Show </b> more product","<b> Show </b> more product"],
+            "type": "text",
+            "placeholder": "Please enter here.."
+        },
+        "button": {
+            "lable": "Modern Product Button",
+            "slug": "modern_product_button",
+            "text": ["Gifts", "Gifts"],
+            "type": "button",
+            "placeholder": "Please enter here.."
+        },
+        "image": {
+            "lable": "Varinat Background Image",
+            "slug": "variant_background_image",
+            "text": ["themes/giftsforher/assets/images/sec-7-2.png","themes/giftsforher/assets/images/sec-7.png"],
+            "image": ["themes/giftsforher/assets/images/sec-7-2.png","themes/giftsforher/assets/images/sec-7.png"],
+            "type": "photoupload",
+            "placeholder": "Please enter here.."
+        }
+    }
+}
