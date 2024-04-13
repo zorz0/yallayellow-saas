@@ -791,5 +791,10 @@ Route::middleware([ActiveTheme::class, 'themelanguage'])->group(function () {
 
 
 });
-
+Route::fallback(function () {
+    return view('errors.404');
+})->middleware('themelanguage');
+ Route::get('/error', function () {
+     return view('errors.500');
+ });
 require __DIR__.'/auth.php';
