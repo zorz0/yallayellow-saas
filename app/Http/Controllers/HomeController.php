@@ -125,6 +125,10 @@ class HomeController extends Controller
             }
         }
     }
+    public function form(){
+        $user = auth()->user();
+return view('form_page', compact('user'));
+    }
 
     public function index()
     {

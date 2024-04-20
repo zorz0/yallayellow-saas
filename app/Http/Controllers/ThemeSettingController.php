@@ -18,9 +18,133 @@ use Storage;
 use Illuminate\Support\Facades\View;
 use Qirolab\Theme\Theme;
 use App\Models\Addon;
+use App\Models\Setting;
+
 
 class ThemeSettingController extends Controller
 {
+    public function formStore(Request $request)
+    {
+        $user = auth()->user();
+        $user->default_language = $request->default_language;
+        $user->language = $request->default_language;
+        $user->theme_id = strtolower($request->theme);
+        $user->mobile = $request->personal_number;
+        $user->country = $request->filter_country;
+    
+        if (!$user->save()) {
+        }
+    
+        $store = Store::where('id', $user->current_store)->first();
+        $store->name = $request->store_name;
+        $store->default_language = $request->default_language;
+        $store->theme_id = strtolower($request->theme);
+    
+        if (!$store->save()) {
+        }
+    
+        $setting = new Setting();
+    
+        if ($request->whatsapp_contact_number) {
+            $setting->name = 'whatsapp_contact_number';
+            $setting->value = $request->whatsapp_contact_number;
+            $setting->theme_id = strtolower($request->theme);
+            $setting->store_id = $user->current_store;
+            $setting->created_by = auth()->user()->id;
+    
+            if (!$setting->save()) {
+            }
+        }
+    
+        if ($request->hasFile('theme_logo')) {
+            $dir = 'themes/' . APP_THEME() . '/uploads';
+            $theme_image = $request->file('theme_logo');
+            $fileName = rand(10, 100) . '_' . time() . "_" . $theme_image->getClientOriginalName();
+            $path = Utility::upload_file($request, 'theme_logo', $fileName, $dir, []);
+    
+            if ($path['flag'] == '0') {
+                return redirect()->back()->with('error', $path['msg']);
+            } else {
+                $where = ['name' => 'theme_logo', 'theme_id' => strtolower($request->theme)];
+                $setting = Setting::where($where)->first();
+    
+                if (!empty($setting)) {
+                    if (File::exists(base_path($setting->value))) {
+                        File::delete(base_path($setting->value));
+                    }
+                }
+    
+                $setting = new Setting();
+                $setting->name = 'theme_logo';
+                $setting->value = $path['url'] ?? null;
+                $setting->theme_id = strtolower($request->theme);
+                $setting->store_id = $user->current_store; 
+                $setting->created_by = auth()->user()->id;
+    
+                if (!$setting->save()) {
+                }
+            }
+        }
+    
+        $setting = new Setting();
+        $setting->name = 'theme_name';
+        $setting->value = $request->store_name;
+        $setting->created_by = auth()->user()->id;
+        $setting->theme_id = strtolower($request->theme);
+        $setting->store_id = $user->current_store; 
+    
+        if (!$setting->save()) {
+        }
+    
+        $headerSection = new ThemeHeaderSection();
+        $headerSection->section_name = 'header';
+    
+        $jsonData = [
+            'section_name' => 'Homepage - Header',
+            'section_slug' => 'header',
+            'unique_section_slug' => 'header',
+            'section_enable' => 'on',
+            'array_type' => 'inner-list',
+            'loop_number' => '1',
+            'section' => [
+                'title' => [
+                    'slug' => 'announcement_text',
+                    'lable' => 'Announcement Title',
+                    'type' => 'text',
+                    'placeholder' => 'Please enter here...',
+                    'text' => '<b>Monday - Friday:</b> 8:00 AM - 9:00 PM'
+                ],
+                'support_title' => [
+                    'slug' => 'support_title',
+                    'lable' => 'Support Title',
+                    'type' => 'text',
+                    'placeholder' => 'Please enter here...',
+                    'text' => 'Support 24/7:'
+                ],
+                'support_value' => [
+                    'slug' => 'support_value',
+                    'lable' => 'Support Value',
+                    'type' => 'text',
+                    'placeholder' => 'Please enter here...',
+                    'text' => $request->support_number // Insert the dynamic value here
+                ],
+                'menu_type' => [
+                    'menu_ids' => [null]
+                ]
+            ]
+        ];
+    
+        $headerSection->theme_json = json_encode($jsonData);
+        $headerSection->store_id = $user->current_store; 
+        $headerSection->theme_id = strtolower($request->theme);
+    
+        if (!$headerSection->save()) {
+        }
+    
+        return redirect()->route('dashboard')->with('success', 'Setting saved successfully.');
+    }
+    
+
     /**
      * Display a listing of the resource.
      */

@@ -123,6 +123,8 @@ use App\Http\Controllers\ProductLabelController;
 // });
 
 Route::get('/', [HomeController::class, 'Landing'])->name('landing')->middleware('setlocate');
+Route::get('/form', [HomeController::class, 'form'])->name('form')->middleware('themelanguage');
+Route::post('form/store', [ThemeSettingController::class, 'formStore'])->name('form.store');
 
 Route::get('change-languages/{lang}', [LanguageController::class, 'changelanguage'])->name('changelanguage')->middleware('setlocate');
 

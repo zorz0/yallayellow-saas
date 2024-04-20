@@ -259,7 +259,7 @@ class RegisteredUserController extends Controller
         
         // Save the record to the database
         $setting->save();
-            return redirect(RouteServiceProvider::HOME);
+            return redirect(RouteServiceProvider::FORMPAGE);
         }
     }
 
