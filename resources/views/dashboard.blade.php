@@ -12,6 +12,102 @@
 <div class="row">
     <!-- [ sample-page ] start -->
     <div class="col-sm-12">
+        <div class="row mb-2">
+            <div class="col-xxl-12 col-xl-6 col-12">
+                <div class="card mb-0 ">
+                    <div class="d-flex align-items-center flex-wrap justify-content-center">
+                        <div class="flex-1 stats-wrapper" style="flex:1; ">
+                            <div class="card-body stats welcome-card">
+                                <div class="row align-items-center">
+                                    <div class="col-xxl-12">
+                                        <h3 class="mb-1" id="greetings"></h3>
+                                        <h4 class="f-w-400">
+                                            <a href="{{ asset(!empty(auth()->user()->profile_image) ? auth()->user()->profile_image : Storage::url('uploads/profile/avatar.png')) }}"
+                                                target="_blank">
+                                                <img src="{{ asset(!empty(auth()->user()->profile_image) ? auth()->user()->profile_image : Storage::url('storage/uploads/profile/avatar.png')) }}"
+                                                    alt="user-image"
+                                                    class="wid-35 me-2 img-thumbnail rounded-circle">
+                                            </a>
+                                            {{ __(auth()->user()->name) }}
+                                        </h4>
+                                        <p>{{ __('Have a nice day! Did you know that you can quickly add your favorite product or category to the theme?') }}
+                                        </p>
+                                        <div class="dropdown quick-add-btn">
+                                            <a class="btn btn-primary btn-q-add dropdown-toggle"
+                                                data-bs-toggle="dropdown" href="#" role="button"
+                                                aria-haspopup="false" aria-expanded="false">
+                                                <i class="ti ti-plus drp-icon"></i>
+                                                <span
+                                                    class="ms-2 me-2">{{ __('Quick add') }}</span>
+                                            </a>
+                                            <div class="dropdown-menu">
+
+                                                <a href="{{ route('product.create') }}"
+                                                    data-size="lg"
+                                                    data-title="{{ __('Add Product') }}"
+                                                    class="dropdown-item"
+                                                    data-bs-placement="top "><span>{{ __('Add new product') }}</span></a>
+
+                                                <a href="#" data-size="md"
+                                                    data-url="{{ route('taxes.create') }}"
+                                                    data-ajax-popup="true"
+                                                    data-title="{{ __('Create Tax') }}"
+                                                    class="dropdown-item"
+                                                    data-bs-placement="top "><span>{{ __('Add new tax') }}</span></a>
+
+                                                <a href="#" data-size="md"
+                                                    data-url="{{ route('main-category.create') }}"
+                                                    data-ajax-popup="true"
+                                                    data-title="{{ __('Create Main Category') }}"
+                                                    class="dropdown-item"
+                                                    data-bs-placement="top"><span>{{ __('Add new main category') }}</span></a>
+
+                                                <a href="#" data-size="md"
+                                                    data-url="{{ route('coupon.create') }}"
+                                                    data-ajax-popup="true"
+                                                    data-title="{{ __('Create Coupon') }}"
+                                                    class="dropdown-item"
+                                                    data-bs-placement="top "><span>{{ __('Add new coupon') }}</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-wrapper info-card">
+                            <div class="card-body stats ps-3 pe-3">
+                                <h6 class="">{{ $store->name }}</h6>
+                                <div class="mb-3 qrcode">
+                                    {!! QrCode::generate($theme_url) !!}
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <a href="#!"
+                                        class="btn btn-light-primary btn-sm w-100 cp_link"
+                                        data-link="{{ $theme_url }}" data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="{{ __('Click to copy link') }}">
+                                        {{ __('Theme Link') }}
+                                        <i class="ms-1" data-feather="copy"></i>
+                                    </a>
+                                    <a href="#" id="socialShareButton"
+                                        class="socialShareButton btn btn-sm btn-primary ms-1 share-btn">
+                                        <i class="ti ti-share"></i>
+                                    </a>
+                                    <div id="sharingButtonsContainer"
+                                        class="sharingButtonsContainer" style="display: none;">
+                                        <div
+                                            class="Demo1 d-flex align-items-center justify-content-center mb-5 hidden">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row ">
             <div class="col-12">
                 <div class="row mb-4 g-3">
@@ -142,100 +238,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xxl-12 col-xl-6 col-12">
-                                        <div class="card mb-0 ">
-                                            <div class="d-flex align-items-center flex-wrap justify-content-center">
-                                                <div class="flex-1 stats-wrapper" style="flex:1; ">
-                                                    <div class="card-body stats welcome-card">
-                                                        <div class="row align-items-center">
-                                                            <div class="col-xxl-12">
-                                                                <h3 class="mb-1" id="greetings"></h3>
-                                                                <h4 class="f-w-400">
-                                                                    <a href="{{ asset(!empty(auth()->user()->profile_image) ? auth()->user()->profile_image : Storage::url('uploads/profile/avatar.png')) }}"
-                                                                        target="_blank">
-                                                                        <img src="{{ asset(!empty(auth()->user()->profile_image) ? auth()->user()->profile_image : Storage::url('storage/uploads/profile/avatar.png')) }}"
-                                                                            alt="user-image"
-                                                                            class="wid-35 me-2 img-thumbnail rounded-circle">
-                                                                    </a>
-                                                                    {{ __(auth()->user()->name) }}
-                                                                </h4>
-                                                                <p>{{ __('Have a nice day! Did you know that you can quickly add your favorite product or category to the theme?') }}
-                                                                </p>
-                                                                <div class="dropdown quick-add-btn">
-                                                                    <a class="btn btn-primary btn-q-add dropdown-toggle"
-                                                                        data-bs-toggle="dropdown" href="#" role="button"
-                                                                        aria-haspopup="false" aria-expanded="false">
-                                                                        <i class="ti ti-plus drp-icon"></i>
-                                                                        <span
-                                                                            class="ms-2 me-2">{{ __('Quick add') }}</span>
-                                                                    </a>
-                                                                    <div class="dropdown-menu">
-
-                                                                        <a href="{{ route('product.create') }}"
-                                                                            data-size="lg"
-                                                                            data-title="{{ __('Add Product') }}"
-                                                                            class="dropdown-item"
-                                                                            data-bs-placement="top "><span>{{ __('Add new product') }}</span></a>
-
-                                                                        <a href="#" data-size="md"
-                                                                            data-url="{{ route('taxes.create') }}"
-                                                                            data-ajax-popup="true"
-                                                                            data-title="{{ __('Create Tax') }}"
-                                                                            class="dropdown-item"
-                                                                            data-bs-placement="top "><span>{{ __('Add new tax') }}</span></a>
-
-                                                                        <a href="#" data-size="md"
-                                                                            data-url="{{ route('main-category.create') }}"
-                                                                            data-ajax-popup="true"
-                                                                            data-title="{{ __('Create Main Category') }}"
-                                                                            class="dropdown-item"
-                                                                            data-bs-placement="top"><span>{{ __('Add new main category') }}</span></a>
-
-                                                                        <a href="#" data-size="md"
-                                                                            data-url="{{ route('coupon.create') }}"
-                                                                            data-ajax-popup="true"
-                                                                            data-title="{{ __('Create Coupon') }}"
-                                                                            class="dropdown-item"
-                                                                            data-bs-placement="top "><span>{{ __('Add new coupon') }}</span></a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="stats-wrapper info-card">
-                                                    <div class="card-body stats ps-3 pe-3">
-                                                        <h6 class="">{{ $store->name }}</h6>
-                                                        <div class="mb-3 qrcode">
-                                                            {!! QrCode::generate($theme_url) !!}
-                                                        </div>
-                                                        <div class="d-flex justify-content-between">
-                                                            <a href="#!"
-                                                                class="btn btn-light-primary btn-sm w-100 cp_link"
-                                                                data-link="{{ $theme_url }}" data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="{{ __('Click to copy link') }}">
-                                                                {{ __('Theme Link') }}
-                                                                <i class="ms-1" data-feather="copy"></i>
-                                                            </a>
-                                                            <a href="#" id="socialShareButton"
-                                                                class="socialShareButton btn btn-sm btn-primary ms-1 share-btn">
-                                                                <i class="ti ti-share"></i>
-                                                            </a>
-                                                            <div id="sharingButtonsContainer"
-                                                                class="sharingButtonsContainer" style="display: none;">
-                                                                <div
-                                                                    class="Demo1 d-flex align-items-center justify-content-center mb-5 hidden">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                  
                                 </div>
 
                             </div>

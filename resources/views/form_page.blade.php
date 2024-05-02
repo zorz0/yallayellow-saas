@@ -867,6 +867,7 @@
 
 
     submitBtn.addEventListener('click', () => {
+        
         preloader.classList.add('d-block');
 
        /*  const timer = ms => new Promise(res => setTimeout(res, ms));
