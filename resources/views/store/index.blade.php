@@ -132,6 +132,9 @@
                                     <h5 class="office-time mb-0">{{ __('In Active') }}</h5>
                                 @endif
                                 <small class="text-primary">{{ $user->email }}</small>
+                                <br>
+                                <small class="text-primary">{{ $user->mobile }}</small>
+
                                 <p></p>
                                 <div class="text-center" data-bs-toggle="tooltip" title="{{ __('Last Login') }}">
                                    

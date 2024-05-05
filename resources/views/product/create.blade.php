@@ -637,13 +637,7 @@
                 alert('الرجاء اختيار صورة الغلاف')
 
             }
-            if (counter == 2 && ((document.getElementById('description') && document.getElementById('description').value ==
-                    '') && (document.getElementById('specification') && document.getElementById('specification')
-                    .value == '') || (document.getElementById('detail') && document.getElementById('detail').value ==
-                    ''))) {
-                valid = false;
-                alert('الرجاء تعبئة جميع الحقول');
-            }
+        
 
             var currentTab = 0; // Define currentTab variable
             x = document.getElementsByClassName("tab");
