@@ -9,17 +9,10 @@
 @endphp
 
 @section('breadcrumb')
-    <li class="breadcrumb-item" aria-current="page"><a href="{{route('product.index')}}">{{ __('Product') }}</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a href="{{ route('product.index') }}">{{ __('Product') }}</a></li>
     <li class="breadcrumb-item" aria-current="page">{{ __('Create') }}</li>
 @endsection
-@section('action-button')
-<div class=" text-end d-flex all-button-box justify-content-md-end justify-content-center">
-    <a href="#" class="btn  btn-primary " id="submit-all"
-        data-title="{{ __("Create Product") }}"
-        data-toggle="tooltip" title="{{ __('Create Product') }}">
-        <i class="ti ti-plus drp-icon"></i> <span class="ms-2 me-2">{{__('Save')}}</span> </a>
-</div>
-@endsection
+
 @php
     $plan = \App\Models\Plan::find(\Auth::user()->plan_id);
     $theme_name = !empty(env('DATA_INSERT_APP_THEME')) ? env('DATA_INSERT_APP_THEME') : APP_THEME();
@@ -28,460 +21,467 @@
 @endphp
 @section('content')
     {{ Form::open(['route' => 'product.store', 'method' => 'post', 'id' => 'choice_form', 'enctype' => 'multipart/form-data']) }}
-    <div class="row pt-4">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-12">
-                    <h5 class="mb-3">Main Informations</h5>
-                    <div class="card border">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-12">
-                                    {!! Form::label('', __('Name'), ['class' => 'form-label']) !!}
-                                    {!! Form::text('name', null, ['class' => 'form-control name']) !!}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-12 parmalink " style =  "display: none; ">
-                                    {!! Form::label('', __('parmalink'), ['class' => 'form-label col-md-3']) !!}
-                                    <div class="d-flex flex-wrap gap-3">
-                                        <span class="input-group-text col-12" id="basic-addon2">{{ $link }}</span>
-                                        {!! Form::text('slug', null, ['class' => 'form-control slug col-12']) !!}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-12">
-                                    {!! Form::label('', __('Category'), ['class' => 'form-label']) !!}
-                                    {!! Form::select('maincategory_id', $MainCategory, null, [
-                                        'class' => 'form-control',
-                                        'data-role' => 'tagsinput',
-                                        'id' => 'maincategory_id',
-                                    ]) !!}
-                                </div>
-                                <div class="form-group  col-12 subcategory_id_div" data_val='0'>
-                                    {!! Form::label('', __('Subcategory'), ['class' => 'form-label']) !!}
-                                    <span>
-                                        {!! Form::select('subcategory_id', [], null, [
-                                            'class' => 'form-control',
-                                            'data-role' => 'tagsinput',
-                                            'id' => 'subcategory-dropdown',
-                                        ]) !!}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-6 col-12 switch-width">
-                                    {{ Form::label('tax_id', __('Taxs'), ['class' => ' form-label']) }}
-                                    <select name="tax_id[]"  data-role="tagsinput" id="tax_id" multiple>
-                                        @foreach ($Tax as $Key => $tax)
-                                            <option value={{ $Key }}>
-                                                {{ $tax }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6 col-12">
-                                    {!! Form::label('', __('Tax Status'), ['class' => 'form-label']) !!}
-                                    {!! Form::select('tax_status', $Tax_status, null, [
-                                        'class' => 'form-control',
-                                        'data-role' => 'tagsinput',
-                                        'id' => 'tax_id',
-                                    ]) !!}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group  col-12" data_val='0'>
-                                    {!! Form::label('', __('Brand'), ['class' => 'form-label']) !!}
-                                    <span>
-                                        {!! Form::select('brand_id', $brands, null, [
-                                            'class' => 'form-control',
-                                            'data-role' => 'tagsinput',
-                                            'id' => 'brand-dropdown',
-                                        ]) !!}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group  col-12" data_val='0'>
-                                    {!! Form::label('', __('Label'), ['class' => 'form-label']) !!}
-                                    <span>
-                                        {!! Form::select('label_id', $labels, null, [
-                                            'class' => 'form-control',
-                                            'data-role' => 'tagsinput',
-                                            'id' => 'label-dropdown',
-                                        ]) !!}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-12">
-                                    {!! Form::label('', __('Tags'), ['class' => 'form-label']) !!}
-                                    <select name ="tag_id[]" class="select2 form-control" id="tag_id" multiple required>
-                                        @foreach ($tag as $key => $t)
-                                            <option value="{{$key}}">{{$t}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-12">
-                                    {!! Form::label('', __('Shipping'), ['class' => 'form-label']) !!}
-                                    {!! Form::select('shipping_id', $Shipping, null, [
-                                        'class' => 'form-control',
-                                        'data-role' => 'tagsinput',
-                                        'id' => 'shipping_id',
-                                    ]) !!}
-                                </div>
-                            </div>
 
 
-                            <div class="row">
-                                <div class="form-group col-12 product-weight">
-                                    {!! Form::label('', __('Weight(Kg)'), ['class' => 'form-label ']) !!}
-                                    {!! Form::number('product_weight', null, ['class' => 'form-control', 'min' => '0', 'step' => '0.01']) !!}
-                                </div>
-                            </div>
-                            <div class="row product-price-div">
-                                <div class="form-group col-md-6 col-12 product_price">
-                                    {!! Form::label('', __('Price'), ['class' => 'form-label']) !!}
-                                    {!! Form::number('price', null, ['class' => 'form-control', 'min' => '0', 'step' => '0.01']) !!}
-                                </div>
-                                <div class="form-group col-md-6 col-12">
-                                    {!! Form::label('', __('Sale Price'), ['class' => 'form-label']) !!}
-                                    {!! Form::number('sale_price', null, ['class' => 'form-control', 'min' => '0', 'step' => '0.01']) !!}
-                                </div>
-                            </div>
-                            <hr>
-                            <h4>{{ __('Product Stock') }}</h4>
-                            <div class="row">
-                                @if ($stock_management == 'on')
-                                    <div class="form-group col-md-6 col-12">
-                                        {!! Form::label('', __('Stock Management'), ['class' => 'form-label']) !!}
-                                        <div class="form-check form-switch">
-                                            <input type="hidden" name="track_stock" value="0">
-                                            <input type="checkbox" class="form-check-input enable_product_stock" name="track_stock"
-                                                id="enable_product_stock" value="1">
-                                            <label class="form-check-label" for="enable_product_stock"></label>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="form-group col-md-6 col-12 product_stock">
-                                        {!! Form::label('', __('Stock Management'), ['class' => 'form-label']) !!}<br>
-                                        <label name="trending" value=""><small>Disabled in <a
-                                                    href="{{ route('setting.index') . '#Brand_Setting ' }}"> store
-                                                    setting</a></small></label>
-                                    </div>
-                                @endif
 
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-12 stock_stats">
-                                    {!! Form::label('', __('Stock Status:'), ['class' => 'form-label']) !!}
-                                    <div class="col-mb-9">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input code" type="radio" id="in_stock" value="in_stock"
-                                                name="stock_status" checked="checked">
-                                            <label class="form-check-label" for="   ">
-                                                {{ __('In Stock') }}
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input code" type="radio" id="out_of_stock"
-                                                value="out_of_stock" name="stock_status">
-                                            <label class="form-check-label" for="out_of_stock">
-                                                {{ __('Out of stock') }}
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input code" type="radio" id="on_backorder"
-                                                value="on_backorder" name="stock_status">
-                                            <label class="form-check-label" for="on_backorder">
-                                                {{ __('On Backorder') }}
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @if ($stock_management == 'on')
-                                <div class="row" id="options">
-                                    <div class="form-group col-md-6 col-12 product_stock">
-                                        {!! Form::label('', __('Stock'), ['class' => 'form-label']) !!}
-                                        {!! Form::number('product_stock', null, ['class' => 'form-control']) !!}
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        {!! Form::label('', __('Low stock threshold'), ['class' => 'form-label']) !!}
-                                        {!! Form::number('low_stock_threshold', $low_stock_threshold, ['class' => 'form-control', 'min' => '0']) !!}
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        {!! Form::label('', __('Allow BackOrders:'), ['class' => 'form-label']) !!}
-                                        <div class="form-check m-1">
-                                            <input type="radio" id="not_allow" value="not_allow" name="stock_order_status"
-                                                class="form-check-input code" checked="checked">
-                                            <label class="form-check-label" for="not_allow">{{ __('Do Not Allow') }}</label>
-                                        </div>
-                                        <div class="form-check m-1">
-                                            <input type="radio" id="notify_customer" value="notify_customer"
-                                                name="stock_order_status" class="form-check-input code">
-                                            <label class="form-check-label"
-                                                for="notify_customer">{{ __('Allow, But notify customer') }}</label>
-                                        </div>
-                                        <div class="form-check m-1">
-                                            <input type="radio" id="allow" value="allow" name="stock_order_status"
-                                                class="form-check-input code">
-                                            <label class="form-check-label" for="allow">{{ __('Allow') }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-
-
-                    {{-- <h6>{{ __('Product Variant') }}</h6> --}}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <h5 class="mb-3">{{ __('Product Image') }}</h5>
-                    <div class="card border">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-12">
-                                    {{-- <div class="card border">
-                                        <div class="card-body"> --}}
-                                            <div class="form-group">
-                                                {{ Form::label('sub_images', __('Upload Product Images'), ['class' => 'form-label f-w-800']) }}
-                                                <div class="dropzone dropzone-multiple" data-toggle="dropzone1"
-                                                    data-dropzone-url="http://" data-dropzone-multiple>
-                                                    <div class="fallback">
-                                                        <div class="custom-file">
-                                                            {{-- <input type="file" class="custom-file-input" id="dropzone-1" name="file"
-                                                                            multiple> --}}
-                                                            <input type="file" name="file" id="dropzone-1"
-                                                                class="fcustom-file-input"
-                                                                onchange="document.getElementById('dropzone').src = window.URL.createObjectURL(this.files[0])"
-                                                                multiple>
-                                                            <img id="dropzone"src="" width="20%" class="mt-2" />
-                                                            <label class="custom-file-label"
-                                                                for="customFileUpload">{{ __('Choose file') }}</label>
-                                                        </div>
-                                                    </div>
-                                                    <ul
-                                                        class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush">
-                                                        <li class="list-group-item px-0">
-                                                            <div class="row align-items-center">
-                                                                <div class="col-auto">
-                                                                    <div class="avatar">
-                                                                        <img class="rounded" src=""
-                                                                            alt="Image placeholder" data-dz-thumbnail>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <h6 class="text-sm mb-1" data-dz-name>...</h6>
-                                                                    <p class="small text-muted mb-0" data-dz-size>
-                                                                    </p>
-                                                                </div>
-                                                                <div class="col-auto">
-                                                                    <a href="#" class="dropdown-item" data-dz-remove>
-                                                                        <i class="fas fa-trash-alt"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="cover_image"
-                                                    class="col-form-label">{{ __('Upload Cover Image') }}</label>
-                                                <input type="file" name="cover_image" id="cover_image"
-                                                    class="form-control custom-input-file"
-                                                    onchange="document.getElementById('upcoverImg').src = window.URL.createObjectURL(this.files[0]);"
-                                                    multiple>
-                                                <img id="upcoverImg" src="" width="20%" class="mt-2"/>
-                                            </div>
-                                        {{-- </div>
-                                    </div> --}}
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-12" id="downloadable-product-div">
-                                    <div class="form-group">
-                                        <div class="choose-file">
-                                            <label for="downloadable_product"
-                                                class="form-label">{{ __('Downloadable Product') }}</label>
-                                            <input type="file" class="form-control" name="downloadable_product"
-                                                id="downloadable_product"
-                                                onchange="document.getElementById('downloadable_product').src = window.URL.createObjectURL(this.files[0]);"
-                                                multiple>
-                                            <div class="invalid-feedback">{{ __('invalid form file') }}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-6 col-12" id="preview_type">
-                                    {{ Form::label('preview_type', __('Preview Type'), ['class' => 'form-label']) }}
-                                    {{ Form::select('preview_type', $preview_type, null, ['class' => 'form-control font-style', 'id' => 'preview_type']) }}
-                                </div>
-                                <div class="form-group  col-md-6 col-12" id="preview-video-div">
-                                    <div class="form-group">
-                                        <div class="choose-file">
-                                            <label for="preview_video" class="form-label">{{ __('Preview Video') }}</label>
-                                            <input type="file" class="form-control" name="preview_video" id="preview_video"
-                                                onchange="document.getElementById('preview_video').src = window.URL.createObjectURL(this.files[0]);"
-                                                multiple>
-                                            <div class="invalid-feedback">{{ __('invalid form file') }}</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-md-6 col-12 ml-auto d-none" id="preview-iframe-div">
-                                    {{ Form::label('preview_iframe', __('Preview iFrame'), ['class' => 'form-label']) }}
-                                    {{ Form::textarea('preview_iframe', null, ['class' => 'form-control font-style', 'rows' => 2]) }}
-                                </div>
-
-                                <div class="form-group col-md-6 col-12" id="video_url_div">
-                                    {{ Form::label('video_url', __('Video URL'), ['class' => 'form-label']) }}
-                                    {{ Form::text('video_url', null, ['class' => 'form-control font-style']) }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-12">
-                    <h5 class="mb-3">{{ __('About product') }}</h5>
-                    <div class="card border">
-                        <div class="card-body">
-                            <div class="form-group">
-                                {{ Form::label('description', __('Product Description'), ['class' => 'form-label']) }}
-                                {{ Form::textarea('description', null, ['class' => 'form-control  summernote-simple-product', 'rows' => 1, 'placeholder' => __('Product Description'), 'id' => 'description']) }}
-                            </div>
-                            <div class="form-group">
-                                {{ Form::label('specification', __('Product Specification'), ['class' => 'form-label']) }}
-                                {{ Form::textarea('specification', null, ['class' => 'form-control  summernote-simple-product', 'rows' => 1, 'placeholder' => __('Product Specification'), 'id' => 'specification']) }}
-                            </div>
-                            <div class="form-group">
-                                {{ Form::label('detail', __('Product Details'), ['class' => 'form-label']) }}
-                                {{ Form::textarea('detail', null, ['class' => 'form-control  summernote-simple-product', 'rows' => 1, 'placeholder' => __('Product Details'), 'id' => 'detail']) }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <h5 class="mb-3">Main Informations</h5>
-                    <div class="card border">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-3 col-md-6  col-12">
-                                    {!! Form::label('', __('Display Variants'), ['class' => 'form-label']) !!}
-                                    <div class="form-check form-switch">
-                                        <input type="hidden" name="variant_product" value="0">
-                                        <input type="checkbox" class="form-check-input enable_product_variant"
-                                            name="variant_product" id="enable_product_variant" value="1">
-                                        <label class="form-check-label" for="enable_product_variant"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-3 col-md-6  col-12">
-                                    {!! Form::label('', __('Trending'), ['class' => 'form-label']) !!}
-                                    <div class="form-check form-switch">
-                                        <input type="hidden" name="trending" value="0">
-                                        <input type="checkbox" class="form-check-input" name="trending" id="trending_product"
-                                            value="1">
-                                        <label class="form-check-label" for="trending_product"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-3 col-md-6  col-12">
-                                    {!! Form::label('', __('Display Product'), ['class' => 'form-label']) !!}
-                                    <div class="form-check form-switch">
-                                        <input type="hidden" name="status" value="0">
-                                        <input type="checkbox" class="form-check-input" name="status" id="status"
-                                            value="1">
-                                        <label class="form-check-label" for="status"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-3 col-md-6  col-12">
-                                    {!! Form::label('', __('Custom  Field'), ['class' => 'form-label']) !!}
-                                    <div class="form-check form-switch">
-                                        <input type="hidden" name="custom_field_status" value="0">
-                                        <input type="checkbox" class="form-check-input" name="custom_field_status"
-                                            id="enable_custom_field" value="1">
-                                        <label class="form-check-label" for="enable_custom_field"></label>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
+    <!-- One "tab" for each step in the form: -->
+    <div class="tab">
+        <div class="col-lg-12 col-md-6 col-12">
+            <h5 class="mb-3">Main Informations</h5>
+            <div class="card border">
+                <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6 col-12">
-                            <div class="card border">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            {!! Form::label('', __('Product Attribute'), ['class' => 'form-label']) !!}
-                                            {!! Form::select('attribute_id[]', $ProductAttribute, null, [
-                                                'class' => 'form-control attribute_option attribute_option_data',
-                                                'multiple' => 'multiple',
-                                                'data-role' => 'tagsinput',
-                                                'id' => 'attribute_id',
-                                            ]) !!}
-                                            <small>{{ __('Choose Existing Attribute') }}</small>
-                                        </div>
-                                        <div class="attribute_options" id="attribute_options">
-                                        </div>
-                                        <div class="attribute_combination" id="attribute_combination">
-                                        </div>
-                                    </div>
+                        <div class="form-group col-12">
+                            {!! Form::label('', __('Name'), ['class' => 'form-label']) !!}
+                            {!! Form::text('name', null, ['class' => 'form-control name']) !!}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12 parmalink " style =  "display: none; ">
+                            {!! Form::label('', __('parmalink'), ['class' => 'form-label col-md-3']) !!}
+                            <div class="d-flex flex-wrap gap-3">
+                                <span class="input-group-text col-12" id="basic-addon2">{{ $link }}</span>
+                                {!! Form::text('slug', null, ['class' => 'form-control slug col-12']) !!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            {!! Form::label('', __('Category'), ['class' => 'form-label']) !!}
+                            {!! Form::select('maincategory_id', $MainCategory, null, [
+                                'class' => 'form-control',
+                                'data-role' => 'tagsinput',
+                                'id' => 'maincategory_id',
+                            ]) !!}
+                        </div>
+                        <div class="form-group  col-12 subcategory_id_div" data_val='0'>
+                            {!! Form::label('', __('Subcategory'), ['class' => 'form-label']) !!}
+                            <span>
+                                {!! Form::select('subcategory_id', [], null, [
+                                    'class' => 'form-control',
+                                    'data-role' => 'tagsinput',
+                                    'id' => 'subcategory-dropdown',
+                                ]) !!}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-12 switch-width">
+                            {{ Form::label('tax_id', __('Taxs'), ['class' => ' form-label']) }}
+                            <select name="tax_id[]" data-role="tagsinput" id="tax_id" multiple>
+                                @foreach ($Tax as $Key => $tax)
+                                    <option value={{ $Key }}>
+                                        {{ $tax }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 col-12">
+                            {!! Form::label('', __('Tax Status'), ['class' => 'form-label']) !!}
+                            {!! Form::select('tax_status', $Tax_status, null, [
+                                'class' => 'form-control',
+                                'data-role' => 'tagsinput',
+                                'id' => 'tax_id',
+                            ]) !!}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group  col-12" data_val='0'>
+                            {!! Form::label('', __('Brand'), ['class' => 'form-label']) !!}
+                            <span>
+                                {!! Form::select('brand_id', $brands, null, [
+                                    'class' => 'form-control',
+                                    'data-role' => 'tagsinput',
+                                    'id' => 'brand-dropdown',
+                                ]) !!}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group  col-12" data_val='0'>
+                            {!! Form::label('', __('Label'), ['class' => 'form-label']) !!}
+                            <span>
+                                {!! Form::select('label_id', $labels, null, [
+                                    'class' => 'form-control',
+                                    'data-role' => 'tagsinput',
+                                    'id' => 'label-dropdown',
+                                ]) !!}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-12">
+                            {!! Form::label('', __('Tags'), ['class' => 'form-label']) !!}
+                            <select name ="tag_id[]" class="select2 form-control" id="tag_id" multiple required>
+                                @foreach ($tag as $key => $t)
+                                    <option value="{{ $key }}">{{ $t }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            {!! Form::label('', __('Shipping'), ['class' => 'form-label']) !!}
+                            {!! Form::select('shipping_id', $Shipping, null, [
+                                'class' => 'form-control',
+                                'data-role' => 'tagsinput',
+                                'id' => 'shipping_id',
+                            ]) !!}
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-12 product-weight">
+                            {!! Form::label('', __('Weight(Kg)'), ['class' => 'form-label ']) !!}
+                            {!! Form::number('product_weight', null, ['class' => 'form-control', 'min' => '0', 'step' => '0.01']) !!}
+                        </div>
+                    </div>
+                    <div class="row product-price-div">
+                        <div class="form-group col-md-6 col-12 product_price">
+                            {!! Form::label('', __('Price'), ['class' => 'form-label']) !!}
+                            {!! Form::number('price', null, ['class' => 'form-control', 'min' => '0', 'step' => '0.01']) !!}
+                        </div>
+                        <div class="form-group col-md-6 col-12">
+                            {!! Form::label('', __('Sale Price'), ['class' => 'form-label']) !!}
+                            {!! Form::number('sale_price', null, ['class' => 'form-control', 'min' => '0', 'step' => '0.01']) !!}
+                        </div>
+                    </div>
+                    <hr>
+                    <h4>{{ __('Product Stock') }}</h4>
+                    <div class="row">
+                        @if ($stock_management == 'on')
+                            <div class="form-group col-md-6 col-12">
+                                {!! Form::label('', __('Stock Management'), ['class' => 'form-label']) !!}
+                                <div class="form-check form-switch">
+                                    <input type="hidden" name="track_stock" value="0">
+                                    <input type="checkbox" class="form-check-input enable_product_stock" name="track_stock"
+                                        id="enable_product_stock" value="1">
+                                    <label class="form-check-label" for="enable_product_stock"></label>
+                                </div>
+                            </div>
+                        @else
+                            <div class="form-group col-md-6 col-12 product_stock">
+                                {!! Form::label('', __('Stock Management'), ['class' => 'form-label']) !!}<br>
+                                <label name="trending" value=""><small>Disabled in <a
+                                            href="{{ route('setting.index') . '#Brand_Setting ' }}"> store
+                                            setting</a></small></label>
+                            </div>
+                        @endif
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-12 stock_stats">
+                            {!! Form::label('', __('Stock Status:'), ['class' => 'form-label']) !!}
+                            <div class="col-mb-9">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input code" type="radio" id="in_stock" value="in_stock"
+                                        name="stock_status" checked="checked">
+                                    <label class="form-check-label" for="   ">
+                                        {{ __('In Stock') }}
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input code" type="radio" id="out_of_stock"
+                                        value="out_of_stock" name="stock_status">
+                                    <label class="form-check-label" for="out_of_stock">
+                                        {{ __('Out of stock') }}
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input code" type="radio" id="on_backorder"
+                                        value="on_backorder" name="stock_status">
+                                    <label class="form-check-label" for="on_backorder">
+                                        {{ __('On Backorder') }}
+                                    </label>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-12" style="display: none;" id="custom_value">
-                            <div class="card border">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="form-group col-12" >
-                                            <div id="custom_field_repeater_basic">
-                                                <!--begin::Form group-->
-                                                <div class="form-group">
-                                                    <div data-repeater-list="custom_field_repeater_basic">
-                                                        <div data-repeater-item>
-                                                            <div class="form-group row">
-                                                                <div class="col-md-6">
-                                                                    {!! Form::label('', __('Custom Field'), ['class' => 'form-label']) !!}
-                                                                    {!! Form::text('custom_field', null, ['class' => 'form-control']) !!}
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    {!! Form::label('', __('Custom Value'), ['class' => 'form-label']) !!}
-                                                                    {!! Form::text('custom_value', null, ['id' => 'answer', 'rows' => 2, 'class' => 'form-control']) !!}
+                    </div>
+                    @if ($stock_management == 'on')
+                        <div class="row" id="options">
+                            <div class="form-group col-md-6 col-12 product_stock">
+                                {!! Form::label('', __('Stock'), ['class' => 'form-label']) !!}
+                                {!! Form::number('product_stock', null, ['class' => 'form-control']) !!}
+                            </div>
+                            <div class="form-group col-md-6 col-12">
+                                {!! Form::label('', __('Low stock threshold'), ['class' => 'form-label']) !!}
+                                {!! Form::number('low_stock_threshold', $low_stock_threshold, ['class' => 'form-control', 'min' => '0']) !!}
+                            </div>
+                            <div class="col-12 mb-3">
+                                {!! Form::label('', __('Allow BackOrders:'), ['class' => 'form-label']) !!}
+                                <div class="form-check m-1">
+                                    <input type="radio" id="not_allow" value="not_allow" name="stock_order_status"
+                                        class="form-check-input code" checked="checked">
+                                    <label class="form-check-label" for="not_allow">{{ __('Do Not Allow') }}</label>
+                                </div>
+                                <div class="form-check m-1">
+                                    <input type="radio" id="notify_customer" value="notify_customer"
+                                        name="stock_order_status" class="form-check-input code">
+                                    <label class="form-check-label"
+                                        for="notify_customer">{{ __('Allow, But notify customer') }}</label>
+                                </div>
+                                <div class="form-check m-1">
+                                    <input type="radio" id="allow" value="allow" name="stock_order_status"
+                                        class="form-check-input code">
+                                    <label class="form-check-label" for="allow">{{ __('Allow') }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
 
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <a href="javascript:;" data-repeater-delete
-                                                                        class="btn btn-sm btn-light-danger mt-3 mt-md-8">
-                                                                        <i class="la la-trash-o"></i>Delete
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab">
+        <div class="col-lg-12 col-md-6 col-12">
+            <h5 class="mb-3">{{ __('Product Image') }}</h5>
+            <div class="card border">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            {{-- <div class="card border">
+                                    <div class="card-body"> --}}
+                            <div class="form-group">
+                                {{ Form::label('sub_images', __('Upload Product Images'), ['class' => 'form-label f-w-800']) }}
+                                <div class="dropzone dropzone-multiple" data-toggle="dropzone1"
+                                    data-dropzone-url="http://" data-dropzone-multiple>
+                                    <div class="fallback">
+                                        <div class="custom-file">
+                                            {{-- <input type="file" class="custom-file-input" id="dropzone-1" name="file"
+                                                                        multiple> --}}
+                                            <input type="file" name="file" id="dropzone-1"
+                                                class="fcustom-file-input"
+                                                onchange="document.getElementById('dropzone').src = window.URL.createObjectURL(this.files[0])"
+                                                multiple>
+                                            <img id="dropzone"src="" width="20%" class="mt-2" />
+                                            <label class="custom-file-label"
+                                                for="customFileUpload">{{ __('Choose file') }}</label>
+                                        </div>
+                                    </div>
+                                    <ul class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush">
+                                        <li class="list-group-item px-0">
+                                            <div class="row align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="avatar">
+                                                        <img class="rounded" src="" alt="Image placeholder"
+                                                            data-dz-thumbnail>
                                                     </div>
                                                 </div>
-                                                <!--end::Form group-->
-
-                                                <!--begin::Form group-->
-                                                <div class="form-group mt-2 mb-0">
-                                                    <a href="javascript:;" data-repeater-create class="btn btn-light-primary">
-                                                        <i class="ti ti-plus"></i>
+                                                <div class="col">
+                                                    <h6 class="text-sm mb-1" data-dz-name>...</h6>
+                                                    <p class="small text-muted mb-0" data-dz-size>
+                                                    </p>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <a href="#" class="dropdown-item" data-dz-remove>
+                                                        <i class="fas fa-trash-alt"></i>
                                                     </a>
                                                 </div>
-                                                <!--end::Form group-->
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cover_image" class="col-form-label">{{ __('Upload Cover Image') }}</label>
+                                <input type="file" name="cover_image" id="cover_image"
+                                    class="form-control custom-input-file"
+                                    onchange="document.getElementById('upcoverImg').src = window.URL.createObjectURL(this.files[0]);"
+                                    multiple>
+                                <img id="upcoverImg" src="" width="20%" class="mt-2" />
+                            </div>
+                            {{-- </div>
+                                </div> --}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-12" id="downloadable-product-div">
+                            <div class="form-group">
+                                <div class="choose-file">
+                                    <label for="downloadable_product"
+                                        class="form-label">{{ __('Downloadable Product') }}</label>
+                                    <input type="file" class="form-control" name="downloadable_product"
+                                        id="downloadable_product"
+                                        onchange="document.getElementById('downloadable_product').src = window.URL.createObjectURL(this.files[0]);"
+                                        multiple>
+                                    <div class="invalid-feedback">{{ __('invalid form file') }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6 col-12" id="preview_type">
+                            {{ Form::label('preview_type', __('Preview Type'), ['class' => 'form-label']) }}
+                            {{ Form::select('preview_type', $preview_type, null, ['class' => 'form-control font-style', 'id' => 'preview_type']) }}
+                        </div>
+                        <div class="form-group  col-md-6 col-12" id="preview-video-div">
+                            <div class="form-group">
+                                <div class="choose-file">
+                                    <label for="preview_video" class="form-label">{{ __('Preview Video') }}</label>
+                                    <input type="file" class="form-control" name="preview_video" id="preview_video"
+                                        onchange="document.getElementById('preview_video').src = window.URL.createObjectURL(this.files[0]);"
+                                        multiple>
+                                    <div class="invalid-feedback">{{ __('invalid form file') }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6 col-12 ml-auto d-none" id="preview-iframe-div">
+                            {{ Form::label('preview_iframe', __('Preview iFrame'), ['class' => 'form-label']) }}
+                            {{ Form::textarea('preview_iframe', null, ['class' => 'form-control font-style', 'rows' => 2]) }}
+                        </div>
+
+                        <div class="form-group col-md-6 col-12" id="video_url_div">
+                            {{ Form::label('video_url', __('Video URL'), ['class' => 'form-label']) }}
+                            {{ Form::text('video_url', null, ['class' => 'form-control font-style']) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab">
+        <div class="col-lg-12 col-12">
+            <h5 class="mb-3">{{ __('About product') }}</h5>
+            <div class="card border">
+                <div class="card-body">
+                    <div class="form-group">
+                        {{ Form::label('description', __('Product Description'), ['class' => 'form-label']) }}
+                        {{ Form::textarea('description', null, ['class' => 'form-control  summernote-simple-product', 'rows' => 1, 'placeholder' => __('Product Description'), 'id' => 'description']) }}
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('specification', __('Product Specification'), ['class' => 'form-label']) }}
+                        {{ Form::textarea('specification', null, ['class' => 'form-control  summernote-simple-product', 'rows' => 1, 'placeholder' => __('Product Specification'), 'id' => 'specification']) }}
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('detail', __('Product Details'), ['class' => 'form-label']) }}
+                        {{ Form::textarea('detail', null, ['class' => 'form-control  summernote-simple-product', 'rows' => 1, 'placeholder' => __('Product Details'), 'id' => 'detail']) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab">
+
+        <div class="col-12">
+            <h5 class="mb-3">Main Informations</h5>
+            <div class="card border">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-lg-3 col-md-6  col-12">
+                            {!! Form::label('', __('Display Variants'), ['class' => 'form-label']) !!}
+                            <div class="form-check form-switch">
+                                <input type="hidden" name="variant_product" value="0">
+                                <input type="checkbox" class="form-check-input enable_product_variant"
+                                    name="variant_product" id="enable_product_variant" value="1">
+                                <label class="form-check-label" for="enable_product_variant"></label>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-3 col-md-6  col-12">
+                            {!! Form::label('', __('Trending'), ['class' => 'form-label']) !!}
+                            <div class="form-check form-switch">
+                                <input type="hidden" name="trending" value="0">
+                                <input type="checkbox" class="form-check-input" name="trending" id="trending_product"
+                                    value="1">
+                                <label class="form-check-label" for="trending_product"></label>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-3 col-md-6  col-12">
+                            {!! Form::label('', __('Display Product'), ['class' => 'form-label']) !!}
+                            <div class="form-check form-switch">
+                                <input type="hidden" name="status" value="1">
+                                <input type="checkbox" checked class="form-check-input" name="status" id="status"
+                                    value="1">
+                                <label class="form-check-label" for="status"></label>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-3 col-md-6  col-12">
+                            {!! Form::label('', __('Custom  Field'), ['class' => 'form-label']) !!}
+                            <div class="form-check form-switch">
+                                <input type="hidden" name="custom_field_status" value="0">
+                                <input type="checkbox" class="form-check-input" name="custom_field_status"
+                                    id="enable_custom_field" value="1">
+                                <label class="form-check-label" for="enable_custom_field"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row">
+                <div class="col-md-12 col-12">
+                    <div class="card border">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    {!! Form::label('', __('Product Attribute'), ['class' => 'form-label']) !!}
+                                    {!! Form::select('attribute_id[]', $ProductAttribute, null, [
+                                        'class' => 'form-control attribute_option attribute_option_data',
+                                        'multiple' => 'multiple',
+                                        'data-role' => 'tagsinput',
+                                        'id' => 'attribute_id',
+                                    ]) !!}
+                                    <small>{{ __('Choose Existing Attribute') }}</small>
+                                </div>
+                                <div class="attribute_options" id="attribute_options">
+                                </div>
+                                <div class="attribute_combination" id="attribute_combination">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12" style="display: none;" id="custom_value">
+                    <div class="card border">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <div id="custom_field_repeater_basic">
+                                        <!--begin::Form group-->
+                                        <div class="form-group">
+                                            <div data-repeater-list="custom_field_repeater_basic">
+                                                <div data-repeater-item>
+                                                    <div class="form-group row">
+                                                        <div class="col-md-6">
+                                                            {!! Form::label('', __('Custom Field'), ['class' => 'form-label']) !!}
+                                                            {!! Form::text('custom_field', null, ['class' => 'form-control']) !!}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            {!! Form::label('', __('Custom Value'), ['class' => 'form-label']) !!}
+                                                            {!! Form::text('custom_value', null, ['id' => 'answer', 'rows' => 2, 'class' => 'form-control']) !!}
+
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <a href="javascript:;" data-repeater-delete
+                                                                class="btn btn-sm btn-light-danger mt-3 mt-md-8">
+                                                                <i class="la la-trash-o"></i>Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                                        <!--end::Form group-->
+
+                                        <!--begin::Form group-->
+                                        <div class="form-group mt-2 mb-0">
+                                            <a href="javascript:;" data-repeater-create class="btn btn-light-primary">
+                                                <i class="ti ti-plus"></i>
+                                            </a>
+                                        </div>
+                                        <!--end::Form group-->
                                     </div>
                                 </div>
                             </div>
@@ -490,13 +490,218 @@
                 </div>
             </div>
         </div>
+
     </div>
 
+    <div style="overflow:auto;">
+        <div style="float:right;">
+            <button type="button" id="nextBtn" class="btn  btn-primary"
+                onclick="nextPrev(1)">{{ __('Next') }}</button>
+            <button type="button" class="btn  btn-primary d-none" id="submit-all">{{ __('Save') }}</button>
+
+            <button type="button" class="btn  btn-primary" id="prevBtn"
+                onclick="nextPrev(-1)">{{ __('Previous') }}</button>
+
+
+
+        </div>
+    </div>
+
+    <!-- Circles which indicates the steps of the form: -->
+    <div style="text-align:center;margin-top:40px;">
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+    </div>
 
     {!! Form::close() !!}
 @endsection
 
+<style>
+    #choice_form {
+        background-color: #ffffff;
+        margin: 30px auto;
+        padding: 20px;
+        width: 70%;
+        min-width: 300px;
+    }
+
+    .choices__item{
+        margin-right: 15px;
+    }
+    /* Style the input fields */
+    input {
+        padding: 10px;
+        width: 100%;
+        font-size: 17px;
+        font-family: Raleway;
+        border: 1px solid #aaaaaa;
+    }
+
+    /* Mark input boxes that gets an error on validation: */
+    input.invalid {
+        background-color: #ffdddd;
+    }
+
+    /* Hide all steps by default: */
+    .tab {
+        display: none;
+    }
+
+    /* Make circles that indicate the steps of the form: */
+    .step {
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #86e86e;
+        border: none;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.5;
+    }
+
+    /* Mark the active step: */
+    .step.active {
+        opacity: 1;
+    }
+
+    /* Mark the steps that are finished and valid: */
+    .step.finish {
+        background-color: #04AA6D;
+    }
+</style>
 @push('custom-script')
+    <script>
+        let counter = 0;
+
+        var currentTab = 0; // Current tab is set to be the first tab (0)
+        showTab(currentTab); // Display the current tab
+
+        function showTab(n) {
+            // This function will display the specified tab of the form ...
+            var x = document.getElementsByClassName("tab");
+            x[n].style.display = "block";
+            // ... and fix the Previous/Next buttons:
+            if (n == 0) {
+                document.getElementById("prevBtn").style.display = "none";
+                document.getElementById("nextBtn").style.display = 'inline';
+
+            } else {
+                document.getElementById("prevBtn").style.display = "inline";
+            }
+            if (n == (x.length - 1)) {
+                document.getElementById("nextBtn").style.display = 'none';
+                document.getElementById("submit-all").classList.remove("d-none");
+
+            } else {
+                document.getElementById("nextBtn").style.display = 'inline';
+
+                document.getElementById("nextBtn").innerHTML = "Next";
+            }
+            // ... and run a function that displays the correct step indicator:
+            fixStepIndicator(n)
+        }
+
+        function nextPrev(n) {
+            var x = document.getElementsByClassName("tab");
+            if (n == 1 && !validateForm()) return false;
+            x[currentTab].style.display = "none";
+            currentTab = currentTab + n;
+            if (currentTab >= x.length) {
+                document.getElementById("choice_form").submit();
+                return false;
+            }
+            if (n == 1) {
+                counter++;
+            } else {
+                counter--;
+            }
+
+
+            showTab(currentTab);
+        }
+
+        function validateForm() {
+
+            var x, y, i, valid = true;
+            if (counter == 1 && document.getElementById("dropzone-1") && document.getElementById("dropzone-1").files
+                .length == 0) {
+                valid = false;
+                alert('الرجاء اختيار صورة المنتج')
+            }
+            if (counter == 1 && document.getElementById("cover_image") && document.getElementById("cover_image").files
+                .length === 0) {
+                valid = false;
+
+                alert('الرجاء اختيار صورة الغلاف')
+
+            }
+            if (counter == 2 && ((document.getElementById('description') && document.getElementById('description').value ==
+                    '') && (document.getElementById('specification') && document.getElementById('specification')
+                    .value == '') || (document.getElementById('detail') && document.getElementById('detail').value ==
+                    ''))) {
+                valid = false;
+                alert('الرجاء تعبئة جميع الحقول');
+            }
+
+            var currentTab = 0; // Define currentTab variable
+            x = document.getElementsByClassName("tab");
+
+            y = x[currentTab].getElementsByTagName("input");
+
+            // A loop that checks every input field in the current tab:
+            for (i = 0; i < y.length; i++) {
+
+                if (
+                    y[i].name == "name" ||
+                    y[i].name == "price" ||
+                    y[i].name == "sale_price"
+
+                ) {
+                    // If a field is empty...
+                    if (y[i].value.trim() == "") {
+                        // add an "invalid" class to the field:
+                        y[i].className += " invalid";
+                        // and set the current valid status to false:
+                        valid = false;
+                    }
+                }
+
+                // If dropdown, check if a value is selected
+
+            }
+            var maincategory = document.getElementById("maincategory_id");
+            var subsubcategory = document.getElementById("subsubcategory_id");
+
+            if ((maincategory && maincategory.value === '') || (subsubcategory && subsubcategory.value === '')) {
+
+                valid = false;
+                alert("الرجاء تعبئة الفئة الرئيسية والفرعية");
+            }
+
+
+            // If the valid status is true, mark the step as finished and valid:
+            if (valid) {
+                document.getElementsByClassName("step")[currentTab].className += " finish";
+            }
+
+            return valid; // return the valid status
+        }
+
+
+
+
+        function fixStepIndicator(n) {
+            // This function removes the "active" class of all steps...
+            var i, x = document.getElementsByClassName("step");
+            for (i = 0; i < x.length; i++) {
+                x[i].className = x[i].className.replace(" active", "");
+            }
+            //... and adds the "active" class to the current step:
+            x[n].className += " active";
+        }
+    </script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/repeater.js') }}"></script>
     <script src="{{ asset('assets/css/summernote/summernote-bs4.js') }}"></script>
@@ -508,22 +713,10 @@
 
 
             // tag
-            $('.select2').select2({
-                tags: true,
-                createTag: function (params) {
-                var term = $.trim(params.term);
-                if (term === '') {
-                    return null;
-                }
-                return {
-                    id: term,
-                    text: term,
-                    newTag: true
-                };
-                }
-            });
+
             // main-cat
             $('#maincategory_id').on('change', function() {
+                console.log("#$$$$$$#")
                 var id = $(this).val();
                 var val = $('.subcategory_id_div').attr('data_val');
                 var data = {
@@ -535,6 +728,10 @@
                     type: 'POST',
                     data: data,
                     success: function(response) {
+                        console.log(
+                            "@@@@@@@@@@@@"
+                            )
+                        console.log(response)
                         $.each(response, function(key, value) {
                             $("#subcategory-dropdown").append('<option value="' + value
                                 .id + '">' + value.name + '</option>');
@@ -653,14 +850,6 @@
                 $(this).slideUp(deleteElement);
             }
         });
-
-
-
-
-
-
-
-
     </script>
 
 
@@ -751,25 +940,24 @@
         }
         $(document).on("change", ".attribute_option_data", function() {
             var inputValue = $('.attribute_option_data').val();
-            if(inputValue != []){
-                    var b = $('.attribute_option_data').closest('.parent-clase').find('.input-options');
-                    var enableVariationValue = b.data('enable-variation');
-                    var dataid = b.attr('data-id');
-                    $('.enable_variation_' + dataid).on('change' , function(){
-                        if ($('.enable_variation_' + dataid).prop('checked') == true) {
-                            $('.attribute_combination').show();
-                            console.log('sdrdsdfg');
-                            update_attribute();
-                        }
-                        else{
-                            $('.attribute_options_datas').empty();
-                        }
-                    });
-                    if($('.enable_variation_' + dataid).prop('checked') != true){
+            if (inputValue != []) {
+                var b = $('.attribute_option_data').closest('.parent-clase').find('.input-options');
+                var enableVariationValue = b.data('enable-variation');
+                var dataid = b.attr('data-id');
+                $('.enable_variation_' + dataid).on('change', function() {
+                    if ($('.enable_variation_' + dataid).prop('checked') == true) {
+                        $('.attribute_combination').show();
+                        console.log('sdrdsdfg');
+                        update_attribute();
+                    } else {
                         $('.attribute_options_datas').empty();
                     }
-
+                });
+                if ($('.enable_variation_' + dataid).prop('checked') != true) {
+                    $('.attribute_options_datas').empty();
                 }
+
+            }
         });
 
         $(document).on("change", "#enable_product_variant", function() {
@@ -912,9 +1100,9 @@
                 type: 'POST',
                 success: function(data) {
                     if (data.flag == "success") {
-                            $('#submit-all').attr('disabled', true);
+                        $('#submit-all').attr('disabled', true);
 
-                            window.location.href = "{{ route('product.index') }}" +'?id=1';
+                        window.location.href = "{{ route('product.index') }}" + '?id=1';
 
                     } else {
                         show_toastr('Error', data.msg, 'error');
@@ -931,6 +1119,20 @@
                     }
                 },
             });
+        });
+        $('.select2').select2({
+            tags: true,
+            createTag: function(params) {
+                var term = $.trim(params.term);
+                if (term === '') {
+                    return null;
+                }
+                return {
+                    id: term,
+                    text: term,
+                    newTag: true
+                };
+            }
         });
     </script>
 @endpush
