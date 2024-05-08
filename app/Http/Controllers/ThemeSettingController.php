@@ -14,6 +14,8 @@ use App\Models\Review;
 use App\Models\Page;
 use App\Models\Menu;
 use App\Models\MainCategory;
+
+use App\Models\SubCategory;
 use Storage;
 use Illuminate\Support\Facades\View;
 use Qirolab\Theme\Theme;
@@ -140,6 +142,40 @@ class ThemeSettingController extends Controller
     
         if (!$headerSection->save()) {
         }
+        /* make fake data */
+        
+       // Create and save 3 fake main categories
+       for ($i = 1; $i <= 3; $i++) {
+        $MainCategory = new MainCategory();
+        $MainCategory->name         = 'تجربة ' . $i;
+        $MainCategory->slug         = 'collections/' . strtolower(preg_replace("/[^\w]+/", "-", 'تجربة ' . $i));
+        $MainCategory->image_url    = 'https://yallayellow.com/themes/gifts/uploads/71_1713382775_download%20(1).png';
+        $MainCategory->image_path   = 'https://yallayellow.com/themes/gifts/uploads/71_1713382775_download%20(1).png';
+        $MainCategory->icon_path    = 'https://yallayellow.com/themes/gifts/uploads/71_1713382775_download%20(1).png';
+        $MainCategory->trending     = 1;
+        $MainCategory->status       = 1;
+        $MainCategory->theme_id     = strtolower($request->theme);
+        $MainCategory->store_id     = $user->current_store;
+    
+        $MainCategory->save();
+    
+        // Get the ID of the saved main category
+        $mainCategoryId = $MainCategory->id;
+    
+        // Create and save the subcategory
+        $subcategory                    = new SubCategory();
+        $subcategory->name              = 'تجربة فرعية ' . $i;
+        $subcategory->maincategory_id   = $mainCategoryId; // Use the ID of the main category
+        $subcategory->image_url         = 'https://yallayellow.com/themes/gifts/uploads/71_1713382775_download%20(1).png';
+        $subcategory->image_path        = 'https://yallayellow.com/themes/gifts/uploads/71_1713382775_download%20(1).png';
+        $subcategory->icon_path        = 'https://yallayellow.com/themes/gifts/uploads/71_1713382775_download%20(1).png';
+        $subcategory->status            = 1;
+        $subcategory->theme_id          = strtolower($request->theme);
+        $subcategory->store_id          = $user->current_store;
+        $subcategory->save();
+    }
+    
+
     
         return redirect()->route('dashboard')->with('success', 'Setting saved successfully.');
     }
