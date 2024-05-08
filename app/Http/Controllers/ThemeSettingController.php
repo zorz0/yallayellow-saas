@@ -168,12 +168,38 @@ class ThemeSettingController extends Controller
         $subcategory->maincategory_id   = $mainCategoryId; // Use the ID of the main category
         $subcategory->image_url         = 'https://yallayellow.com/themes/gifts/uploads/71_1713382775_download%20(1).png';
         $subcategory->image_path        = 'https://yallayellow.com/themes/gifts/uploads/71_1713382775_download%20(1).png';
-        $subcategory->icon_path        = 'https://yallayellow.com/themes/gifts/uploads/71_1713382775_download%20(1).png';
+        $subcategory->icon_path         = 'https://yallayellow.com/themes/gifts/uploads/71_1713382775_download%20(1).png';
         $subcategory->status            = 1;
         $subcategory->theme_id          = strtolower($request->theme);
         $subcategory->store_id          = $user->current_store;
         $subcategory->save();
+        $subcategoryId = $subcategory->id;
+    
+        for ($j = 1; $j <= 3; $j++) {
+            $Product = new Product();
+            $Product->name              = 'منتج ' . $j . ' تجربة ' . $i;
+            $Product->slug              = $request->slug;
+            $Product->maincategory_id   = $mainCategoryId;
+            $Product->subcategory_id    = $subcategoryId;
+            $Product->cover_image_path = 'https://yallayellow.com/themes/gifts/uploads/71_1713382775_download%20(1).png';
+            $Product->cover_image_url  = 'https://yallayellow.com/themes/gifts/uploads/71_1713382775_download%20(1).png';
+            $Product->status            = 1;
+            $Product->description       = 'هذا منتج تجريبي';
+            $Product->specification     = 'هذا منتج تجريبي';
+            $Product->detail            =  'هذا منتج تجريبي';
+            $Product->price             = 10;
+            $Product->sale_price        = 10;
+            $Product->product_stock     = 0;
+            $Product->track_stock       = 0;
+            $Product->stock_order_status= '';
+            $Product->low_stock_threshold = '';
+            $Product->store_id          =  $user->current_store;
+            $Product->theme_id          = strtolower($request->theme);
+            $Product->created_by        = $user->current_store;
+            $Product->save();
+        }
     }
+    
     
 
     
